@@ -102,7 +102,7 @@
     <parameter key="container.dumper.inline_class_loader">true</parameter>
     <parameter key="database_host">127.0.0.1</parameter>
     <parameter key="database_port">null</parameter>
-    <parameter key="database_name">buscoconcierto</parameter>
+    <parameter key="database_name">buscoconcierto-3</parameter>
     <parameter key="database_user">root</parameter>
     <parameter key="database_password">null</parameter>
     <parameter key="mailer_transport">smtp</parameter>
@@ -3156,7 +3156,7 @@
         <argument key="driver">pdo_mysql</argument>
         <argument key="host">127.0.0.1</argument>
         <argument key="port">null</argument>
-        <argument key="dbname">buscoconcierto</argument>
+        <argument key="dbname">buscoconcierto-3</argument>
         <argument key="user">root</argument>
         <argument key="password">null</argument>
         <argument key="charset">UTF8</argument>
@@ -3350,7 +3350,7 @@
         <argument type="service" id="doctrine.orm.container_repository_factory"/>
       </call>
     </service>
-    <service id="doctrine.orm.default_yml_metadata_driver" class="Doctrine\ORM\Mapping\Driver\SimplifiedYamlDriver" public="false">
+    <service id="doctrine.orm.default_xml_metadata_driver" class="Doctrine\ORM\Mapping\Driver\SimplifiedXmlDriver" public="false">
       <argument type="collection">
         <argument key="/Applications/XAMPP/xamppfiles/htdocs/agenciaeventos/src/AppBundle/Resources/config/doctrine">AppBundle\Entity</argument>
       </argument>
@@ -3360,7 +3360,7 @@
     </service>
     <service id="doctrine.orm.default_metadata_driver" class="Doctrine\Common\Persistence\Mapping\Driver\MappingDriverChain" public="false">
       <call method="addDriver">
-        <argument type="service" id="doctrine.orm.default_yml_metadata_driver"/>
+        <argument type="service" id="doctrine.orm.default_xml_metadata_driver"/>
         <argument>AppBundle\Entity</argument>
       </call>
     </service>

@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+  <entity name="AppBundle\Entity\Events" table="events">
+    <indexes>
+      <index name="fk_events_status" columns="status_id"/>
+      <index name="fk_events_halls" columns="hall_id"/>
+    </indexes>
+    <id name="id" type="integer" column="id">
+      <generator strategy="IDENTITY"/>
+    </id>
+    <field name="name" type="string" column="name" length="100" nullable="true">
+      <options>
+        <option name="fixed"/>
+      </options>
+    </field>
+    <field name="description" type="text" column="description" length="16777215" nullable="true">
+      <options>
+        <option name="fixed"/>
+      </options>
+    </field>
+    <field name="startTime" type="datetime" column="start_time" nullable="true"/>
+    <field name="endTime" type="datetime" column="end_time" nullable="true"/>
+    <field name="daysSale" type="boolean" column="days_sale" nullable="true"/>
+    <field name="startDateSale" type="datetime" column="start_date_sale" nullable="true"/>
+    <field name="minTickets" type="string" column="min_tickets" length="100" nullable="true">
+      <options>
+        <option name="fixed"/>
+      </options>
+    </field>
+    <field name="free" type="boolean" column="free" nullable="true"/>
+    <field name="priceTicket" type="decimal" column="price_ticket" precision="10" scale="2" nullable="true"/>
+    <field name="priceTicketOffice" type="decimal" column="price_ticket_office" precision="10" scale="2" nullable="true"/>
+    <field name="commission" type="boolean" column="commission" nullable="true"/>
+    <field name="minConsumption" type="boolean" column="min_consumption" nullable="true"/>
+    <field name="cover" type="string" column="cover" length="255" nullable="true">
+      <options>
+        <option name="fixed"/>
+      </options>
+    </field>
+    <field name="createdAt" type="datetime" column="created_at" nullable="false"/>
+    <field name="hallPercent" type="boolean" column="hall_percent" nullable="true"/>
+    <field name="hallConfirmed" type="boolean" column="hall_confirmed" nullable="false"/>
+    <many-to-one field="status" target-entity="EventsStatus" fetch="LAZY">
+      <join-columns>
+        <join-column name="status_id" referenced-column-name="id"/>
+      </join-columns>
+    </many-to-one>
+    <many-to-one field="hall" target-entity="HallsConcerts" fetch="LAZY">
+      <join-columns>
+        <join-column name="hall_id" referenced-column-name="id"/>
+      </join-columns>
+    </many-to-one>
+  </entity>
+</doctrine-mapping>

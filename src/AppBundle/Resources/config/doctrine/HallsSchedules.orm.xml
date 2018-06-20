@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+  <entity name="AppBundle\Entity\HallsSchedules" table="halls_schedules">
+    <indexes>
+      <index name="fk_halls_schedules_weekdays" columns="weekday_id"/>
+      <index name="fk_halls_schedules_halls" columns="hall_id"/>
+    </indexes>
+    <id name="id" type="integer" column="id">
+      <generator strategy="IDENTITY"/>
+    </id>
+    <field name="open" type="boolean" column="open" nullable="false"/>
+    <field name="price" type="decimal" column="price" precision="10" scale="2" nullable="true"/>
+    <field name="startTime" type="time" column="start_time" nullable="true"/>
+    <field name="endTime" type="time" column="end_time" nullable="true"/>
+    <many-to-one field="weekday" target-entity="HallsWeekdays" fetch="LAZY">
+      <join-columns>
+        <join-column name="weekday_id" referenced-column-name="id"/>
+      </join-columns>
+    </many-to-one>
+    <many-to-one field="hall" target-entity="HallsConcerts" fetch="LAZY">
+      <join-columns>
+        <join-column name="hall_id" referenced-column-name="id"/>
+      </join-columns>
+    </many-to-one>
+  </entity>
+</doctrine-mapping>
