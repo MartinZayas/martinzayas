@@ -1,0 +1,46 @@
+AppBundle\Entity\DatosFacturacion:
+    type: entity
+    table: datos_facturacion
+    indexes:
+        FKdatos_fact312016:
+            columns:
+                - direccionid
+    uniqueConstraints:
+        id:
+            columns:
+                - id
+    id:
+        id:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+            id: true
+            generator:
+                strategy: IDENTITY
+    fields:
+        nombre:
+            type: string
+            nullable: false
+            length: 255
+            options:
+                fixed: false
+        cifNif:
+            type: string
+            nullable: false
+            length: 255
+            options:
+                fixed: false
+            column: cif_nif
+    manyToOne:
+        direccionid:
+            targetEntity: Direccion
+            cascade: {  }
+            fetch: LAZY
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                direccionid:
+                    referencedColumnName: id
+            orphanRemoval: false
+    lifecycleCallbacks: {  }

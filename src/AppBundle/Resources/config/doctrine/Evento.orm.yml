@@ -1,0 +1,142 @@
+AppBundle\Entity\Evento:
+    type: entity
+    table: evento
+    indexes:
+        eventoLocal:
+            columns:
+                - localid
+        eventoEstado:
+            columns:
+                - estado_eventoid
+    id:
+        id:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+            id: true
+            generator:
+                strategy: IDENTITY
+    fields:
+        fecha:
+            type: date
+            nullable: true
+        fechaCreacion:
+            type: date
+            nullable: false
+            column: fecha_creacion
+        horaInicio:
+            type: time
+            nullable: true
+            column: hora_inicio
+        horaFin:
+            type: time
+            nullable: true
+            column: hora_fin
+        comentarios:
+            type: string
+            nullable: true
+            length: 255
+            options:
+                fixed: false
+        nombre:
+            type: string
+            nullable: false
+            length: 255
+            options:
+                fixed: false
+        descripcion:
+            type: text
+            nullable: true
+            length: 16777215
+            options:
+                fixed: false
+        diasVotacion:
+            type: integer
+            nullable: true
+            options:
+                unsigned: false
+            column: dias_votacion
+        fechaVotacion:
+            type: date
+            nullable: true
+            column: fecha_votacion
+        minimoEntradas:
+            type: integer
+            nullable: true
+            options:
+                unsigned: false
+            column: minimo_entradas
+        maxEntradas:
+            type: integer
+            nullable: true
+            options:
+                unsigned: false
+            column: max_entradas
+        gratuito:
+            type: boolean
+            nullable: false
+        precioEntrada:
+            type: decimal
+            nullable: true
+            precision: 10
+            scale: 2
+            column: precio_entrada
+        porcientoLocal:
+            type: float
+            nullable: true
+            precision: 10
+            scale: 0
+            column: porciento_local
+        totallocal:
+            type: float
+            nullable: true
+            precision: 10
+            scale: 0
+            column: totalLocal
+        votos:
+            type: integer
+            nullable: true
+            options:
+                unsigned: false
+        comision:
+            type: float
+            nullable: true
+            precision: 10
+            scale: 0
+        total:
+            type: float
+            nullable: true
+            precision: 10
+            scale: 0
+    manyToOne:
+        estadoEventoid:
+            targetEntity: EstadoEvento
+            cascade: {  }
+            fetch: LAZY
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                estado_eventoid:
+                    referencedColumnName: id
+            orphanRemoval: false
+        localid:
+            targetEntity: Local
+            cascade: {  }
+            fetch: LAZY
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                localid:
+                    referencedColumnName: id
+            orphanRemoval: false
+    manyToMany:
+        estiloid:
+            targetEntity: Estilo
+            cascade: {  }
+            fetch: LAZY
+            mappedBy: eventoid
+            inversedBy: null
+            joinTable: null
+            orderBy: null
+    lifecycleCallbacks: {  }

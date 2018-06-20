@@ -1,0 +1,88 @@
+AppBundle\Entity\Profesional:
+    type: entity
+    table: profesional
+    indexes:
+        FKprofesiona48037:
+            columns:
+                - usuarioid
+        FKprofesiona993755:
+            columns:
+                - contactoid
+        FKprofesiona484766:
+            columns:
+                - datos_facturacionid
+    uniqueConstraints:
+        id:
+            columns:
+                - id
+    id:
+        id:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+            id: true
+            generator:
+                strategy: IDENTITY
+    fields:
+        nombreComercio:
+            type: string
+            nullable: true
+            length: 255
+            options:
+                fixed: false
+            column: nombre_comercio
+        fechaNacimento:
+            type: date
+            nullable: false
+            column: fecha_nacimento
+        descripcion:
+            type: string
+            nullable: true
+            length: 255
+            options:
+                fixed: false
+        cif:
+            type: string
+            nullable: true
+            length: 255
+            options:
+                fixed: false
+        video:
+            type: string
+            nullable: true
+            length: 255
+            options:
+                fixed: false
+    manyToOne:
+        datosFacturacionid:
+            targetEntity: DatosFacturacion
+            cascade: {  }
+            fetch: LAZY
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                datos_facturacionid:
+                    referencedColumnName: id
+            orphanRemoval: false
+        usuarioid:
+            targetEntity: Usuarios
+            cascade: {  }
+            fetch: LAZY
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                usuarioid:
+                    referencedColumnName: id
+            orphanRemoval: false
+        contactoid:
+            targetEntity: Contacto
+            cascade: {  }
+            fetch: LAZY
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                contactoid:
+                    referencedColumnName: id
+            orphanRemoval: false
+    lifecycleCallbacks: {  }

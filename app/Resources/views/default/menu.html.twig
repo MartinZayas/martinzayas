@@ -1,0 +1,92 @@
+{# Plantilla del menu #}
+<div class="navbar-wrapper">
+    <div class="navbar navbar-main" id="fixed-navbar">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-12 column-header">
+                    <div class="navbar-header">
+                        <!-- Brand -->
+                        <a href="{{ path('home') }}" class="navbar-brand">
+                            <img src="{{ asset('bundles/app/img/logo.png') }}" class="raleway-logo" alt="Busco Concierto">
+                        </a>
+                        <!-- Mobile Navigation -->
+                        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navHeaderCollapse">
+                            <span class="sr-only">Toggle navigation</span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </button>
+                    </div><!-- /navbar header -->
+                    <!-- Main Navigation - Explained in Documentation -->
+                    <nav class="navbar-collapse collapse navHeaderCollapse" role="navigation" style="padding-right: 0px">
+                        <ul class="nav navbar-nav navbar-left" style="margin-left:20px;">
+                            <li>
+                                <a href="{{ path('listarEventos') }}">Eventos</a>
+                            </li>
+                            <li>
+                                <a href="{{ path('listadoArtistas')}}">Artistas</a>
+                            </li>
+                            <li>
+                                <a href="{{ path('listadoSalas')}}">Salas</a>
+                            </li>
+                            <!--li>
+                                <a href="#">Profesionales</a>
+                            </li-->
+                            <li class="dropdown hidden-sm hidden-xs">
+                                <a href="#" class="ml10 nav-circle-li dropdown-toggle dropdown-form-toggle" data-toggle="dropdown">
+                                    <i class="fa fa-search"></i>
+                                </a>
+                                <ul style="width:417px;" class="fadeInRight-animated dropdown-menu dropdown-menu-user dropdown-menu-right">
+                                    <li id="dropdownForm" class="buscador"><!-- panel de buscar -->
+                                        <div class="dropdown-form">
+                                            <form class="form-default form-inline p15" action="{{ path('buscar') }}" id="formularioBuscadorMenu" method="post">
+                                                <!--div class="form-group mb20">
+                                                    <label>¿Qué Buscas?</label><br>							
+                                                    <div class="radiobutton ml10 search-option">
+                                                        <label>
+                                                            <input type="radio">
+                                                            Conciertos
+                                                        </label>
+                                                        </div>
+                                                    <div class="radiobutton ml10 search-option">
+                                                        <label>
+                                                            <input type="radio">
+                                                            Artistas
+                                                        </label>
+                                                    </div>
+                                                    <div class="radiobutton ml10 search-option">
+                                                        <label>
+                                                            <input type="radio">
+                                                            Salas
+                                                        </label>
+                                                    </div>
+                                                    <div class="radiobutton ml10 search-option">
+                                                        <label>
+                                                            <input type="radio">
+                                                            Profesionales
+                                                        </label>
+                                                    </div>
+                                                </div-->
+                                                <div class="input-group">
+                                                    <input style="width:300px;" type="text" class="form-control search-input" placeholder="Búsqueda">
+                                                    <span class="input-group-btn">
+                                                        <button class="btn btn-rw btn-primary search-btn" type="submit">Buscar</button>
+                                                    </span>
+                                                </div>
+                                            </form><!-- /searh form -->
+                                        </div><!-- /dropdown form -->
+                                    </li><!-- /dropdownForm list item -->
+                                </ul> 
+                            </li>
+                        </ul>
+                        <a href="{{ path('paso1') }}" 
+                           class="btn btn-custom-orange btn-lg pull-right" style="margin-top:7px;">
+                            Crear un concierto
+                        </a>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

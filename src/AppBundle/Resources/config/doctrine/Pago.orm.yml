@@ -1,0 +1,105 @@
+AppBundle\Entity\Pago:
+    type: entity
+    table: pago
+    indexes:
+        FKpago806410:
+            columns:
+                - usuarioid
+        FKpago397847:
+            columns:
+                - concepto_pagoid
+        FKpago577874:
+            columns:
+                - impuestoid
+        FKpago514384:
+            columns:
+                - estado_pagoid
+    uniqueConstraints:
+        codigo:
+            columns:
+                - codigo
+        id:
+            columns:
+                - id
+    id:
+        id:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+            id: true
+            generator:
+                strategy: IDENTITY
+    fields:
+        codigo:
+            type: string
+            nullable: false
+            length: 255
+            options:
+                fixed: false
+        fecha:
+            type: date
+            nullable: false
+        tipo:
+            type: string
+            nullable: false
+            length: 255
+            options:
+                fixed: false
+        subtotal:
+            type: decimal
+            nullable: false
+            precision: 10
+            scale: 2
+        idTransaccion:
+            type: string
+            nullable: false
+            length: 255
+            options:
+                fixed: false
+            column: id_transaccion
+        credito:
+            type: boolean
+            nullable: true
+    manyToOne:
+        estadoPagoid:
+            targetEntity: EstadoPago
+            cascade: {  }
+            fetch: LAZY
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                estado_pagoid:
+                    referencedColumnName: id
+            orphanRemoval: false
+        usuarioid:
+            targetEntity: Usuarios
+            cascade: {  }
+            fetch: LAZY
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                usuarioid:
+                    referencedColumnName: id
+            orphanRemoval: false
+        impuestoid:
+            targetEntity: Impuesto
+            cascade: {  }
+            fetch: LAZY
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                impuestoid:
+                    referencedColumnName: id
+            orphanRemoval: false
+        conceptoPagoid:
+            targetEntity: ConceptoPago
+            cascade: {  }
+            fetch: LAZY
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                concepto_pagoid:
+                    referencedColumnName: id
+            orphanRemoval: false
+    lifecycleCallbacks: {  }

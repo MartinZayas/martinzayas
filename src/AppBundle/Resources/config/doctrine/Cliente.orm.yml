@@ -1,0 +1,51 @@
+AppBundle\Entity\Cliente:
+    type: entity
+    table: cliente
+    indexes:
+        FKcliente961668:
+            columns:
+                - usuarioid
+    uniqueConstraints:
+        id:
+            columns:
+                - id
+    id:
+        id:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+            id: true
+            generator:
+                strategy: IDENTITY
+    fields:
+        telefono:
+            type: string
+            nullable: false
+            length: 255
+            options:
+                fixed: false
+        sexo:
+            type: boolean
+            nullable: false
+        fechaNacimiento:
+            type: date
+            nullable: false
+            column: fecha_nacimiento
+        balance:
+            type: decimal
+            nullable: true
+            precision: 10
+            scale: 2
+    manyToOne:
+        usuarioid:
+            targetEntity: Usuarios
+            cascade: {  }
+            fetch: LAZY
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                usuarioid:
+                    referencedColumnName: id
+            orphanRemoval: false
+    lifecycleCallbacks: {  }

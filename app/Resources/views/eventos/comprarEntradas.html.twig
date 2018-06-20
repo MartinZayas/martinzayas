@@ -1,0 +1,58 @@
+{# Comprar entradas #}
+{% extends 'default/formatoBase.html.twig' %}
+{% block title %}Busco Concierto | Comprar Entradas{% endblock %}
+{% block cssPersonalizados %}
+    {{ parent() }}
+    <style>
+        .btn {
+            border-radius:2px;
+        }
+        
+        .btn-custom-orange{
+            color: #ffffff;
+            background-color: #FF8000;
+            border-color: #FF8000;
+        }
+
+        .btn-custom-orange:hover{
+            color: #ffffff;
+            background-color: #dc7003;
+            border-color: #dc7003;	
+        }
+        
+        .btn-youtube{
+            color: #ffffff;
+            background-color: red;
+        }
+    </style>
+{% endblock %}
+{% block breadcrumbs %}
+    {% include 'default/breadcrumbs.html.twig' with {'items':[
+        {'raiz':false,'title':'Entradas','href':'#'},
+        {'raiz':true,'title':'Comprar'}
+    ]} %}
+{% endblock %}
+{% block headerParallax %}
+    {% include 'default/subheader.html.twig' with {
+        'bgImage':directorio_imagenes_public~'backgrounds/bg3.jpg',
+        'subheaderTitle':'Comprar Entradas'
+    } %}
+{% endblock %}
+{% block steps %}
+    {% include 'default/steps.html.twig' with {'titles':[
+        'Información General',
+        '¿Dónde?',
+        '¿Cuándo?',
+        'Entradas'
+    ]} %}
+{% endblock %}
+{% block customContent %}
+    En construcción
+        {#
+    {% block tienda %}
+    {% endblock %#}
+{% endblock %}
+{% block javascripts %}
+    {{ parent() }}
+    <script src="{{ asset('bundles/app/js/TimeCircles.js') }}" type="text/javascript"></script>
+{% endblock %}

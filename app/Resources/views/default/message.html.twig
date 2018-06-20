@@ -1,0 +1,11 @@
+<div class="row mt20">
+    <div class="col-md-12 without-padding-right without-padding-left">
+        <div class="alert alert-{{ type }} alert-{{ type }}-rw alert-dismissible" role="alert">
+            {% if noClose is defined and noClose %}
+            {% else %}
+                <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">×</span><span class="sr-only">Cerrar</span></button>
+            {% endif %}
+            <b>{{ message1 }}.</b> {{ message2 is defined?message2:'' }}
+        </div>
+    </div>
+</div>

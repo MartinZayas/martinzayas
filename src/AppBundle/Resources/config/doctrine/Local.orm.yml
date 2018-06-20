@@ -1,0 +1,190 @@
+AppBundle\Entity\Local:
+    type: entity
+    table: local
+    indexes:
+        IDX_8BD688E8E8AC31A1:
+            columns:
+                - estado_localid
+        FKlocal518720:
+            columns:
+                - usuarioid
+        FKlocal411077:
+            columns:
+                - contactoid
+        FKlocal79933:
+            columns:
+                - datos_facturacionid
+    uniqueConstraints:
+        id:
+            columns:
+                - id
+    id:
+        id:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+            id: true
+            generator:
+                strategy: IDENTITY
+    fields:
+        nombre:
+            type: string
+            nullable: true
+            length: 255
+            options:
+                fixed: false
+        telefono:
+            type: string
+            nullable: true
+            length: 255
+            options:
+                fixed: false
+        aforo:
+            type: integer
+            nullable: true
+            options:
+                unsigned: false
+        medidasEscenario:
+            type: integer
+            nullable: true
+            options:
+                unsigned: false
+            column: medidas_escenario
+        cacheMin:
+            type: integer
+            nullable: true
+            options:
+                unsigned: false
+            column: cache_min
+        cacheMax:
+            type: integer
+            nullable: true
+            options:
+                unsigned: false
+            column: cache_max
+        descripcion:
+            type: string
+            nullable: true
+            length: 255
+            options:
+                fixed: false
+        direccion:
+            type: string
+            nullable: false
+            length: 255
+            options:
+                fixed: false
+        idciudad:
+            type: integer
+            nullable: true
+            options:
+                unsigned: false
+            column: idCiudad
+        cif:
+            type: string
+            nullable: true
+            length: 255
+            options:
+                fixed: false
+        anioApertura:
+            type: integer
+            nullable: true
+            options:
+                unsigned: false
+            column: anio_apertura
+        mesApertura:
+            type: integer
+            nullable: true
+            options:
+                unsigned: false
+            column: mes_apertura
+        video:
+            type: string
+            nullable: true
+            length: 255
+            options:
+                fixed: false
+        iban:
+            type: string
+            nullable: true
+            length: 255
+            options:
+                fixed: false
+    manyToOne:
+        datosFacturacionid:
+            targetEntity: DatosFacturacion
+            cascade: {  }
+            fetch: LAZY
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                datos_facturacionid:
+                    referencedColumnName: id
+            orphanRemoval: false
+        usuarioid:
+            targetEntity: Usuarios
+            cascade: {  }
+            fetch: LAZY
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                usuarioid:
+                    referencedColumnName: id
+            orphanRemoval: false
+        contactoid:
+            targetEntity: Contacto
+            cascade: {  }
+            fetch: LAZY
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                contactoid:
+                    referencedColumnName: id
+            orphanRemoval: false
+        estadoLocalid:
+            targetEntity: EstadoLocal
+            cascade: {  }
+            fetch: LAZY
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                estado_localid:
+                    referencedColumnName: id
+            orphanRemoval: false
+    manyToMany:
+        caracteristicaLocalid:
+            targetEntity: CaracteristicaLocal
+            cascade: {  }
+            fetch: LAZY
+            mappedBy: null
+            inversedBy: localid
+            joinTable:
+                name: caracteristica_local_local
+                joinColumns:
+                    -
+                        name: localid
+                        referencedColumnName: id
+                inverseJoinColumns:
+                    -
+                        name: caracteristica_localid
+                        referencedColumnName: id
+            orderBy: null
+        estiloid:
+            targetEntity: Estilo
+            cascade: {  }
+            fetch: LAZY
+            mappedBy: null
+            inversedBy: localid
+            joinTable:
+                name: estilo_local
+                joinColumns:
+                    -
+                        name: localid
+                        referencedColumnName: id
+                inverseJoinColumns:
+                    -
+                        name: estiloid
+                        referencedColumnName: id
+            orderBy: null
+    lifecycleCallbacks: {  }

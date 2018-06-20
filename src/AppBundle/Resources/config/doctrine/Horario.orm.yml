@@ -1,0 +1,50 @@
+AppBundle\Entity\Horario:
+    type: entity
+    table: horario
+    indexes:
+        IDX_E25853A34428E082:
+            columns:
+                - planificacion_id
+        IDX_E25853A3C38FF0AD:
+            columns:
+                - excepcion_id
+    id:
+        id:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+            id: true
+            generator:
+                strategy: IDENTITY
+    fields:
+        horaInicio:
+            type: time
+            nullable: false
+            column: hora_inicio
+        horaFin:
+            type: time
+            nullable: false
+            column: hora_fin
+    manyToOne:
+        planificacion:
+            targetEntity: Planificacion
+            cascade: {  }
+            fetch: LAZY
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                planificacion_id:
+                    referencedColumnName: id
+            orphanRemoval: false
+        excepcion:
+            targetEntity: Excepcion
+            cascade: {  }
+            fetch: LAZY
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                excepcion_id:
+                    referencedColumnName: id
+            orphanRemoval: false
+    lifecycleCallbacks: {  }

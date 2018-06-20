@@ -1,0 +1,86 @@
+{# Carrusel para las presentaciones del artista #}
+<div class="container">		
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="heading mt10 mb30"><!-- Encabezado -->
+                <h4><span class="ion-android-image mr15"></span>Presentaciones</h4>
+                <div class="owl-controls">
+                    <div id="customNav" class="owl-nav">
+                        <div class="owl-prev" style=""><span>&lt;</span>
+                        </div>
+                        <div class="owl-next" style=""><span>&gt;</span>
+                        </div>
+                    </div>
+                </div>
+            </div><!-- Fin Encabezado -->
+            <div id="owl-carousel-thumb" class="owl-carousel owl-theme owl-loaded">
+                <div class="thumbnail"><!-- Item 1 -->
+                    <div class="caption v-wrap">
+                        <div class="thumbnail-caption-holder v-box">
+                            <a href="#"><h4 class="text-white">M&eacute;xico</h4>
+                            </a>
+                            <a href="{{ asset('bundles/app/img/presentacion1.png')}}" class="btn btn-rw btn-clear image-zoom-link">
+                                <span class="glyphicon glyphicon-search"></span>
+                            </a>
+                            <a href="#" class="btn btn-rw btn-clear">
+                                M&aacute;s
+                            </a>
+                        </div>
+                    </div>
+                    <img class="imagenPresentacion" src="{{ asset('bundles/app/img/presentacion1.png')}}" alt="...">
+                </div><!-- Fin Item 1 -->
+                <div class="thumbnail">
+                    <div class="caption">
+                        <div class="thumbnail-caption-holder">
+                            <a href="#"><h4 class="text-white">Barcelona</h4></a>
+                            <a href="{{ asset('bundles/app/img/presentacion2.png')}}" class="btn btn-rw btn-clear image-zoom-link"><span class="glyphicon glyphicon-search"></span></a>
+                            <a href="#" class="btn btn-rw btn-clear">M&aacute;s</a>
+                        </div>
+                    </div>
+                    <img src="{{ asset('bundles/app/img/presentacion2.png')}}" alt="...">
+                </div><!-- Fin Item -->
+                <div class="thumbnail">
+                    <div class="caption">
+                        <div class="thumbnail-caption-holder">
+                            <a href="#"><h4 class="text-white">Concierto 3</h4></a>
+                            <a href="{{ asset('bundles/app/img/presentacion3.png')}}" class="btn btn-rw btn-clear image-zoom-link"><span class="glyphicon glyphicon-search"></span></a>
+                            <a href="#" class="btn btn-rw btn-clear">M&aacute;s</a>
+                        </div>
+                    </div>
+                    <img src="{{ asset('bundles/app/img/presentacion3.png')}}" alt="...">
+                </div><!-- Fin Item -->
+                <div class="thumbnail">
+                    <div class="caption">
+                        <div class="thumbnail-caption-holder">
+                            <a href="#"><h4 class="text-white">Concierto 4</h4></a>
+                            <a href="{{ asset('bundles/app/img/presentacion4.png')}}" class="btn btn-rw btn-clear image-zoom-link"><span class="glyphicon glyphicon-search"></span></a>
+                            <a href="#" class="btn btn-rw btn-clear">M&aacute;s</a>
+                        </div>
+                    </div>
+                    <img src="{{ asset('bundles/app/img/presentacion4.png')}}" alt="...">
+                </div><!-- Fin Item -->
+                <div class="thumbnail">
+                    <div class="caption">
+                        <div class="thumbnail-caption-holder">
+                            <a href="#"><h4 class="text-white">Concierto 5</h4></a>
+                            <a href="{{ asset('bundles/app/img/presentacion5.png')}}" class="btn btn-rw btn-clear image-zoom-link"><span class="glyphicon glyphicon-search"></span></a>
+                            <a href="#" class="btn btn-rw btn-clear">M&aacute;s</a>
+                        </div>
+                    </div>
+                    <img src="{{ asset('bundles/app/img/presentacion5.png')}}" alt="...">
+                </div><!-- Fin Item -->
+                <div class="thumbnail">
+                    <div class="caption">
+                        <div class="thumbnail-caption-holder">
+                            <a href="#"><h4 class="text-white">Concierto 6</h4></a>
+                            <a href="{{ asset('bundles/app/img/presentacion6.png')}}" class="btn btn-rw btn-clear image-zoom-link"><span class="glyphicon glyphicon-search"></span></a>
+                            <a href="#" class="btn btn-rw btn-clear">M&aacute;s</a>
+                        </div>
+                    </div>
+                <img src="{{ asset('bundles/app/img/presentacion6.png')}}" alt="...">
+                </div><!-- Fin Item -->
+            </div><!-- Fin carusel -->
+        </div><!-- Fin columna -->
+    </div><!-- Fin row -->
+</div><!-- /container -->
+

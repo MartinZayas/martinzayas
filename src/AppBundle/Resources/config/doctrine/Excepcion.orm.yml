@@ -1,0 +1,40 @@
+AppBundle\Entity\Excepcion:
+    type: entity
+    table: excepcion
+    indexes:
+        IDX_B207E14B5D5A2101:
+            columns:
+                - local_id
+    id:
+        id:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+            id: true
+            generator:
+                strategy: IDENTITY
+    fields:
+        tipo:
+            type: boolean
+            nullable: false
+        fecha:
+            type: date
+            nullable: false
+        precio:
+            type: decimal
+            nullable: true
+            precision: 10
+            scale: 2
+    manyToOne:
+        local:
+            targetEntity: Local
+            cascade: {  }
+            fetch: LAZY
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                local_id:
+                    referencedColumnName: id
+            orphanRemoval: false
+    lifecycleCallbacks: {  }

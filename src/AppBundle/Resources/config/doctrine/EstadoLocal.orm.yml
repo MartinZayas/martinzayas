@@ -1,0 +1,30 @@
+AppBundle\Entity\EstadoLocal:
+    type: entity
+    table: estado_local
+    uniqueConstraints:
+        UNIQ_812D0E1A989D9B62:
+            columns:
+                - slug
+    id:
+        id:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+            id: true
+            generator:
+                strategy: IDENTITY
+    fields:
+        nombre:
+            type: string
+            nullable: false
+            length: 255
+            options:
+                fixed: false
+        slug:
+            type: string
+            nullable: false
+            length: 255
+            options:
+                fixed: false
+    lifecycleCallbacks: {  }

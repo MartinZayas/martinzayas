@@ -1,0 +1,43 @@
+AppBundle\Entity\Configuracion:
+    type: entity
+    table: configuracion
+    uniqueConstraints:
+        id:
+            columns:
+                - id
+    id:
+        id:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+            id: true
+            generator:
+                strategy: IDENTITY
+    fields:
+        emailAdmin:
+            type: string
+            nullable: true
+            length: 255
+            options:
+                fixed: false
+            column: email_admin
+        comisionEvento:
+            type: integer
+            nullable: true
+            options:
+                unsigned: false
+            column: comision_evento
+        minimoComision:
+            type: integer
+            nullable: true
+            options:
+                unsigned: false
+            column: minimo_comision
+        duracionAnuncios:
+            type: integer
+            nullable: true
+            options:
+                unsigned: false
+            column: duracion_anuncios
+    lifecycleCallbacks: {  }

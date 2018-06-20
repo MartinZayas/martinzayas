@@ -1,0 +1,195 @@
+{# Condiciones del servicio para espectadores #}
+{% extends 'base.html.twig' %}
+
+{% block title %}Busco Concierto{% endblock %}
+{% block stylesheets %}
+    <link rel="apple-touch-icon" sizes="114x114" href="apple-touch-icon-114x114.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="apple-touch-icon-72x72.png">
+    <link rel="apple-touch-icon" href="apple-touch-icon.png">
+    <link href="{{ asset('bundles/app/css/bootstrap.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('bundles/app/css/bootstrap-social.css') }}" rel="stylesheet">
+    <!-- Icon Fonts -->
+    <link href='{{ asset('bundles/app/css/ionicons.min.css') }}' rel='stylesheet' type='text/css'>
+    <link href="{{ asset('bundles/app/css/ionicons1_4.min.css') }}" type="text/css" rel="stylesheet" />
+    <link href='{{ asset('bundles/app/css/font-awesome.css') }}' rel='stylesheet' type='text/css'>
+    <link href="{{ asset('bundles/app/css/style.css') }}" rel="stylesheet" title="main-css">
+    {% block cssPersonalizados %}
+    <style>
+        .btn {
+            border-radius:2px;
+        }
+        
+        .btn-custom-orange{
+            color: #ffffff;
+            background-color: #FF8000;
+            border-color: #FF8000;
+        }
+
+        .btn-custom-orange:hover{
+            color: #ffffff;
+            background-color: #dc7003;
+            border-color: #dc7003;	
+        }
+        
+        .btn-youtube{
+            color: #ffffff;
+            background-color: red;
+        }
+        .bordered-icon-lg {
+            border-radius:0;
+            font-size:34px !important;
+            text-align:center;
+            border:1px solid #D2D2D2;
+            border-radius:50%;
+            color:#00B7EB;
+            background-color:transparent;
+            padding-top:28px;
+            height:90px;            
+            width:90px;
+        }
+        .condiciones{
+            color: red;
+        }
+        .textoCondiciones{
+            padding-top: 10px;
+            color: #000000;
+            font-family: Helvetica, Arial, Open Sans;
+            font-size: 14px;
+        }
+    </style>
+    {% endblock %}
+{% endblock %}
+{% block body %}
+    <div id="royal_preloader"></div>
+    <!-- Begin Boxed or Fullwidth Layout -->
+    <div id="bg-boxed">
+        <div class="{% block classBoxed %}boxed background-light-grey{% endblock %}">
+            <!-- Begin Header -->
+            <header>
+                <!-- Begin Top Bar -->
+                <div class="top-bar">
+                    <div class="container">
+                        <div class="row">
+                            <!-- ¿Como funciona? -->
+                            <div class="col-sm-5 col-md-5 col-lg-5">
+                                <ul class="topbar-list list-inline" style="border-right:none;">
+                                    <li style="border-left:none;"><a href="{{ path('comoFunciona') }}">¿Cómo funciona?</a></li>
+				    <li style="border-left:none;"><a href="{{ path('comprarEntradas') }}">¿Cómo comprar entradas?</a></li>
+                                    <li style="border-left:none;"><a href="#contacto">Contacto</a></li>
+                                </ul>
+                            </div>
+                            <!-- Social Buttons -->
+                            <div class="col-sm-7 col-md-7 col-lg-7 text-right">
+                                <ul class="topbar-list list-inline">
+                                    <li>
+                                        <a class="btn btn-social-icon btn-rw btn-primary btn-xs" href="https://twitter.com/buscoconcierto" target="_blank">
+                                            <i class="fa fa-twitter"></i>
+                                        </a>
+                                        <a class="btn btn-social-icon btn-rw btn-primary btn-xs" href="https://www.instagram.com/buscoconcierto" target="_blank">
+                                            <i class="fa fa-instagram"></i>
+                                        </a>
+                                        <a class="btn btn-social-icon btn-rw btn-primary btn-xs" href="https://www.facebook.com/buscoconcierto" target="_blank">
+                                            <i class="fa fa-facebook"></i>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a data-toggle="modal" data-target="#profecionales">&Aacute;rea Profecionales</a>
+                                    </li>
+                                    <li class="dropdown">
+                                        <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                                            Regístrate<span class="caret"></span>
+                                        </a>
+                                        <ul class="dropdown-menu">
+                                            <li><a href="{{ path('registroProfesional') }}">Soy Profesional</a></li>
+                                            <li><a href="{{ path('registroEspectador') }}">Soy Espectador</a></li>
+                                        </ul>
+                                    </li>
+                                    <li>
+                                        <a data-toggle="modal" data-target="#login">Iniciar Sesión</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div><!--/row -->
+                    </div>
+                </div> <!-- End Top Bar -->
+                <!-- Login -->
+                <div class="modal fade" id="login" tabindex="-1" role="dialog" aria-labelledby="loginLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-sm">
+                        <div class="modal-content">
+                            <form action="{{ path('login_check') }}" method="post" role="form">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
+                                <h4 class="modal-title" id="loginLabel">Iniciar Sesión</h4>
+                            </div>
+                            <div class="modal-body">
+                                <div class="form-group">
+                                    <label for="exampleInputEmail1">Email</label>
+                                    <input type="email" name="_username" class="form-control" id="exampleInputEmail1" placeholder="Introduce tu email">
+                                </div>
+                                <div class="form-group">
+                                    <label for="exampleInputPassword1">Contraseña</label>
+                                    <input type="password" name="_password" class="form-control" id="exampleInputPassword1" placeholder="Introduce tu contraseña">
+                                </div>
+				<small><a href="#">¿Olvidaste tu contraseña?</a></small>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" name="_login" class="btn btn-rw btn-primary" style="float:left">Entrar</button>
+				&nbsp;<small>¿No tienes una cuenta? <a data-toggle="modal" data-target="#register" href="#">Regístrate</a></small><!--data-dismiss="modal"-->
+                            </div>
+                            </form><!-- /form -->
+                        </div><!-- /modal content -->
+                    </div><!-- /modal dialog -->
+                </div><!-- /modal holder -->
+                <!-- End Login -->
+                {% include 'registro/registro.html.twig' %}
+                <!-- Begin Navigation -->
+                {% include 'default/menu.html.twig' %}
+                {% block subHeader %}{% endblock %}
+            </header>
+        <div class="container" id="condiciones">
+            <div class="row mt20 mb20">
+                <div class="col-sx-1 col-sm-1 col-md-1 col-lg-1"></div>
+                <div class="col-sx-10 col-sm-10 col-md-10 col-lg-10 background-white textoCondiciones">
+                    <p>Las condiciones del servicio son.......................
+                    ..........................................................
+                    ........................................................</p>
+                </div>
+                <div class="col-sx-1 col-sm-1 col-md-1 col-lg-1"></div>
+            </div>
+        </div>
+    {% include 'default/pie.html.twig' %}       
+            <a href="#" class="scrollup"><i class="fa fa-angle-up"></i></a>
+        </div>
+    </div><!-- End Boxed or Fullwidth Layout -->
+{% endblock %}
+{% block javascripts %}
+    <!-- Javascript Files -->
+    <script type="text/javascript" src="{{ asset('bundles/app/js/jQuery-2.1.4.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('bundles/app/js/bootstrap.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('bundles/app/js/scrollReveal.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('bundles/app/js/bootstrap-select.min.js') }}"></script>
+    <script type="text/javascript">
+        /*Para el menu principal*/
+        $('#fixed-navbar').affix({
+            offset: {
+                top: $('.top-bar').height()
+            }   
+        });
+        /**Para el scrollup, regresa arriba*/
+        //scrollup section
+        jQuery(window).scroll(function () {
+            if (jQuery(this).scrollTop() > 100) {
+                jQuery('.scrollup').fadeIn();
+            } else {
+                jQuery('.scrollup').fadeOut();
+            }
+        });
+
+        jQuery('.scrollup').click(function () {
+            jQuery("html, body").animate({
+                scrollTop: 0
+            }, 600);
+            return false;
+        });
+    </script>
+{% endblock %}

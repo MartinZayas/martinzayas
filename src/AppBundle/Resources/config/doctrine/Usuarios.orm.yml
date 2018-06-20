@@ -1,0 +1,95 @@
+AppBundle\Entity\Usuarios:
+    type: entity
+    table: usuarios
+    indexes:
+        FKusuario500220:
+            columns:
+                - direccionid
+        FKusuario802906:
+            columns:
+                - estado_usuarioid
+    uniqueConstraints:
+        email:
+            columns:
+                - email
+        id:
+            columns:
+                - id
+    id:
+        id:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+            id: true
+            generator:
+                strategy: IDENTITY
+    fields:
+        email:
+            type: string
+            nullable: false
+            length: 255
+            options:
+                fixed: false
+        password:
+            type: string
+            nullable: false
+            length: 255
+            options:
+                fixed: false
+        salt:
+            type: string
+            nullable: false
+            length: 255
+            options:
+                fixed: false
+        nombre:
+            type: string
+            nullable: false
+            length: 255
+            options:
+                fixed: false
+        apellidos:
+            type: string
+            nullable: true
+            length: 255
+            options:
+                fixed: false
+        rol:
+            type: string
+            nullable: false
+            length: 255
+            options:
+                fixed: false
+        nif:
+            type: string
+            nullable: true
+            length: 255
+            options:
+                fixed: false
+        fechaRegistro:
+            type: date
+            nullable: false
+            column: fecha_registro
+    manyToOne:
+        direccionid:
+            targetEntity: Direccion
+            cascade: {  }
+            fetch: LAZY
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                direccionid:
+                    referencedColumnName: id
+            orphanRemoval: false
+        estadoUsuarioid:
+            targetEntity: EstadoUsuario
+            cascade: {  }
+            fetch: LAZY
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                estado_usuarioid:
+                    referencedColumnName: id
+            orphanRemoval: false
+    lifecycleCallbacks: {  }

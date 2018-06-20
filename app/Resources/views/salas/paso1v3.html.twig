@@ -1,0 +1,470 @@
+{# Plantilla para crear un nuevo local, paso 1 con nombre del local #}
+{% extends 'default/formatoBase.html.twig' %}
+{% block title %}Busco Concierto | Paso 1 del Nuevo Local{% endblock %}
+{% block cssPersonalizados %}
+    {{ parent() }}
+    <!-- bootstrap slider -->
+    <link href="{{ asset('bundles/app/css/slider.css') }}" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" href="{{ asset('bundles/app/css/select2-3.5.2/select2.css') }}" />
+    <link rel="stylesheet" href="{{ asset('bundles/app/css/select2-bootstrap.css') }}" />
+    <!-- select 2 -->
+    <link href="{{ asset('bundles/app/css/select2.min.css') }}" rel="stylesheet" />
+    <style>
+        .btn {
+            border-radius:2px;
+        }        
+        .btn-custom-orange{
+            color: #ffffff;
+            background-color: #FF8000;
+            border-color: #FF8000;
+        }
+        .btn-custom-orange:hover{
+            color: #ffffff;
+            background-color: #dc7003;
+            border-color: #dc7003;	
+        }
+        .btn-youtube{
+            color: #ffffff;
+            background-color: red;
+        }
+        .bordered-icon-lg {
+            border-radius:0;
+            font-size:34px !important;
+            border:1px solid #D2D2D2;
+            border-radius:50%;
+            color:#00B7EB;
+            background-color:transparent;
+            padding-top:28px;
+            height:90px;
+            text-align:center;
+            width:90px;
+        }
+        .bordered-icon-lg-gris {
+            border-radius:0;
+            font-size:34px !important;
+            border:1px solid #D2D2D2;
+            border-radius:50%;
+            color:#171919;
+            background-color:transparent;
+            padding-top:28px;
+            height:90px;
+            text-align:center;
+            width:90px;
+        }
+        .bordered-icon-color-gris {
+            background-color: #939797; /*GRIS *#00B7EB; AZUL*/
+            color:#fff !important;
+            border:1px solid transparent;
+        }
+
+        .bordered-icon-color-gris:hover,
+        .bordered-icon-color-gris:focus {
+            border:1px solid #D2D2D2;
+            color: #171919; /*#00B7EB;*/
+        }
+        .siguiente{
+            right: 5px;
+        }
+/**********************Subir archivo*******************************************/
+        .tArchivo{
+            width: 100%;
+            color: #000000;
+            font-family: HelveticaCondensada, "Helvetica LT Std";
+            font-size: 14px;
+            z-index: 2;
+        }
+        .inputfile {
+            width: 0.1px;
+            height: 0.1px;
+            opacity: 0;
+            overflow: hidden;
+            position: absolute;
+            z-index: -1;
+        }
+        .inputfile + label {
+            font-size: 1.25em;
+            font-weight: 700;
+            color: white;
+            background-color: black;
+            display: inline-block;
+        }
+
+        .inputfile:focus + label,
+        .inputfile + label:hover {
+            background-color: red;
+        }
+        .inputfile + label {
+            cursor: pointer; /* "hand" cursor */
+        }
+        .inputfile:focus + label {
+            outline: 1px dotted #000;
+            outline: -webkit-focus-ring-color auto 5px;
+        }
+        .inputfile + label * {
+            pointer-events: none;
+        }
+        .alerta{
+            padding-left: 10px;
+            padding-right: 10px;
+            padding-top: 10px;
+            padding-bottom: 5px;
+            text-align: justify;
+            line-height: 30px;
+            border-left: #337ab7;
+            border-left-style: solid;
+            border-left-width: 4px;
+            background-color: #00B7EB;
+            color: #ffffff;
+            font-family: Helvetica, Open Sans;
+        }
+        .textoArchivos{
+            color: #000000;
+        }
+/*******************************************************************************/
+        .heading2 h4{
+            margin-top: 10px;
+            margin-left: 10px;
+            margin-bottom: -2px;
+            margin-right: 0px;
+            padding-bottom:15px;
+            display:inline-block;
+            border-bottom:2px solid #00B7EB;
+        }
+        .heading2 {
+            display:block;
+            margin:0 0 20px 0;
+            border-bottom:1px dotted #d2d2d2; 
+            font-size:12px;
+        }
+/**************************Divisores para 4 pasos******************************/
+        ul.steps li.divider-4-steps{
+            width: 9%;
+        }
+        ul.steps li.divider-4-steps hr{
+            border-top: 2px solid #d2d2d2 !important;
+        }
+    </style>
+{% endblock %}
+{% block headerParallax %}
+    {% include 'default/subheader.html.twig' with {
+        'bgImage':directorio_imagenes_public~'backgrounds/bg9.png',
+        'subheaderTitle':'Nueva Sala: Datos generales'
+    } %}
+{% endblock %}
+{% block steps %}
+    {% include 'default/steps.html.twig' with {'titles':[
+        'Información General',
+        '¿Dónde?',
+        '¿Cuándo?',
+        'Entradas'
+    ]} %}
+{% endblock %}
+{% block customContent %}
+    <div class="container"><!-- Contenido -->
+        <div class="row mt20 mb20 background-light-grey">
+            <div class="hidden-xs hidden-sm col-md-12 without-padding-right without-padding-left">
+                <ul class="steps nav nav-pills">
+                    <li role="presentation" id="step-1" class="active">
+                        <a href="">
+                            1
+                        </a>
+                        <span>Datos generales</span>
+                    </li>
+                    <li class="divider-4-steps">
+                        <span>
+                            <hr class="hr-solid">
+                        </span>
+                    </li>
+                    <li role="presentation" id="step-2" class="">
+                        <a href="">
+                            2
+                        </a>
+                        <span>Datos de contacto</span>
+                    </li>
+                    <li class="divider-4-steps">
+                        <span>
+                            <hr class="hr-solid">
+                        </span>
+                    </li>
+                    <li role="presentation" id="step-3" class="">
+                        <a href="">
+                            3
+                        </a>
+                        <span>Videos, Fotos y Eventos</span>
+                    </li>
+                    <li class="divider-4-steps">
+                        <span>
+                            <hr class="hr-solid">
+                        </span>
+                    </li>
+                    <li role="presentation" id="step-3" class="">
+                        <a href="">
+                            4
+                        </a>
+                        <span>Calendario</span>
+                    </li>
+                </ul>
+            </div><!-- Fin Pasos -->
+        </div>
+        <div class="row">
+            <div class="tab-content tab-shop mt0 mb20 bg-shadow background-white">                
+                <div id="paso1" class="tab-pane row fade in active"><!-- Informacion general -->                    
+                    <div class="col-sm-12">
+                        <div class="panel no-margin panel-primary">
+                            <div class="panel-heading">
+                                <img src="{{ asset('bundles/app/img/info.png') }}" witdh="32px" height="32px" class="" alt="Conciertos">
+                                <strong>Datos generales</strong>
+                            </div>
+                            <div class="panel-body general-container">
+                                <form action="{{path('salaPaso2')}}" method="post" id="formularioSala" role="form" enctype="multipart/form-data">
+                                <div class="row">
+                                    <div class="col-sx-6 col-sm-6 col-md-6 col-lg-6">
+                                        <div class="row">
+                                            <div class="col-sm-12 col-md-12 col-lg-12">
+                                                <div class="form-group">
+                                                    <label for="nombre">Nombre de la Sala/Local <span class="required">*</span></label>
+                                                    <input id="nombre" name="nombre" required="required" class="form-control" type="text" placeholder="Nombre del Artista">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sx-6 col-sm-6 col-md-6 col-lg-6"><!-- País -->
+                                        <label class="etiqueta" for="pais">Pa&iacute;s: <span class="required">*</span></label>
+                                        <select name="pais[]" id="pais" class="form-control js-example-basic-single">
+                                            <option value=""></option>     
+                                            <option value="1">España</option> 
+                                            <option value="2">M&eacute;xico</option>     
+                                        </select>
+                                    </div><!-- Fin País -->
+                                </div>
+                                <div class="row">
+                                    <div class="col-sx-6 col-sm-6 col-md-6 col-lg-6"><!-- Provincia -->
+                                        <label class="etiqueta" for="ciudad">Provincia: <span class="required">*</span></label>
+                                        <select id="provincia" name="provincia[]" class="form-control js-example-basic-single">
+                                            <option value=""></option>
+                                            <option value="1">Albacete</option>
+                                            <option value="2">Alicante</option>
+                                        </select>
+                                    </div><!-- Fin Provincia -->
+                                    <div class="col-sx-6 col-sm-6 col-md-6 col-lg-6"><!-- Ciudad -->
+                                        <label class="etiqueta" for="ciudad">Ciudad: <span class="required">*</span></label>
+                                        <select name="ciudad[]" id="ciudad" class="form-control js-example-basic-single">
+                                            <option value=""></option>     
+                                            <option value="Madrid">Madrid</option>
+                                            <option value="Barcelona">Barcelona</option>
+                                        </select>
+                                    </div><!-- Fin Ciudad -->
+                                </div>
+                                <div class="row">    
+                                    <div class="col-sx-6 col-sm-6 col-md-6 col-lg-6">
+                                        <label class="etiqueta" for="comoLLegar">C&oacute;mo llegar: <span class="required">*</span></label>
+                                        <input type="text" id="comoLLegar" name="comoLLegar" required="required" class="form-control" placeholder="Linea 34 del Bus...">
+                                    </div>
+                                    <div class="col-sx-6 col-sm-6 col-md-6 col-lg-6">
+                                        <div class="form-group">
+                                            <label for="tipo">Tipo de sala <span class="required">*</span></label>
+                                            <select name="tipo[]" id="tipo" class="form-control js-example-basic-single-multiple" multiple="multiple" required="required">
+                                                <option value=""></option>
+                                                <option value="1">Banda</option>
+                                                <option value="2">Teatro</option>
+                                                <option value="3">Orquesta</option>
+                                                <option value="4">Al aire libre</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sx-6 col-sm-6 col-md-6 col-lg-6">
+                                        <div class="row">
+                                            <div class="col-sm-12 col-md-12 col-lg-12">
+                                                <div class="form-group">
+                                                    <label for="fechaApertura">Fecha de Apertura <span class="required">*</span></label>
+                                                    <div class="input-group date datepicker-me" data-provide="datepicker">            
+                                                        <div class="input-group-addon">
+                                                            <span class="glyphicon glyphicon-th"></span>
+                                                        </div>
+                                                        <input type="text" id="fechaApertura" class="form-control datepicker-me">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sx-6 col-sm-6 col-md-6 col-lg-6">
+                                        <div class="row">
+                                            <div class="col-sm-12 col-md-12 col-lg-12">
+                                                <div class="form-group">
+                                                    <label for="estilos">Estilo(s) Musical(es) <span class="required">*</span></label>
+                                                    <select id="estilos" class="form-control js-example-basic-single-multiple" name="estilos[]" multiple="multiple" required="required">
+                                                        <option value=""><option>
+                                                        <option value="Cl&aacute;sica">Cl&aacute;sica</option>
+                                                        <option value="Cumbia">Cumbia</option>
+                                                        <option value="Indie">Indie</option>
+                                                        <option value="Jazz">Jazz</option>
+                                                        <option value="Pop">Pop</option>
+                                                        <option value="Punk">Punk</option>
+                                                        <option value="Rap">Rap</option>
+                                                        <option value="Rumba">Rumba</option>
+                                                        <option value="Rock">Rock</option>
+                                                        <option value="Salsa">Salsa</option>
+                                                        <option value="Tap">Tap</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sx-6 col-sm-6 col-md-6 col-lg-6">
+                                        <div class="row">
+                                            <div class="col-sm-12 col-md-12 col-lg-12">
+                                                <div class="form-group">
+                                                    <label for="cacheMinima">Cache M&iacute;nima <span class="required">*</span></label>
+                                                    <input type="number" id="cacheMinima" name="cacheMinima" required="required" class="form-control">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sx-6 col-sm-6 col-md-6 col-lg-6">
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sx-12 col-sm-12 col-md-12 col-lg-12">
+                                        <div class="form-group">
+                                            <label for="descripcion">Descripci&oacute;n <span class="required" aria-required="true">*</span></label>
+                                            <textarea required="required" name="descripcion" rows="10" class="form-control" placeholder="" aria-required="true"></textarea>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sx-6 col-sm-6 col-md-6 col-lg-6">
+                                        <div class="row">
+                                            <div class="col-sm-12 col-md-12 col-lg-12">
+                                                <div class="form-group">
+                                                    <label for="area">&Aacute;rea del escenario (m2)<span class="required">*</span></label>
+                                                    <input type="number" id="area" name="area" required="required" class="form-control">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sx-6 col-sm-6 col-md-6 col-lg-6">
+                                        
+                                    </div>
+                                    <div class="col-sx-12 col-sm-12 col-md-12 col-lg-12">
+                                        <div class="row">
+                                            <div class="col-sm-12 col-md-12 col-lg-12">
+                                                <div class="form-group">
+                                                    <label for="datosTecnicos">Otros Datos T&eacute;cnicos <span class="required">*</span></label>
+                                                    <textarea id="datosTecnicos" name="datosTecnicos" required="required" class="form-control"></textarea>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-12 col-md-12 col-lg-12 background-white heading2">
+                                        <h4>
+                                            <span class="glyphicon glyphicon-list-alt"></span>
+                                            Caracter&iacute;sticas
+                                        </h4>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-12 col-md-12 col-lg-12 mb10">
+                                        <select required="required" name="idCaracteristicas[]" id="idCaracteristicas" class="form-control js-example-basic-single-multiple" multiple="multiple">
+                                            <option value=""></option>
+                                            <option value="1">Act&uacute;as gratis</option>
+                                            <option value="2">Aire Acondicionado</option>
+                                            <option value="3">Alojamiento</option>
+                                            <option value="4">Area de Fumadores</option>
+                                            <option value="5">Audio Envolvente</option>
+                                            <option value="6">Bar</option>
+                                            <option value="7">Barra Luminica</option>
+                                            <option value="8">Camerino Interno</option>
+                                            <option value="9">Cobra alquiler de sala</option>
+                                            <option value="10">Cortina de Humo</option>
+                                            <option value="11">Escenario al aire libre</option> 
+                                            <option value="12">Escenario de Balcon</option>
+                                            <option value="13">Escenario interior</option>
+                                            <option value="14">Invita comida</option>
+                                            <option value="15">Invita bebida</option>
+                                            <option value="16">M&aacute;quina de humo</option>                                            
+                                            <option value="17">Ofrece t&eacute;cnico de sonido</option>
+                                            <option value="18">Ofrece equipo de voces</option>
+                                            <option value="19">Ofrece microfon&iacute;a</option>
+                                            <option value="20">Ofrece ampli guitarra</option>
+                                            <option value="21">Ofrece ampli bajo</option>
+                                            <option value="22">Ofrece piano</option>
+                                            <option value="23">Ofrece bateria</option>
+                                            <option value="24">Paga cache</option>
+                                            <option value="25">Paga por taquilla</option>
+                                            <option value="26">Pantalla</option> 
+                                            <option value="27">Palco Precidencial</option>  
+                                            <option value="28">Restaurante</option>
+                                            <option value="29">Sistema de Alarma</option>
+                                            <option value="30">Sistema de luces</option>
+                                            <option value="31">Sistema contra incendios</option>
+                                            <option value="32">Solo permite formato ac&uacute;stico</option>                                            
+                                            <option value="33">Wi-Fi</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="row"><!-- Botones -->
+                                    <div class="hidden-xs hidden-sm col-md-4 col-lg-4"></div>
+                                    <div class="col-sx-12 col-sm-12 col-md-2 col-lg-2">
+                                        <button type="reset" class="btn btn-rw btn-primary tags btn-block">
+                                            Cancelar
+                                            <span class="glyphicon glyphicon-remove-circle"></span>
+                                        </button>
+                                    </div>
+                                    <div class="col-sx-12 col-sm-12 col-md-4 col-lg-4">
+                                        <button type="button" class="btn btn-custom-orange btn-block">
+                                            Completar mis datos m&aacute;s tarde
+                                            <span class="glyphicon glyphicon-save-file"></span>
+                                        </button>
+                                    </div>
+                                    <div class="col-sx-12 col-sm-12 col-md-2 col-lg-2">{# Envia los datos al controlador y se dirige al paso 2 #}
+                                        <button type="submit" class="btn btn-rw btn-primary tags btn-block siguiente" id="siguiente1" data-toggle="tooltip" title="Siguiente - Datos de Contacto">
+                                            Siguiente
+                                            <span class="glyphicon glyphicon-chevron-right"></span>
+                                        </button>
+                                    </div>
+                                </div><!-- Fin de Botones --> 
+                                </form>
+                            </div>
+                        </div>
+                    </div><!-- Fin de fila 1 -->                    
+                </div><!-- Fin de datos generales -->
+            </div>
+        </div>
+    </div>
+{% endblock %}
+{% block javascripts %}
+    {{ parent() }}
+    <!-- select2 -->
+    <script src="{{ asset('bundles/app/js/select2.min.js') }}" type="text/javascript"></script>
+    <!-- datepicker -->
+    <script src="{{ asset('bundles/app/js/bootstrap-datepicker.js') }}" type="text/javascript"></script>
+    <script src="{{ asset('bundles/app/js/bootstrap-datepicker.es.min.js') }}" type="text/javascript"></script>
+    <script>
+    /***********************Select2********************************************/
+        $(document).ready(function() {
+            $('.js-example-basic-single-multiple').select2({
+                placeholder: 'Seleccione una opccion',
+                lenguage:"es"
+            });            
+            $('.js-example-basic-single').select2({
+                placeholder: 'Seleccione una opccion',
+                allowClear: true,
+                lenguage:"es"
+            });
+    /************************Calendario*****************************************/
+            $('.datepicker-me').datepicker({
+                    format: "mm/yyyy",
+                    todayBtn: true,
+                    language: "es",
+                });
+    /*************************** Tooltip ***************************************/
+            $('[data-toggle="tooltip"]').tooltip(); 
+        });//Fin de función ready
+    </script>
+{% endblock %}

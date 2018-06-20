@@ -1,0 +1,71 @@
+AppBundle\Entity\Mensaje:
+    type: entity
+    table: mensaje
+    indexes:
+        FKmensaje235213:
+            columns:
+                - remitente
+        FKmensaje354741:
+            columns:
+                - destinatario
+        FKmensaje884415:
+            columns:
+                - eventoid
+    uniqueConstraints:
+        id:
+            columns:
+                - id
+    id:
+        id:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+            id: true
+            generator:
+                strategy: IDENTITY
+    fields:
+        mensaje:
+            type: string
+            nullable: false
+            length: 255
+            options:
+                fixed: false
+        fecha:
+            type: date
+            nullable: false
+        leido:
+            type: boolean
+            nullable: false
+    manyToOne:
+        remitente:
+            targetEntity: Usuarios
+            cascade: {  }
+            fetch: LAZY
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                remitente:
+                    referencedColumnName: id
+            orphanRemoval: false
+        eventoid:
+            targetEntity: Evento
+            cascade: {  }
+            fetch: LAZY
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                eventoid:
+                    referencedColumnName: id
+            orphanRemoval: false
+        destinatario:
+            targetEntity: Usuarios
+            cascade: {  }
+            fetch: LAZY
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                destinatario:
+                    referencedColumnName: id
+            orphanRemoval: false
+    lifecycleCallbacks: {  }

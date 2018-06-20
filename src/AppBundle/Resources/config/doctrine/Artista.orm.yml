@@ -1,0 +1,136 @@
+AppBundle\Entity\Artista:
+    type: entity
+    table: artista
+    indexes:
+        FKartista699287:
+            columns:
+                - tipo_artistaid
+        FKartista10316:
+            columns:
+                - usuarioid
+        FKartista919481:
+            columns:
+                - contactoid
+        FKartista571528:
+            columns:
+                - datos_facturacionid
+    uniqueConstraints:
+        id:
+            columns:
+                - id
+        UNIQ_9B6AF1567B4DD5A0:
+            columns:
+                - usuarioid
+    id:
+        id:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+            id: true
+            generator:
+                strategy: IDENTITY
+    fields:
+        nombre:
+            type: string
+            nullable: true
+            length: 255
+            options:
+                fixed: false
+        fechaNacimiento:
+            type: date
+            nullable: true
+            column: fecha_nacimiento
+        cacheMax:
+            type: integer
+            nullable: true
+            options:
+                unsigned: false
+            column: cache_max
+        cacheMin:
+            type: integer
+            nullable: true
+            options:
+                unsigned: false
+            column: cache_min
+        video:
+            type: string
+            nullable: true
+            length: 255
+            options:
+                fixed: false
+        experiencia:
+            type: integer
+            nullable: true
+            options:
+                unsigned: false
+        descripcion:
+            type: string
+            nullable: true
+            length: 255
+            options:
+                fixed: false
+        iban:
+            type: string
+            nullable: true
+            length: 255
+            options:
+                fixed: false
+        perfilMusica:
+            type: string
+            nullable: true
+            length: 255
+            options:
+                fixed: false
+            column: perfil_musica
+    manyToOne:
+        datosFacturacionid:
+            targetEntity: DatosFacturacion
+            cascade: {  }
+            fetch: LAZY
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                datos_facturacionid:
+                    referencedColumnName: id
+            orphanRemoval: false
+        tipoArtistaid:
+            targetEntity: TipoArtista
+            cascade: {  }
+            fetch: LAZY
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                tipo_artistaid:
+                    referencedColumnName: id
+            orphanRemoval: false
+        usuarioid:
+            targetEntity: Usuarios
+            cascade: {  }
+            fetch: LAZY
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                usuarioid:
+                    referencedColumnName: id
+            orphanRemoval: false
+        contactoid:
+            targetEntity: Contacto
+            cascade: {  }
+            fetch: LAZY
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                contactoid:
+                    referencedColumnName: id
+            orphanRemoval: false
+    manyToMany:
+        estiloid:
+            targetEntity: Estilo
+            cascade: {  }
+            fetch: LAZY
+            mappedBy: artistaid
+            inversedBy: null
+            joinTable: null
+            orderBy: null
+    lifecycleCallbacks: {  }

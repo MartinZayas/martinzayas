@@ -1,0 +1,245 @@
+administracion:
+    resource: "@AdministracionBundle/Controller/"
+    type:     annotation
+    prefix:   /Admin
+
+app:
+    resource: '@AppBundle/Controller/'
+    type: annotation
+    
+home:
+    path: /
+    defaults: { _controller: AppBundle:Default:index }
+    
+comoFunciona:
+    path: /ComoFunciona
+    defaults: { _controller: AppBundle:Default:comoFunciona }
+    
+comoFuncionaArtista:
+    path: /ComoFuncionaArtista
+    defaults: { _controller: AppBundle:Default:comoFuncionaArtista } 
+    
+comprarEntradas:    
+    path: /Eventos/Comprar
+    defaults: { _controller: AppBundle:Default:comprarEntradas } 
+    
+ayuda:
+    path: /Ayuda
+    defaults: { _controller: AppBundle:Default:ayuda }
+prueba:
+    path: /P
+    defaults: { _controller: AppBundle:Default:pruebas }
+#
+#Sección de artistas
+#
+listadoArtistas:
+    path: /Artistas
+    defaults: { _controller: AppBundle:Artistas:listado }
+detallesArtistas:
+    path: /Artistas/Detalles/{id}
+    controller: AppBundle:Artistas:detalles
+    defaults:
+        id: 1
+    requirements:
+        id: '\d+'
+registroArtistas:
+    path: /Artistas/nuevo 
+    defaults: { _controller: AppBundle:Artistas:crear }
+artistaPaso1:
+    path: /Artistas/Paso1 
+    defaults: { _controller: AppBundle:Artistas:paso1 }
+artistaPaso2:
+    path: /Artistas/Paso2 
+    defaults: { _controller: AppBundle:Artistas:paso2 }
+artistaPaso3:
+    path: /Artistas/Paso3 
+    defaults: { _controller: AppBundle:Artistas:paso3 }
+#
+#Sección de salas
+#
+listadoSalas:
+    path: /Salas
+    defaults: { _controller: AppBundle:Salas:index }
+detallesSalas:
+    path: /Salas/Detalles/{id}
+    controller: AppBundle:Salas:detalles 
+    defaults:
+        id: 1
+    requirements:
+        id: '\d+'
+salaPaso1:
+    path: /Salas/Paso1 
+    defaults: { _controller: AppBundle:Salas:paso1 } 
+salaPaso2:
+    path: /Salas/Paso2 
+    defaults: { _controller: AppBundle:Salas:paso2 }
+salaPaso3:
+    path: /Salas/Paso3 
+    defaults: { _controller: AppBundle:Salas:paso3 }
+salaPaso4:
+    path: /Salas/Paso4 
+    defaults: { _controller: AppBundle:Salas:paso4 }
+nuevaSala:     
+    path: /Salas/nueva
+    defaults: { _controller: AppBundle:Salas:crear }
+#
+#Sección de eventos
+#
+agregarEvento:
+    path: /Eventos/Agregar
+    defaults: { _controller: AppBundle:Evento:agregar }
+listarEventos:
+    path: /Eventos
+    defaults: { _controller: AppBundle:Evento:listado }
+detallesEvento:
+    path: /Eventos/Detalles/{id}
+    controller: AppBundle:Evento:detalles 
+    defaults:
+        id: 1
+    requirements:
+        id: '\d+'
+paso1:
+    path: /Eventos/Paso1
+    defaults: { _controller: AppBundle:Evento:paso1 }
+paso2:
+    path: /Eventos/Paso2
+    defaults: { _controller: AppBundle:Evento:paso2 }
+paso3:
+    path: /Eventos/Paso3
+    defaults: { _controller: AppBundle:Evento:paso3 }
+paso4:
+    path: /Eventos/Paso4
+    defaults: { _controller: AppBundle:Evento:paso4 }
+paso5:
+    path: /Eventos/Paso5
+    defaults: { _controller: AppBundle:Evento:paso5 }
+#
+#Sección de administración de la web
+#
+administrar:
+    path: /Admin/
+    defaults: { _controller: AdministracionBundle:Default:index }
+listarUsuario:
+    path: /Admin/listado
+    defaults: { _controller: AppBundle:Seguridad:listar }
+agregarUsuario:
+    path: /Admin/adicionar
+    defaults: { _controller: AppBundle:Seguridad:adicionar }
+editarUsuario:
+    path: /Admin/editar/{idUsuario}
+    defaults: { _controller: AppBundle:Seguridad:editar }
+eliminarUsuario:
+    path: /Admin/eliminar
+    defaults: { _controller: AppBundle:Seguridad:eliminar }
+login:
+    path: /login
+    defaults: { _controller: AppBundle:Seguridad:login }
+login_check:
+    path: /login_check
+    defaults: { _controller: AppBundle:Seguridad:securityCheck }
+logout:
+    path: /logout  
+    defaults: { _controller: AppBundle:Seguridad:logout }
+registroEspectador:
+    path: /Registro/Espectador  
+    defaults: { _controller: AppBundle:Seguridad:registroEspectador }
+condicionesEspectador:
+    path: /Espectador/Condiciones
+    defaults: { _controller: AppBundle:Seguridad:condicionesEspectador }
+#
+# Administración de profesionales
+#
+registroProfesional:
+    path: /Registro/Profesional  
+    defaults: { _controller: AppBundle:Profesional:registroProfesional }
+condicionesProfesional:
+    path: /Profesional/Condiciones
+    defaults: { _controller: AppBundle:Profesional:condicionesProfesional }
+crearCuentaProfesional:
+    path: /Profesional
+    defaults: { _controller: AppBundle:Profesional:crearCuenta }
+#    
+# Manejo de imagenes
+#
+agregarImagen:
+    path: /imagenes/adicionar  
+    defaults: { _controller: AppBundle:Imagen:agregar }
+#
+# Busquedas
+#
+buscar:
+    path: /Resultados
+    defaults: { _controller: AppBundle:Default:resultados }
+#
+# Usuarios registrados, el prefijo es /usuario/
+#
+inicioSesion:
+    path: /usuario/{login}
+    controller: AppBundle:Seguridad:inicioSesion
+    defaults:
+        id: 0
+    requirements:
+        id: '\d+'
+usuariosEntradas:
+    path: /usuario/{login}/entradas
+    controller: AppBundle:Seguridad:sesionEntradas
+    defaults:
+        id: 0
+    requirements:
+        id: '\d+'
+usuariosFavoritos:
+    path: /usuario/{login}/favoritos
+    controller: AppBundle:Seguridad:sesionFavoritos
+    defaults:
+        id: 0
+    requirements:
+        id: '\d+'
+usuariosSeguidores:
+    path: /usuario/{login}/seguidores
+    controller: AppBundle:Seguridad:sesionSeguidores
+    defaults:
+        id: 0
+    requirements:
+        id: '\d+'
+usuariosEventos:
+    path: /usuario/{login}/eventos
+    controller: AppBundle:Seguridad:sesionEventos
+    defaults:
+        id: 0
+    requirements:
+        id: '\d+'
+usuariosArtistas:
+    path: /usuario/{login}/artistas
+    controller: AppBundle:Seguridad:sesionArtistas
+    defaults:
+        id: 0
+    requirements:
+        id: '\d+'
+usuariosNotificaciones:
+    path: /usuario/{login}/noti
+    controller: AppBundle:Seguridad:sesionNotificaciones
+    defaults:
+        id: 0
+    requirements:
+        id: '\d+'
+usuariosMensajes:
+    path: /usuario/{login}/mensajes
+    controller: AppBundle:Seguridad:sesionMensajes
+    defaults:
+        id: 0
+    requirements:
+        id: '\d+'
+usuariosConversaciones:
+    path: /usuario/{login}/conversacion/{id}
+    controller: AppBundle:Seguridad:sesionConversaciones
+    defaults:
+        id: 0
+    requirements:
+        id: '\d+'
+usuarioPrivacidad:
+    path: /usuario/{login}/privacidad
+    controller: AppBundle:Seguridad:sesionPrivacidad
+    defaults:
+        id: 0
+    requirements:
+        id: '\d+'

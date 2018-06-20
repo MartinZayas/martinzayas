@@ -1,0 +1,26 @@
+{# Plantilla de la seccion donde actuar #}
+<section class="background-main pt60 pb60 fill" style="background-image:url('{{ asset('bundles/app/img/bg1.jpg') }}');">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-4 fadeInLeft-animated">
+                <img src="{{ asset('bundles/app/img/showcase4.png') }}" class="img-responsive" alt="Showcase Image">
+            </div>
+            <div class="col-sm-8 text-white fadeInRight-animated mt30-xs">
+                <h3 class="text-white">¿Buscas donde actuar? ¿Buscas artistas
+                para tu local?</h3>
+                <p class="text-justify">Los locales y salas de conciertos tienen 
+                una nueva opción de autogestión, promocionando sus eventos 
+                próximos y buscando artistas para crear nuevos conciertos, 
+                minimizando riesgos y beneficiándose de servicios de marketing 
+                online.</p>
+                <p class="text-justify">Podrás así recibir propuestas de locales 
+                y artistas que se adapten a tus requisitos y aceptarlas o no,
+                pudiendo ofrecer tus condiciones y así llenar una agenda de 
+                conciertos de forma exitosa.</p>
+                <a href="{{ path('agregarEvento') }}" class="btn btn-rw btn-clear mt10">
+                    Comenzar &nbsp;&nbsp;<span class="ion-ios7-arrow-right"></span>
+                </a>
+            </div>
+        </div>
+    </div><!-- /container -->
+</section>

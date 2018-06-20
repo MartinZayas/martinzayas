@@ -1,0 +1,92 @@
+AppBundle\Entity\Factura:
+    type: entity
+    table: factura
+    indexes:
+        FKfactura184964:
+            columns:
+                - pagoid
+        FKfactura444019:
+            columns:
+                - facturaid
+    uniqueConstraints:
+        numero_factura:
+            columns:
+                - numero_factura
+        id:
+            columns:
+                - id
+    id:
+        id:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+            id: true
+            generator:
+                strategy: IDENTITY
+    fields:
+        monto:
+            type: decimal
+            nullable: false
+            precision: 10
+            scale: 2
+        fecha:
+            type: date
+            nullable: false
+        numeroFactura:
+            type: string
+            nullable: false
+            length: 255
+            options:
+                fixed: false
+            column: numero_factura
+        observaciones:
+            type: string
+            nullable: true
+            length: 255
+            options:
+                fixed: false
+        subtotal:
+            type: decimal
+            nullable: false
+            precision: 10
+            scale: 2
+        comision:
+            type: decimal
+            nullable: false
+            precision: 10
+            scale: 2
+        impuestoComision:
+            type: decimal
+            nullable: false
+            precision: 10
+            scale: 2
+            column: impuesto_comision
+        impuestoSubtotal:
+            type: decimal
+            nullable: false
+            precision: 10
+            scale: 2
+            column: impuesto_subtotal
+    manyToOne:
+        pagoid:
+            targetEntity: Pago
+            cascade: {  }
+            fetch: LAZY
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                pagoid:
+                    referencedColumnName: id
+            orphanRemoval: false
+        facturaid:
+            targetEntity: Factura
+            cascade: {  }
+            fetch: LAZY
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                facturaid:
+                    referencedColumnName: id
+            orphanRemoval: false
+    lifecycleCallbacks: {  }

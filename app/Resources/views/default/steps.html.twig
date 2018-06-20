@@ -1,0 +1,50 @@
+<div class="row mt20">
+    <div class="col-md-12 without-padding-right without-padding-left">
+        <ul class="steps nav nav-pills">
+            {% for item in titles %}
+                <li role="presentation" id="step-{{ loop.index }}" class="{{ loop.first?'active first':'' }}">
+                    <a href="#">
+                        {{ loop.index }}
+                    </a>
+                    <span>{{ item }}</span>
+                </li>
+                {% if not loop.last %}
+                    <li class="{{ titles|length==3?'divider-3-steps':'divider' }}">
+                        <span>
+                            <hr class="hr-solid">
+                        </span>
+                    </li>
+                {% endif %}
+            {% endfor %}
+            {#<li role="presentation" class="active first">#}
+                {#<a href="#">#}
+                    {#1#}
+                {#</a>#}
+                {#<span>Datos generales</span>#}
+            {#</li>#}
+            {#<li class="divider-3-steps">#}
+                {#<span>#}
+                    {#<hr class="hr-solid">#}
+                {#</span>#}
+            {#</li>#}
+            {#<li role="presentation">#}
+                {#<a href="#">#}
+                    {#2#}
+                {#</a>#}
+                {#<span>Datos de contacto</span>#}
+            {#</li>#}
+            {#<li class="divider-3-steps">#}
+                {#<span>#}
+                    {#<hr class="hr-solid">#}
+                {#</span>#}
+            {#</li>#}
+            {#<li role="presentation">#}
+                {#<a href="#">#}
+                    {#3#}
+                {#</a>#}
+                {#<span>Video, fotos, discografía</span>#}
+            {#</li>#}
+
+        </ul>
+    </div>
+</div>

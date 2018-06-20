@@ -1,0 +1,45 @@
+AppBundle\Entity\DiaSemanaLocal:
+    type: entity
+    table: dia_semana_local
+    indexes:
+        FKdia_semana914274:
+            columns:
+                - dia_semanaid
+        FKdia_semana504282:
+            columns:
+                - localid
+    uniqueConstraints:
+        id:
+            columns:
+                - id
+    id:
+        id:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+            id: true
+            generator:
+                strategy: IDENTITY
+    manyToOne:
+        diaSemanaid:
+            targetEntity: DiaSemana
+            cascade: {  }
+            fetch: LAZY
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                dia_semanaid:
+                    referencedColumnName: id
+            orphanRemoval: false
+        localid:
+            targetEntity: Local
+            cascade: {  }
+            fetch: LAZY
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                localid:
+                    referencedColumnName: id
+            orphanRemoval: false
+    lifecycleCallbacks: {  }

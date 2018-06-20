@@ -1,0 +1,312 @@
+{% extends 'base.html.twig' %}
+{% block title %}Busco Concierto{% endblock %}
+{% block stylesheets %}
+    <link rel="apple-touch-icon" sizes="114x114" href="apple-touch-icon-114x114.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="apple-touch-icon-72x72.png">
+    <link rel="apple-touch-icon" href="apple-touch-icon.png">
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+    <!-- Icheck -->
+    <link rel="stylesheet" type="text/css" href="{{ asset('bundles/app/css/blue.css') }}">
+    <!-- Royal Preloader CSS -->
+    <link rel="stylesheet" type="text/css" href="{{ asset('bundles/app/css/royal_preloader.css') }}">
+    <!-- jQuery Files -->
+    <script src="{{ asset('bundles/app/js/jQuery-2.1.4.min.js') }}" type="text/javascript"></script>
+    <!-- Royal Preloader -->
+    <script type="text/javascript" src="{{ asset('bundles/app/js/royal_preloader.min.js') }}"></script>
+    <!-- Bootstrap select -->
+    <link rel="stylesheet" type="text/css" href="{{ asset('bundles/app/css/bootstrap-select.min.css') }}">
+    <!-- Stylesheets -->
+    <link href="{{ asset('bundles/app/css/bootstrap.min.css') }}" type="text/css" rel="stylesheet" />
+    <link href="{{ asset('bundles/app/css/bootstrap-social.css') }}" type="text/css" rel="stylesheet" />
+    <link href="{{ asset('bundles/app/css/animate.min.css') }}" type="text/css" rel="stylesheet" />
+    <link href="{{ asset('bundles/app/css/owl.carousel.css') }}" type="text/css" rel="stylesheet" />
+    <link href="{{ asset('bundles/app/css/jquery.snippet.css') }}" type="text/css" rel="stylesheet" />
+    <link href="{{ asset('bundles/app/css/buttons.css') }}" type="text/css" rel="stylesheet" />
+    <link href="{{ asset('bundles/app/css/waitMe.min.css') }}" type="text/css" rel="stylesheet" />
+    <!-- Icon Fonts -->
+    <link href="{{ asset('bundles/app/css/ionicons.min.css') }}" type="text/css" rel="stylesheet" />
+    <link href="{{ asset('bundles/app/css/ionicons1_4.min.css') }}" type="text/css" rel="stylesheet" />
+    <link href="{{ asset('bundles/app/css/font-awesome.css') }}" type="text/css" rel="stylesheet" />
+    <!-- Magnific Popup -->
+    <link href="{{ asset('bundles/app/css/magnific-popup.css') }}" type="text/css" rel="stylesheet" />
+    {% block customStyles %}
+    <!-- Revolution Slider CSS -->
+    <link rel="stylesheet" type="text/css" href="{{ asset('bundles/app/css/settings.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('bundles/app/css/layers.css') }}">
+    <!-- Revolution Slider Navigation CSS -->
+    <link rel="stylesheet" type="text/css" href="{{ asset('bundles/app/css/navigation.css') }}">
+    <!-- CountDown Styles -->
+    <link href="{{ asset('bundles/app/css/TimeCircles.css') }}" rel="stylesheet">
+    <style>
+        .btn {
+            border-radius:2px;
+        }
+        
+        .btn-custom-orange{
+            color: #ffffff;
+            background-color: #FF8000;
+            border-color: #FF8000;
+        }
+
+        .btn-custom-orange:hover{
+            color: #ffffff;
+            background-color: #dc7003;
+            border-color: #dc7003;	
+        }
+        
+        .btn-youtube{
+            color: #ffffff;
+            background-color: red;
+        }
+        .bordered-icon-lg {
+            border-radius:0;
+            font-size:34px !important;
+            border:1px solid #D2D2D2;
+            border-radius:50%;
+            color:#00B7EB;
+            background-color:transparent;
+            padding-top:28px;
+            height:90px;
+            text-align:center;
+            width:90px;
+        }
+    </style>
+    {% endblock %}
+    <link href="{{ asset('bundles/app/css/style.css') }}" type="text/css" rel="stylesheet" />
+    <!-- Alternate Stylesheets / choose what color you want and include regularly AFTER style.css above -->
+    <link rel="alternate stylesheet" type="text/css" href="{{ asset('bundles/app/css/dark-blue.css') }}" title="dark-blue">
+    <link rel="alternate stylesheet" type="text/css" href="{{ asset('bundles/app/css/width-full.css') }}" title="width-full">
+{% endblock %}
+{% block classBody %}royal_preloader scrollreveal{% endblock %}
+{% block body %}
+    <div id="royal_preloader"></div>
+    <!-- Begin Boxed or Fullwidth Layout -->
+    <div id="bg-boxed">
+        <div class="{% block classBoxed %}boxed background-light-grey{% endblock %}">
+            <!-- Begin Header -->
+            <header>
+                <!-- Begin Top Bar -->
+                <div class="top-bar">
+                    <div class="container">
+                        <div class="row">
+                            <!-- ¿Como funciona? -->
+                            <div class="col-sm-7 col-md-7 col-lg-7">
+                                <ul class="topbar-list list-inline" style="border-right:none;">
+                                    <li style="border-left:none;"><a href="{{ path('comoFunciona') }}">¿Cómo funciona?</a></li>
+				    <li style="border-left:none;"><a href="{{ path('comprarEntradas') }}">¿Cómo comprar entradas?</a></li>
+                                    <li style="border-left:none;"><a href="#contacto">Contacto</a></li>
+                                </ul>
+                            </div>
+                            <!-- Social Buttons -->
+                            <div class="col-sm-5 col-md-5 col-lg-5 text-right">
+                                <ul class="topbar-list list-inline">
+                                    <li>
+                                        <a class="btn btn-social-icon btn-rw btn-primary btn-xs" href="https://twitter.com/buscoconcierto" target="_blank">
+                                            <i class="fa fa-twitter"></i>
+                                        </a>
+                                        <a class="btn btn-social-icon btn-rw btn-primary btn-xs" href="https://www.instagram.com/buscoconcierto" target="_blank">
+                                            <i class="fa fa-instagram"></i>
+                                        </a>
+                                        <a class="btn btn-social-icon btn-rw btn-primary btn-xs" href="https://www.facebook.com/buscoconcierto" target="_blank">
+                                            <i class="fa fa-facebook"></i>
+                                        </a>
+                                    </li><li><a data-toggle="modal" data-target="#login">Iniciar Sesión</a></li><li><a data-toggle="modal" data-target="#register">Regístrate</a></li>
+                                </ul>
+                            </div>
+                        </div><!--/row -->
+                    </div>
+                </div> <!-- End Top Bar -->
+                <!-- Login -->
+                <div class="modal fade" id="login" tabindex="-1" role="dialog" aria-labelledby="loginLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-sm">
+                        <div class="modal-content">
+                            <form action="{{ path('login_check') }}" method="post" role="form">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
+                                <h4 class="modal-title" id="loginLabel">Iniciar Sesión</h4>
+                            </div>
+                            <div class="modal-body">
+                                <div class="form-group">
+                                    <label for="exampleInputEmail1">Email</label>
+                                    <input type="email" name="_username" class="form-control" id="exampleInputEmail1" placeholder="Introduce tu email">
+                                </div>
+                                <div class="form-group">
+                                    <label for="exampleInputPassword1">Contraseña</label>
+                                    <input type="password" name="_password" class="form-control" id="exampleInputPassword1" placeholder="Introduce tu contraseña">
+                                </div>
+				<small><a href="#">¿Olvidaste tu contraseña?</a></small>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" name="_login" class="btn btn-rw btn-primary" style="float:left">Entrar</button>
+				&nbsp;<small>¿No tienes una cuenta? <a data-toggle="modal" data-target="#register" href="#">Regístrate</a></small><!--data-dismiss="modal"-->
+                            </div>
+                            </form><!-- /form -->
+                        </div><!-- /modal content -->
+                    </div><!-- /modal dialog -->
+                </div><!-- /modal holder -->
+                <!-- End Login -->
+                {% include 'registro/registro.html.twig' %}
+                <!-- Begin Navigation -->
+                {% include 'default/menu.html.twig' %}
+                {% block subHeader %}{% endblock %}
+            </header>
+    {% block contenido %}
+    {% block Banner %}
+        {% include 'banner/banner2.html.twig' %}
+    <!-- End Slider Revolution -->
+    {% endblock %}
+    {% block buscar %}
+        {% include 'busquedas/buscadorPrincipal.html.twig' %}
+    {% endblock %}
+    {% block comoFunciona %}
+        {% include 'ayuda/comoFunciona.html.twig' %}
+    {% endblock %}
+    {% block conciertosPopulares %}
+        {% include 'eventos/conciertosPopulares.html.twig' %}
+    {% endblock %}
+    {% block comoFuncionaVentas %}<!-- Seccion de cpmo funciona ventas -->
+        {% include 'ayuda/comoFuncionaVentas.html.twig' %}
+    {% endblock %}    
+    {% block porqueBC %}
+        {% include 'ayuda/porqueBC.html.twig' %}
+    {% endblock %}
+    {% block condiciones %}
+        {% include 'ayuda/condiciones.html.twig' %}
+    {% endblock %}
+    {% block dondeActuar %}
+        {% include 'ayuda/dondeActuar.html.twig' %}
+    {% endblock %}
+    {% block ahorra %} 
+        {% include 'ayuda/ahorra.html.twig' %}
+    {% endblock %}
+    {% block giras %}
+        {% include 'eventos/comenzarGira.html.twig' %}
+    {% endblock %}
+    {% block contacto %}
+        {% include 'ayuda/contacto.html.twig' %}
+    {% endblock %}
+    {% block comoFuncionUsuarios %}
+        {% include 'ayuda/comoFuncionaUsuario.html.twig' %}
+    {% endblock %}
+{% endblock %}
+    {% include 'default/pie.html.twig' %}       
+            <a href="#" class="scrollup"><i class="fa fa-angle-up"></i></a>
+        </div>
+    </div><!-- End Boxed or Fullwidth Layout -->
+{% endblock %}
+
+{% block javascripts %}
+    <!-- Icheck -->
+    <script src="{{ asset('bundles/app/js/icheck.min.js') }}" type="text/javascript"></script>
+    <!-- Javascript Files -->
+    <script src="{{ asset('bundles/app/js/bootstrap.min.js') }}" type="text/javascript"></script>
+    <script src="{{ asset('bundles/app/js/jquery.easing.min.js') }}" type="text/javascript"></script>
+    <script src="{{ asset('bundles/app/js/jquery.mixitup.min.js') }}" type="text/javascript"></script>
+    <script src="{{ asset('bundles/app/js/scrollReveal.js') }}" type="text/javascript"></script>
+    <script src="{{ asset('bundles/app/js/owl.carousel.min.js') }}" type="text/javascript"></script>
+    <script src="{{ asset('bundles/app/js/jquery.magnific-popup.min.js') }}" type="text/javascript"></script>
+    <script src="{{ asset('bundles/app/js/jquery.snippet.min.js') }}" type="text/javascript"></script>
+    <script src="{{ asset('bundles/app/js/jquery.fitvids.js') }}" type="text/javascript"></script>
+    <script src="{{ asset('bundles/app/js/activate-snippet.js') }}" type="text/javascript"></script>
+    <script src="{{ asset('bundles/app/js/skrollr.min.js') }}" type="text/javascript"></script>
+    <script src="{{ asset('bundles/app/js/waitMe.min.js') }}" type="text/javascript"></script>
+    <!-- JQuery Validate -->
+    <script src="{{ asset('bundles/app/js/jquery.validate.min.js') }}" type="text/javascript"></script>
+    <script src="{{ asset('bundles/app/js/messages_es.js') }}" type="text/javascript"></script>
+    <!-- Bootstrap Select -->
+    <script src="{{ asset('bundles/app/js/bootstrap-select.min.js') }}" type="text/javascript"></script>
+    <!-- Simple Ajax Uploader -->
+    <script src="{{ asset('bundles/app/js/SimpleAjaxUploader.min.js') }}" type="text/javascript"></script>
+    <script src="{{ asset('bundles/app/js/main.js') }}" type="text/javascript"></script>
+    
+    <!-- On Scroll Animations - scrollReveal.js -->
+    <script>
+        $(document).ready(function(){
+            //iCheck for checkbox and radio inputs
+            $('input[type="checkbox"].flat, input[type="radio"].flat').iCheck({
+                checkboxClass: 'icheckbox_flat-blue',
+                radioClass: 'iradio_flat-blue'
+            });
+        });
+        //Animación 
+        var config = {
+            easing: 'hustle',
+            mobile:  true,
+            delay:  'onload'
+        }
+        window.sr = new scrollReveal( config );
+        //scrollup section
+        jQuery(window).scroll(function () {
+            if (jQuery(this).scrollTop() > 100) {
+                jQuery('.scrollup').fadeIn();
+            } else {
+                jQuery('.scrollup').fadeOut();
+            }
+        });
+
+        jQuery('.scrollup').click(function () {
+            jQuery("html, body").animate({
+                scrollTop: 0
+            }, 600);
+            return false;
+        });
+
+        function wait(container){
+            $(container).waitMe({
+                effect: 'facebook',
+                text: 'Por favor, espere...',
+                bg: 'rgba(255,255,255,0.7)',
+                color:'#000',
+                sizeW:'',
+                sizeH:'',
+                source: 'img.svg',
+                onClose: function() {}
+            });
+        }
+
+        function endWait(container){
+            $(container).waitMe('hide');
+        }
+
+        $(document).ready(function(){
+            $('.selectpicker').selectpicker();
+            //tipos de usuario
+            $('#espectador-link').on('click',function(e){
+                e.preventDefault();
+                $('#tipos-usuario-text-container div.description-container').hide();
+                $('.item-usuario-container p').removeClass('item-usuario-selected');
+                $('#espectador-text-container').fadeIn();
+                $(this).siblings('p').addClass('item-usuario-selected');
+                $('#userType').val('ROLE_CLIENT');
+            });
+
+            $('#artista-link').on('click',function(e){
+                e.preventDefault();
+                $('#tipos-usuario-text-container div.description-container').hide();
+                $('.item-usuario-container p').removeClass('item-usuario-selected');
+                $('#artista-text-container').fadeIn();
+                $(this).siblings('p').addClass('item-usuario-selected');
+                $('#userType').val('ROLE_ARTIST');
+            });
+
+            $('#local-link').on('click',function(e){
+                e.preventDefault();
+                $('#tipos-usuario-text-container div.description-container').hide();
+                $('.item-usuario-container p').removeClass('item-usuario-selected');
+                $('#local-text-container').fadeIn();
+                $(this).siblings('p').addClass('item-usuario-selected');
+                $('#userType').val('ROLE_LOCAL');
+            });
+
+            $('#profesional-link').on('click',function(e){
+                e.preventDefault();
+                $('#tipos-usuario-text-container div.description-container').hide();
+                $('.item-usuario-container p').removeClass('item-usuario-selected');
+                $('#profesional-text-container').fadeIn();
+                $(this).siblings('p').addClass('item-usuario-selected');
+                $('#userType').val('ROLE_PROFESSIONAL');
+            });
+        });
+    </script>
+    {% block customScripts %}{% endblock %}
+{% endblock %}

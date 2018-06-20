@@ -1,0 +1,49 @@
+AppBundle\Entity\Direccion:
+    type: entity
+    table: direccion
+    uniqueConstraints:
+        id:
+            columns:
+                - id
+    id:
+        id:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+            id: true
+            generator:
+                strategy: IDENTITY
+    fields:
+        direccion:
+            type: string
+            nullable: false
+            length: 255
+            options:
+                fixed: false
+        codigoPostal:
+            type: string
+            nullable: false
+            length: 255
+            options:
+                fixed: false
+            column: codigo_postal
+        pais:
+            type: string
+            nullable: false
+            length: 255
+            options:
+                fixed: false
+        provincia:
+            type: string
+            nullable: false
+            length: 255
+            options:
+                fixed: false
+        ciudad:
+            type: string
+            nullable: false
+            length: 255
+            options:
+                fixed: false
+    lifecycleCallbacks: {  }

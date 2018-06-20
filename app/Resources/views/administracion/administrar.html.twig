@@ -1,0 +1,117 @@
+{# Plantilla base del administrador #}
+{% extends 'base.html.twig' %}
+{% block title %}Busco Concierto | Administrador{% endblock %}
+
+{% block classBody%}hold-transition skin-blue sidebar-mini{% endblock %}
+{% block stylesheets %}
+    <!-- Bootstrap 3.3.5 -->
+    <link rel="stylesheet" href="{{ asset('bundles/app/css/bootstrap.min.css') }}">
+    <!-- Fuentes -->
+    <link rel="stylesheet" href="{{ asset('bundles/app/css/font-awesome.min.css') }}">
+    <!-- Iconos -->
+    <link rel="stylesheet" href="{{ asset('bundles/app/css/ionicons.min.css') }}">
+    <!-- Estilos del Tema -->
+    <link rel="stylesheet" href="{{ asset('bundles/app/css/AdminLTE.min.css') }}">
+    <!-- AdminLTE Skins. We have chosen the skin-blue for this starter
+    page. However, you can choose any other skin. Make sure you
+    apply the skin class to the body tag so the changes take effect.
+    -->    
+    <link rel="stylesheet" href="{{ asset('bundles/app/css/skin-blue.min.css') }}">
+    <!-- Estilos para redactar correos -->
+    <link rel="stylesheet" href="{{ asset('bundles/app/css/bootstrap3-wysihtml5.min.css') }}">
+    <!-- iCheck -->
+    <link rel="stylesheet" href="{{ asset('bundles/app/css/blue.css') }}">
+    <!-- Morris chart -->
+    <link rel="stylesheet" href="{{ asset('bundles/app/css/morris.css') }}">
+    <!-- jvectormap -->
+    <link rel="stylesheet" href="{{ asset('bundles/app/css/jquery-jvectormap-1.2.2.css') }}">
+    <!-- Date Picker -->
+    <link rel="stylesheet" href="{{ asset('bundles/app/css/datepicker3.css') }}">
+    <!-- Daterange picker -->
+    <link rel="stylesheet" href="{{ asset('bundles/app/css/daterangepicker-bs3.css') }}">
+    <!-- Estilos personalizados -->
+<style>
+    .logo{
+        padding-top: 5px;
+    }
+</style>
+{% endblock %}
+{% block body %}
+    <div class="wrapper">
+        {% block Menu %}
+            {% include 'administracion/encabezado.html.twig' %}
+        {% endblock %}
+        {% block MenuVertical %}
+            {% include 'administracion/menuVertical.html.twig' %}
+        {% endblock %}
+        {% block encabezadoContenido %}
+<!-- Content Wrapper. Contains page content -->
+        <div class="content-wrapper">
+          <!-- Content Header (Page header) -->
+          <section class="content-header">
+            <h1>Titulo<small>Descripci&oacute;n</small></h1>
+            <ol class="breadcrumb">
+              <li><a href="#"><i class="fa fa-dashboard"></i> Inicio</a></li>
+              <li class="active">Aqu&iacute;</li>
+            </ol>
+          </section>
+          {% block Contenido %}<!-- Contenido -->
+                <section class="content">
+                    {% include 'mensajes/widgets.html.twig' %}
+                    <div class="row"><!-- Main -->
+                    <!-- Seccion izquierda -->
+                        <section class="col-lg-7 connectedSortable ui-sortable">
+                        {% include 'ventas/graficaVentas.html.twig' %}    
+                        {% include 'mensajes/bandeja.html.twig' %}
+                        {% include 'administracion/listaTareas.html.twig' %}
+                        {% include 'correo/redactar.html.twig' %}
+                        </section><!-- Fin Seccion izquierda -->
+                    <!-- Seccion derecha -->
+                        <section class="col-lg-5 connectedSortable ui-sortable">
+                            {% include 'administracion/columnaDerecha.html.twig' %} 
+                        </section><!-- Fin Seccion derecha -->
+                    </div><!-- Fin Main -->
+                </section>
+          {% endblock %}
+          <!-- /.content -->
+        </div>  <!-- /.content-wrapper -->
+        {% endblock %}
+    {% block Pie %}    
+        {%include 'administracion/pie.html.twig' %}
+    {% endblock %}
+    {% block Configuraciones %}
+        {% include 'administracion/configuraciones.html.twig' %}
+    {% endblock %}
+<!-- Add the sidebar's background. This div must be placed immediately after 
+the control sidebar -->
+        <div class="control-sidebar-bg"></div>
+    </div><!-- ./wrapper -->
+{% endblock %}
+
+{% block javascripts %}
+    <!-- jQuery 2.1.4 -->
+    <script src="{{ asset('bundles/app/js/jQuery-2.1.4.min.js') }}"></script>
+    <!-- Bootstrap 3.3.5 -->
+    <script src="{{ asset('bundles/app/js/bootstrap.min.js') }}"></script>
+    <!-- Morris.js charts -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/raphael/2.1.0/raphael-min.js"></script>
+    <script src="{{ asset('bundles/app/js/morris.min.js') }}"></script>
+    <!-- Sparkline -->
+    <script src="{{ asset('bundles/app/js/jquery.sparkline.min.js') }}"></script>
+    <!-- jvectormap -->
+    <script src="{{ asset('bundles/app/js/jquery-jvectormap-1.2.2.min.js') }}"></script>
+    <script src="{{ asset('bundles/app/js/jquery-jvectormap-world-mill-en.js') }}"></script>
+    <!-- daterangepicker -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.10.2/moment.min.js"></script>
+    <script src="{{ asset('bundles/app/js/daterangepicker.js') }}"></script>
+    <!-- datepicker -->
+    <script src="{{ asset('bundles/app/js/bootstrap-datepicker.js') }}"></script>
+    <!-- Bootstrap WYSIHTML5 -->
+    <script src="{{ asset('bundles/app/js/bootstrap3-wysihtml5.all.min.js') }}"></script>
+    <!-- Slimscroll -->
+    <script src="{{ asset('bundles/app/js/jquery.slimscroll.min.js') }}"></script>
+    <!-- FastClick -->
+    <script src="{{ asset('bundles/app/js/fastclick.js') }}"></script>
+    <!-- AdminLTE App -->
+    <script src="{{ asset('bundles/app/js/app.min.js') }}"></script>
+{% endblock %}

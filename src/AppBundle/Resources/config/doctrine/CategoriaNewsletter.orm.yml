@@ -1,0 +1,42 @@
+AppBundle\Entity\CategoriaNewsletter:
+    type: entity
+    table: categoria_newsletter
+    uniqueConstraints:
+        slug:
+            columns:
+                - slug
+        id:
+            columns:
+                - id
+    id:
+        id:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+            id: true
+            generator:
+                strategy: IDENTITY
+    fields:
+        nombre:
+            type: string
+            nullable: false
+            length: 255
+            options:
+                fixed: false
+        slug:
+            type: string
+            nullable: false
+            length: 255
+            options:
+                fixed: false
+    manyToMany:
+        suscriptorid:
+            targetEntity: Suscriptor
+            cascade: {  }
+            fetch: LAZY
+            mappedBy: categoriaNewsletterid
+            inversedBy: null
+            joinTable: null
+            orderBy: null
+    lifecycleCallbacks: {  }

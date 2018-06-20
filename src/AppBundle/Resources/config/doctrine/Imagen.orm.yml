@@ -1,0 +1,109 @@
+AppBundle\Entity\Imagen:
+    type: entity
+    table: imagen
+    indexes:
+        IDX_8319D2B3AB36CB24:
+            columns:
+                - profesionalid
+        IDX_8319D2B3559C0D1B:
+            columns:
+                - eventoid
+        FKimagen691816:
+            columns:
+                - localid
+        FKimagen89442:
+            columns:
+                - artistaid
+        FKimagen705352:
+            columns:
+                - anuncioid
+    uniqueConstraints:
+        id:
+            columns:
+                - id
+    id:
+        id:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+            id: true
+            generator:
+                strategy: IDENTITY
+    fields:
+        url:
+            type: string
+            nullable: false
+            length: 255
+            options:
+                fixed: false
+        alt:
+            type: string
+            nullable: true
+            length: 255
+            options:
+                fixed: false
+        title:
+            type: string
+            nullable: true
+            length: 255
+            options:
+                fixed: false
+        destacada:
+            type: boolean
+            nullable: true
+        portada:
+            type: boolean
+            nullable: true
+    manyToOne:
+        eventoid:
+            targetEntity: Evento
+            cascade: {  }
+            fetch: LAZY
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                eventoid:
+                    referencedColumnName: id
+            orphanRemoval: false
+        artistaid:
+            targetEntity: Artista
+            cascade: {  }
+            fetch: LAZY
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                artistaid:
+                    referencedColumnName: id
+            orphanRemoval: false
+        profesionalid:
+            targetEntity: Profesional
+            cascade: {  }
+            fetch: LAZY
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                profesionalid:
+                    referencedColumnName: id
+            orphanRemoval: false
+        anuncioid:
+            targetEntity: Anuncio
+            cascade: {  }
+            fetch: LAZY
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                anuncioid:
+                    referencedColumnName: id
+            orphanRemoval: false
+        localid:
+            targetEntity: Local
+            cascade: {  }
+            fetch: LAZY
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                localid:
+                    referencedColumnName: id
+            orphanRemoval: false
+    lifecycleCallbacks: {  }

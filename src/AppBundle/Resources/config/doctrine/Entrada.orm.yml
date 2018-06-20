@@ -1,0 +1,74 @@
+AppBundle\Entity\Entrada:
+    type: entity
+    table: entrada
+    indexes:
+        FKentrada195985:
+            columns:
+                - eventoid
+        FKentrada739422:
+            columns:
+                - facturaid
+    uniqueConstraints:
+        id:
+            columns:
+                - id
+    id:
+        id:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+            id: true
+            generator:
+                strategy: IDENTITY
+    fields:
+        codigoQr:
+            type: string
+            nullable: true
+            length: 255
+            options:
+                fixed: false
+            column: codigo_qr
+        precioneto:
+            type: float
+            nullable: false
+            precision: 10
+            scale: 0
+            column: precioNeto
+        gastosgestion:
+            type: float
+            nullable: false
+            precision: 10
+            scale: 0
+            column: gastosGestion
+        precio:
+            type: float
+            nullable: false
+            precision: 10
+            scale: 0
+        consumominimo:
+            type: boolean
+            nullable: false
+            column: consumoMinimo
+    manyToOne:
+        eventoid:
+            targetEntity: Evento
+            cascade: {  }
+            fetch: LAZY
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                eventoid:
+                    referencedColumnName: id
+            orphanRemoval: false
+        facturaid:
+            targetEntity: Factura
+            cascade: {  }
+            fetch: LAZY
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                facturaid:
+                    referencedColumnName: id
+            orphanRemoval: false
+    lifecycleCallbacks: {  }

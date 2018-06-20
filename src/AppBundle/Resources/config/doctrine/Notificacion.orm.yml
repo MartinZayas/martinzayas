@@ -1,0 +1,58 @@
+AppBundle\Entity\Notificacion:
+    type: entity
+    table: notificacion
+    indexes:
+        FKnotificaci100445:
+            columns:
+                - usuarioid
+        FKnotificaci558237:
+            columns:
+                - tipo_notificacionid
+    uniqueConstraints:
+        id:
+            columns:
+                - id
+    id:
+        id:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+            id: true
+            generator:
+                strategy: IDENTITY
+    fields:
+        mensaje:
+            type: string
+            nullable: false
+            length: 255
+            options:
+                fixed: false
+        fecha:
+            type: date
+            nullable: false
+        leida:
+            type: boolean
+            nullable: false
+    manyToOne:
+        usuarioid:
+            targetEntity: Usuarios
+            cascade: {  }
+            fetch: LAZY
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                usuarioid:
+                    referencedColumnName: id
+            orphanRemoval: false
+        tipoNotificacionid:
+            targetEntity: TipoNotificacion
+            cascade: {  }
+            fetch: LAZY
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                tipo_notificacionid:
+                    referencedColumnName: id
+            orphanRemoval: false
+    lifecycleCallbacks: {  }

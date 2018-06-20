@@ -1,0 +1,65 @@
+{# Plantilla como funciona #}
+{% extends 'default/formatoBase.html.twig' %}
+{% block title %}Busco Concierto | Como Funciona{% endblock %}
+{% block cssPersonalizados %}
+    <style>
+        .btn {
+            border-radius:2px;
+        }
+        .btn-custom-orange{
+            color: #ffffff;
+            background-color: #FF8000;
+            border-color: #FF8000;
+        }
+
+        .btn-custom-orange:hover{
+            color: #ffffff;
+            background-color: #dc7003;
+            border-color: #dc7003;	
+        }
+        .btn-facebook, .btn-twitter, .btn-instagram{
+            color: #ffffff;
+        }
+        .btn-youtube{
+            color: #ffffff;
+            background-color: red;
+        }
+        .boton{
+            height: 42px;
+        }
+        a{
+            text-decoration: none;
+        }
+    </style>
+{% endblock %}
+{# % block breadcrumbs %}
+    {% include 'default/breadcrumbs.html.twig' with {'items':[
+        {'raiz':false,'title':'Ayuda','href':'#'},
+        {'raiz':true,'title':'¿Comó Funciona?'}
+    ]} %}
+{% endblock % #}
+{% block headerParallax %}
+    <div class="background-main pt60 pb60 fill text-center" style="background-image:url('{{ asset('bundles/app/img/bg3.jpg') }}'); background-color: #272727;" data-top-bottom="background-position: 50% 0px;" data-bottom-top="background-position: 50% -200px;">
+        <div class="container">
+            <div class="row">
+                <div class="col-xs-12" style="text-align:center;">
+                <h1 style="color: white">¿QU&Eacute; PERF&Iacute;L DE USUARIO ERES?</h1>
+                <a href="{{ path('agregarEvento') }}" class="btn btn-rw btn-clear mt10">
+                    Comenzar &nbsp;&nbsp;<span class="ion-ios7-arrow-right"></span>
+                </a>                
+                </div>
+            </div><!-- /row -->
+        </div><!-- /container -->
+    </div><!-- /page header -->
+{% endblock %}
+{% block steps %}
+    {% include 'default/steps.html.twig' with {'titles':[
+        'Información General',
+        '¿Dónde?',
+        '¿Cuándo?',
+        'Entradas'
+    ]} %}
+{% endblock %}
+{% block customContent %}
+    {% include 'ayuda/comoFuncionaUsuario.html.twig' %}
+{% endblock %}

@@ -1,0 +1,59 @@
+AppBundle\Entity\Album:
+    type: entity
+    table: album
+    indexes:
+        FKalbum940583:
+            columns:
+                - artistaid
+    uniqueConstraints:
+        id:
+            columns:
+                - id
+    id:
+        id:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+            id: true
+            generator:
+                strategy: IDENTITY
+    fields:
+        nombre:
+            type: string
+            nullable: false
+            length: 255
+            options:
+                fixed: false
+        imagen:
+            type: string
+            nullable: true
+            length: 255
+            options:
+                fixed: false
+        anno:
+            type: integer
+            nullable: true
+            options:
+                unsigned: false
+    manyToOne:
+        artistaid:
+            targetEntity: Artista
+            cascade: {  }
+            fetch: LAZY
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                artistaid:
+                    referencedColumnName: id
+            orphanRemoval: false
+    manyToMany:
+        estiloid:
+            targetEntity: Estilo
+            cascade: {  }
+            fetch: LAZY
+            mappedBy: albumid
+            inversedBy: null
+            joinTable: null
+            orderBy: null
+    lifecycleCallbacks: {  }

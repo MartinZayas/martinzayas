@@ -1,0 +1,40 @@
+AppBundle\Entity\Planificacion:
+    type: entity
+    table: planificacion
+    indexes:
+        IDX_320E413DB9B7D476:
+            columns:
+                - dia_semana_local_id
+    id:
+        id:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+            id: true
+            generator:
+                strategy: IDENTITY
+    fields:
+        tipo:
+            type: boolean
+            nullable: false
+        precio:
+            type: decimal
+            nullable: true
+            precision: 10
+            scale: 2
+        excepcion:
+            type: boolean
+            nullable: true
+    manyToOne:
+        diaSemanaLocal:
+            targetEntity: DiaSemanaLocal
+            cascade: {  }
+            fetch: LAZY
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                dia_semana_local_id:
+                    referencedColumnName: id
+            orphanRemoval: false
+    lifecycleCallbacks: {  }

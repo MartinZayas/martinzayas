@@ -1,0 +1,845 @@
+{# Plantilla para agregar eventos #}
+{% extends 'default/formatoBase.html.twig' %}
+
+{% block cssPersonalizados %}
+    <!-- Bootstrap Datepicker -->
+    <link rel="stylesheet" href="{{ asset('bundles/app/css/bootstrap-datepicker3.min.css') }}" />
+
+    <!-- bootstrap slider -->
+    <link href="{{ asset('bundles/app/css/slider.css') }}" rel="stylesheet" type="text/css" />
+
+    <link rel="stylesheet" href="{{ asset('bundles/app/css/select2-3.5.2/select2.css') }}" />
+    <link rel="stylesheet" href="{{ asset('bundles/app/css/select2-bootstrap.css') }}" />
+    <style>
+        .btn {
+            border-radius:2px;
+        }
+        
+        .btn-custom-orange{
+            color: #ffffff;
+            background-color: #FF8000;
+            border-color: #FF8000;
+        }
+
+        .btn-custom-orange:hover{
+            color: #ffffff;
+            background-color: #dc7003;
+            border-color: #dc7003;	
+        }
+        
+        .btn-youtube{
+            color: #ffffff;
+            background-color: red;
+        }
+    </style>
+{% endblock %}
+
+{% block breadcrumbs %}
+    {% include 'default/breadcrumbs.html.twig' with {'items':[
+        {'raiz':false,'title':'Crear Concierto','href':'#'},
+        {'raiz':true,'title':'Datos del Concierto'}
+    ]} %}
+{% endblock %}
+
+{% block headerParallax %}
+    {% include 'default/subheader.html.twig' with {
+        'bgImage':directorio_imagenes_public~'backgrounds/bg3.jpg',
+        'subheaderTitle':'Crear Concierto'
+    } %}
+{% endblock %}
+
+{% block steps %}
+    {% include 'default/steps.html.twig' with {'titles':[
+        'Información General',
+        '¿Dónde?',
+        '¿Cuándo?',
+        'Entradas'
+    ]} %}
+{% endblock %}
+
+{% block customContent %}
+    <div id="step-1-container" class="row bg-shadow mt40 mb40 background-white pt20 pb20">
+        <div class="col-sm-12">
+            <div class="panel no-margin panel-primary">
+                <div class="panel-heading">Información General</div>
+                <div class="panel-body general-container">
+                    <form action="{{ path('agregarEvento') }}" method="post" id="step-1-form" role="form">
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <div class="row">
+                                    <div class="form-group">
+                                        <div class="col-sm-12 col-md-12 col-lg-12">
+                                            <label for="nombreEvento">Nombre del Evento <span class="required">*</span></label>
+                                        </div>
+                                        <div class="col-sm-12 col-md-12 col-lg-12">
+                                            <input id="nombreEvento" name="nombreEvento" required="required" class="form-control" type="text" placeholder="Nombre del evento">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="form-group">
+                                        <div class="col-sm-12 col-md-12 col-lg-12">
+                                            <label for="estilo">Estilo(s) Musical(es) <span class="required">*</span></label>
+                                        </div>
+                                        <div class="col-sm-8 col-md-8 col-lg-8">
+                                            <select id="estilos" class="form-control" name="estilos" aria-invalid="false" placeholder="Seleccione un item">
+                                                <option value="Cl&aacute;sica">Cl&aacute;sica</option>
+                                                <option value="Indie">Indie</option>
+                                                <option value="Jazz">Jazz</option>
+                                                <option value="Pop">Pop</option>
+                                                <option value="Rock">Rock</option>
+                                                <option value="Salsa">Salsa</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-4 col-md-4 col-lg-4">
+                                        <a href="#" class="" id="agregar" onclick="agregar();">
+                                            <span title="Añadir" class="glyphicon glyphicon-ok botonAgregar"></span>Añadir
+                                        </a>
+                                    </div>
+                                </div>
+                                <!-- Estilos agregados -->
+                                <div class="row mt10">
+                                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                                        <div class="well well-sm estilosAgregados">
+                                            <ul class="list-group list-inline" id="listaDesordenada">
+
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- Fin Estilos agregados -->
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="panel panel-default" id="artistasContainer">
+                                    <div class="panel-heading">Artistas <span class="required">*</span></div>
+                                    <div class="panel-body">
+                                        {% if is_granted('ROLE_ARTIST') %}
+                                            <p class="help-block">
+                                                Si vas a compartir escenario con otros artistas, adiciónalos aqui, si no, omite este paso.
+                                            </p>
+                                        {% endif %}
+                                        <div class="form-group">
+                                            <label for="artistas">Selecciona el o los artistas</label>
+                                            <select id="artistas" class="js-source-states-2 form-control">
+                                                <option value=""></option>
+                                                {% if artistas is defined and artistas is not null %}
+                                                    {% for artista in artistas %}
+                                                        <option value="{{ artista.nombre }}">{{ artista.nombre }}</option>
+                                                    {% endfor %}
+                                                {% endif %}
+                                            </select>
+                                        </div>
+                                        <div class="form-group">
+                                            <label>O Añádelo tu mismo</label>
+                                            <div class="input-group">
+                                                <input id="nombre-artista" type="text" placeholder="Escribe el nombre del artista" class="form-control">
+                                                <span class="input-group-btn">
+                                                    <button id="btnAdicionarArtista" style="height: 42px;" class="btn btn-success"><i class="fa fa-plus"></i> Añadir</button>
+                                                </span>
+                                            </div>
+                                        </div>
+                                        <div class="row mt20">
+                                            <div class="col-md-12">
+                                                <div class="table-responsive no-margin">
+                                                    <table id="artistas-seleccionados" class="table">
+                                                        <thead>
+                                                        <tr>
+                                                            <th colspan="2">Artistas seleccionados</th>
+                                                        </tr>
+                                                        </thead><!-- /table header -->
+                                                        <tbody>
+                                                            {% if is_granted('ROLE_ARTIST') %}
+                                                                <tr>
+                                                                    <td>Tú ({{ app.user.artista.nombre }})</td>
+                                                                </tr>
+                                                            {% else %}
+                                                                <tr class="no-artist">
+                                                                    <td>No has seleccionado ningun artista</td>
+                                                                </tr>
+                                                            {% endif %}
+
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="panel panel-default">
+                                    <div class="panel-heading">Imágenes</div>
+                                    <div class="panel-body">
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <p id="msgBoxFotos" style="color: red;"></p>
+                                                <p>
+                                                    Puedes subir otras fotos para que se vean en los detalles del concierto.
+                                                </p>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <ul id="fotos-container" class="col-sm-12 text-center no-margin list-unstyled">
+
+                                            </ul>
+                                        </div>
+                                        <div class="row mt20">
+                                            <div class="col-md-12">
+                                                <div id="progressOuter2" class="progress progress-striped active" style="display:none;">
+                                                    <div id="progressBar2" class="progress-bar progress-bar-primary"  role="progressbar" aria-valuenow="45" aria-valuemin="0" aria-valuemax="100" style="width: 0%">
+                                                    </div>
+                                                </div>
+                                                <a id="uploadBtnFotos" href="#" class="btn btn-primary"><i class="fa fa-plus"></i> Añadir imagen </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <input type="hidden" name="step" value="1">
+                        <input type="hidden" name="idEvento" class="idEvent">
+                        <input type="hidden" name="img-upload-path" id="img-upload-path" value="{{ path('agregarImagen') }}">
+                        <input type="hidden" name="img-route" id="img-route" value="{{ asset(uploads_images_temp) }}">
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-12 text-right mt10">
+            <a href="#" data-step="1" data-toggle="tooltip" title="Siguiente - ¿Dónde?" class="btn btn-rw btn-primary btn-lg btn-submit-evento">Siguiente <i class="ion-ios7-arrow-right"></i></a>
+        </div>
+    </div>
+    <div id="step-2-container" class="row" style="display: none;">
+        <div class="col-sm-12">
+            <div class="row bg-shadow mt40 mb40 background-white pt20 pb20">
+                <div class="col-sm-12" id="filtroLocalContainer">
+                    <div class="panel no-margin panel-primary">
+                        <div class="panel-heading">Filtrar por</div>
+                        <div class="panel-body">
+                            <form id="formFiltroLocal" role="form" action="{#{ path('agregarEventoFiltroLocal') }#}" method="post">
+                                <div class="row">
+                                    <div class="col-md-4 col-sm-6 col-xs-12">
+                                        <div class="form-group">
+                                            <label>Nombre</label>
+                                            <input name="filtroNombre" class="form-control" type="text" placeholder="Nombre del Local">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="filtroProvincia">Provincia</label>
+                                            <select id="filtroProvincia" name="filtroProvincia" class="form-control js-source-states-2" multiple="multiple">
+                                                <option value="Rock">Rock</option>
+                                                <option value="Pop">Pop</option>
+                                                <option value="Jazz">Jazz</option>
+                                                <option value="Bachata">Bachata</option>
+                                                <option value="Clasic">Clasic</option>
+                                                <option>A Coruna</option>
+                                                <option>Albacete</option>
+                                                <option>Alicante</option>
+                                                <option>Almería</option>
+                                                <option>Asturias</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4 col-sm-6 col-xs-12">
+                                        <div class="form-group">
+                                            <label for="filtroCiudad">Ciudad</label>
+                                            <select id="filtroCiudad" name="filtroProvincia" class="form-control js-source-states-2" multiple="multiple">
+                                                <option value="Rock">Rock</option>
+                                                <option value="Pop">Pop</option>
+                                                <option value="Jazz">Jazz</option>
+                                                <option value="Bachata">Bachata</option>
+                                                <option value="Clasic">Clasic</option>
+                                                <option>A Coruna</option>
+                                                <option>Albacete</option>
+                                                <option>Alicante</option>
+                                                <option>Almería</option>
+                                                <option>Asturias</option>
+                                            </select>
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Disponibilidad</label>
+                                            <div class="input-daterange input-group" id="datepicker">
+                                                <input type="text" placeholder="Fecha Inicio" style="border-radius:0;" class="input-sm form-control" name="filtroFechaInicio" />
+                                                <span class="input-group-addon">hasta</span>
+                                                <input type="text" placeholder="Fecha Fin" class="input-sm form-control" style="border-radius:0;" name="filtroFechaFin" />
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-4 col-sm-6 col-xs-12">
+                                        <div class="form-group">
+                                            <label for="filtroAforo">Aforo</label><br/>
+                                            <span style="margin-bottom:20px;" id="aforoInicio"><strong>0</strong></span>
+                                            <span style="margin-bottom:20px;" id="aforoFinal" class="pull-right"><strong>500</strong></span>
+                                            <input name="filtroAforo" id="filtroAforo" type="text" value="Aforo" class="slider form-control" data-slider-min="0" data-slider-max="500" data-slider-step="5" data-slider-value="[0,500]" data-slider-orientation="horizontal" data-slider-selection="before" data-slider-tooltip="hide" data-slider-id="blue">
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-12 text-right mt10">
+                    <a id="btnFiltroLocal" href="#" class="btn btn-rw btn-primary btn-lg">Filtrar </a>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="heading">
+                        <h4>
+                            <span class="ion-navicon-round mr15"></span>
+                            Locales Disponibles
+                        </h4>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-sm-12" id="localesResultContainer">
+                    <!-- Comienza el listado de locales -->
+                    {% for local in locales %}
+                        <div class="row mb40 list-item-local-row bg-shadow">
+                            <div class="col-md-12">
+                                <div class="row">
+                                    {% if local is defined and local is not null %}
+                                    <div class="col-md-4">
+                                        {% if local.getImagenDestacada!=null %}
+                                            <img class="img-responsive" src="{{ asset(uploads_images) }}{{ local.getImagenDestacada.url }}" alt="{{ local.getImagenDestacada.alt }}" />
+                                        {% else %}
+                                            <img class="img-responsive" src="{{ asset(directorio_imagenes_public) }}no_image.jpg" alt="Sin imagen" />
+                                        {% endif %}
+                                    </div>
+                                    <div class="col-md-4">
+                                        <h3><a href="#">Local{{ local.nombre }}</a></h3>
+                                        <hr align="left" class="mt15 mb10" style="width:50px;">
+                                        <ul class="posted-info">
+                                            <li><i class="fa fa-group"></i> Aforo: {{ local.aforo }} personas</li>
+                                            <li><i class="fa fa-map-marker"></i> {{ local.usuarioid.direccionid.direccion }}, {{ local.usuarioid.direccionid.ciudad }}, {{ local.usuarioid.direccionid.provincia }}</li>
+                                            <li><i class="ion-map"></i> Medidas Escenario: {{ local.medidasEscenario }} mts cuadrados</li>
+                                        </ul>
+                                    </div>
+                                    <div class="col-md-4" style="text-align:center;">
+                                        <h2 style="text-transform:lowercase;margin-top:20px;">15€ / hora</h2>
+                                        <a href="#" data-id="{{ local.id }}" data-step="2" class="btn btn-custom-orange btn-lg btn-submit-evento">Seleccionar local</a>
+                                    </div>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </div>
+                    {% else %}
+                        {% include 'default/message.html.twig' with {'type':'info','message1':'No existen locales disponibles por el momento','noClose':true} %}
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+        <form action="{{ path('agregarEvento') }}" method="post" id="step-2-form" role="form">
+            <input type="hidden" name="step" value="2">
+            <input type="hidden" name="idEvento" class="idEvent">
+            <input type="hidden" id="img-route-public" value="{{ asset(uploads_images) }}">
+            <input type="hidden" id="idLocal" name="idLocal">
+        </form>
+    </div>
+
+    <div id="step-3-container" class="row bg-shadow mt40 mb40 background-white pt20 pb20" style="display: none;">
+        <div class="col-sm-12">
+            <div class="panel no-margin panel-primary">
+                <div class="panel-heading">Establece el horario de tu evento</div>
+                <div class="panel-body general-container">
+                    <form action="{{ path('agregarEvento') }}" method="post" id="step-3-form" role="form">
+                        <div class="row">
+                            <div class="col-sm-4">
+                                <div class="form-group">
+                                    <label for="fechaInicio">Fecha <span class="required">*</span></label>
+                                    <p class="help-block">Solo aparecerán disponibles los dias que abre el local seleccionado</p>
+                                    <div class="input-group">
+                                        <div class="input-group-addon"><i class="fa fa-calendar"></i></div>
+                                        <input required="required" id="fechaInicio" name="fechaInicio" class="form-control" type="text">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-5 form-inline">
+                                <div class="panel panel-default" id="horarioContainer">
+                                    <div class="panel-heading">Horario <span class="required">*</span></div>
+                                    <div class="panel-body">
+                                        <div class="row hora-container first">
+                                            <div class="col-md-12">
+                                                <div class="form-group">
+                                                    <label for="horaInicioEvento">Desde</label>
+                                                </div>
+                                                <div class="form-group">
+                                                    <select required="required" id="horaInicioEvento" name="horaInicioEvento" class="form-control selectpicker">
+                                                        <option value="">Hr</option>
+                                                        {% for i in 0..23 %}
+                                                            <option value="{{ i<10?'0'~i:i }}">{{ i<10?'0'~i:i }}</option>
+                                                        {% endfor %}
+                                                    </select>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="minutoInicioEvento">:</label>
+                                                </div>
+                                                <div class="form-group">
+                                                    <select required="required" id="minutoInicioEvento" name="minutoInicioEvento" class="form-control selectpicker">
+                                                        <option value="">Min</option>
+                                                        {% for i in 0..59 %}
+                                                            <option value="{{ i<10?'0'~i:i }}">{{ i<10?'0'~i:i }}</option>
+                                                        {% endfor %}
+                                                    </select>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label>horas</label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row hora-container">
+                                            <div class="col-md-12">
+                                                <div class="form-group" style="margin-right: 27px;">
+                                                    <label for="horaFinEvento">Hasta</label>
+                                                </div>
+                                                <div class="form-group">
+                                                    <select required="required" id="horaFinEvento" name="horaFinEvento" class="form-control selectpicker">
+                                                        <option value="">Hr</option>
+                                                        {% for i in 0..23 %}
+                                                            <option value="{{ i<10?'0'~i:i }}">{{ i<10?'0'~i:i }}</option>
+                                                        {% endfor %}
+                                                    </select>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="minutoFinEvento">:</label>
+                                                </div>
+                                                <div class="form-group">
+                                                    <select required="required" id="minutoFinEvento" name="minutoFinEvento" class="form-control selectpicker">
+                                                        {% for i in 0..59 %}
+                                                            <option value="{{ i<10?'0'~i:i }}">{{ i<10?'0'~i:i }}</option>
+                                                        {% endfor %}
+                                                    </select>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label>horas</label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <input type="hidden" name="step" value="3">
+                        <input type="hidden" name="idEvento" class="idEvent">
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-12 text-right mt10">
+            <a href="#" data-step="3" data-toggle="tooltip" title="Anterior - ¿Dónde?" class="btn btn-rw btn-primary btn-lg btn-back-evento"><i class="ion-ios7-arrow-left"></i> Anterior</a>
+            &nbsp;
+            <a href="#" data-step="3" data-toggle="tooltip" title="Siguiente - Precios" class="btn btn-rw btn-primary btn-lg btn-submit-evento">Siguiente <i class="ion-ios7-arrow-right"></i></a>
+        </div>
+    </div>
+
+    <div id="step-4-container" class="row bg-shadow mt40 mb40 background-white pt20 pb20" style="display: none;">
+        <div class="col-sm-12">
+            <div class="panel no-margin panel-primary">
+                <div class="panel-heading">Establece el precio de cada entrada y la cantidad de entradas a vender</div>
+                <div class="panel-body general-container">
+                    <form action="{{ path('agregarEvento') }}" method="post" id="step-4-form" role="form">
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div class="panel panel-default">
+                                    <div class="panel-heading">Cantidad de entradas a vender</div>
+                                    <div class="panel-body">
+                                        <div class="row">
+                                            <div class="col-md-4">
+                                                <div class="form-group">
+                                                    <label for="minimoEntradas">Mínimo <span class="required">*</span>
+                                                        <i class="fa fa-question-circle" data-toggle="tooltip" title="Cantidad mínima a vender para celebrar el evento"></i>
+                                                    </label>
+                                                    <input id="minimoEntradas" name="minimoEntradas" required="required" type="number" class="form-control">
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <div class="form-group">
+                                                    <label for="maximoEntradas">Máximo <span class="required">*</span></label>
+                                                    <input id="maximoEntradas" name="maximoEntradas" required="required" type="number" class="form-control">
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <div class="form-group">
+                                                    <label for="diasVotacion">Dias en votación <span class="required">*</span></label>
+                                                    <select required="required" id="diasVotacion" name="diasVotacion" class="form-control selectpicker">
+                                                        <option value=""></option>
+                                                        {% for i in 1..10 %}
+                                                            <option value="{{ i }}">{{ i }}</option>
+                                                        {% endfor %}
+                                                        <option value="15">15</option>
+                                                        <option value="20">20</option>
+                                                        <option value="25">25</option>
+                                                        <option value="30">30</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="row">
+                                            <div class="col-sm-12">
+                                                <div class="panel panel-default">
+                                                    <div class="panel-heading">Configuración de precios</div>
+                                                    <div class="panel-body">
+                                                        <div class="row">
+                                                            <div class="col-md-12 form-inline">
+                                                                <div class="radio" style="margin-right:20px;">
+                                                                    <label>
+                                                                        <input class="flat" type="radio" name="tipo" id="venta" checked >
+                                                                        De pago
+                                                                    </label>
+                                                                </div>
+                                                                <div class="radio">
+                                                                    <label>
+                                                                        <input class="flat" type="radio" name="tipo" id="gratuita" >
+                                                                        Gratuita (Invitación)
+                                                                    </label>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="row">
+                                                            <div class="col-md-6">
+                                                                <div class="row mt30">
+                                                                    <div class="col-md-5">
+                                                                        <div class="form-group">
+                                                                            <label>Precio neto</label>
+                                                                            <div class="input-group">
+                                                                                <input type="number" class="form-control">
+                                                                                <span class="input-group-addon"><i class="fa fa-euro"></i></span>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col-md-2 container-item-sign">
+                                                                        <span class="fa fa-plus"></span>
+                                                                    </div>
+                                                                    <div class="col-md-5">
+                                                                        <div class="form-group">
+                                                                            <label>Gastos de gestión</label>
+                                                                            <div class="input-group">
+                                                                                <input type="text" readonly class="form-control">
+                                                                                <span class="input-group-addon"><i class="fa fa-euro"></i></span>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="row">
+                                                                    <div class="col-md-12">
+                                                                        <div class="form-group">
+                                                                            <label>Precio Final</label><br/>
+                                                                            <input style="font-size:26px;" type="text" value="50.00 €" readonly class="form-control">
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-6">
+                                                                <div class="row mt20">
+                                                                    <div class="col-md-12">
+                                                                        <div class="panel panel-default">
+                                                                            <div class="panel-heading">Porcentajes a cobrar</div>
+                                                                            <div class="panel-body">
+                                                                                <table id="porcientoLocalContainer" class="table table-hover">
+                                                                                    <thead>
+                                                                                    <tr>
+                                                                                        <th>Local</th>
+                                                                                        <th>Porcentaje a cobrar</th>
+                                                                                        <th style="width:42%;">Total</th>
+                                                                                    </tr>
+                                                                                    </thead><!-- /table header -->
+                                                                                    <tbody>
+                                                                                    <tr>
+                                                                                        <td>La Piragua</td>
+                                                                                        <td style="width:30%;">
+                                                                                            <div class="input-group">
+                                                                                                <input type="number" class="form-control">
+                                                                                                <span class="input-group-addon">%</span>
+                                                                                            </div>
+                                                                                        </td>
+                                                                                        <td>
+                                                                                            <div class="input-group">
+                                                                                                <input type="text" disabled class="form-control">
+                                                                                                <span class="input-group-addon"><i class="fa fa-euro"></i></span>
+                                                                                            </div>
+                                                                                        </td>
+                                                                                    </tr>
+                                                                                    </tbody><!-- /table body -->
+                                                                                </table>
+                                                                                <table class="table table-hover" id="porcientoArtistasContainer">
+                                                                                    <thead>
+                                                                                    <tr>
+                                                                                        <th>Artista</th>
+                                                                                        <th>Porcentaje a cobrar</th>
+                                                                                        <th>Total</th>
+                                                                                    </tr>
+                                                                                    </thead><!-- /table header -->
+                                                                                    <tbody>
+                                                                                    <tr>
+                                                                                        <td>Mauricio Hernandez</td>
+                                                                                        <td style="width:30%;">
+                                                                                            <div class="input-group">
+                                                                                                <input type="number" class="form-control">
+                                                                                                <span class="input-group-addon">%</span>
+                                                                                            </div>
+                                                                                        </td>
+                                                                                        <td>
+                                                                                            <div class="input-group">
+                                                                                                <input type="text" disabled class="form-control">
+                                                                                                <span class="input-group-addon"><i class="fa fa-euro"></i></span>
+                                                                                            </div>
+                                                                                        </td>
+                                                                                    </tr>
+                                                                                    <tr>
+                                                                                        <td>Michel Perez</td>
+                                                                                        <td>
+                                                                                            <div class="input-group">
+                                                                                                <input type="number" class="form-control">
+                                                                                                <span class="input-group-addon">%</span>
+                                                                                            </div>
+                                                                                        </td>
+                                                                                        <td>
+                                                                                            <div class="input-group">
+                                                                                                <input type="text" disabled class="form-control">
+                                                                                                <span class="input-group-addon"><i class="fa fa-euro"></i></span>
+                                                                                            </div>
+                                                                                        </td>
+                                                                                    </tr>
+                                                                                    <tr>
+                                                                                        <td>Talia Hernandez</td>
+                                                                                        <td>
+                                                                                            <div class="input-group">
+                                                                                                <input type="number" class="form-control">
+                                                                                                <span class="input-group-addon">%</span>
+                                                                                            </div>
+                                                                                        </td>
+                                                                                        <td>
+                                                                                            <div class="input-group">
+                                                                                                <input type="text" disabled class="form-control">
+                                                                                                <span class="input-group-addon"><i class="fa fa-euro"></i></span>
+                                                                                            </div>
+                                                                                        </td>
+                                                                                    </tr>
+                                                                                    <tr>
+                                                                                        <td>
+                                                                                            <b>Total</b>
+                                                                                        </td>
+                                                                                        <td colspan="2" align="right">
+                                                                                            <b>7.00€</b>
+                                                                                        </td>
+                                                                                    </tr>
+                                                                                    </tbody><!-- /table body -->
+                                                                                </table>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <input type="hidden" name="step" value="4">
+                        <input type="hidden" name="idEvento" class="idEvent">
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-12 text-right mt10">
+            <a href="#" data-step="4" data-toggle="tooltip" title="Anterior - ¿Cuándo?" class="btn btn-rw btn-primary btn-lg btn-back-evento"><i class="ion-ios7-arrow-left"></i> Anterior</a>
+            &nbsp;
+            <a href="#" data-step="4" data-toggle="tooltip" title="Terminar" class="btn btn-rw btn-primary btn-lg btn-submit-evento"><i class="fa fa-check-circle"></i> Terminar y crear evento</a>
+        </div>
+    </div>
+{% endblock %}
+
+{% block customScripts %}
+    <!-- Bootstrap Datepicker -->
+    <script src="{{ asset('bundles/app/js/bootstrap-datepicker.min.js') }}"></script>
+
+    <!-- Bootstrap slider -->
+    <script src="{{ asset('bundles/app/js/bootstrap-slider.js') }}" type="text/javascript"></script>
+
+    <!-- Select2 -->
+
+    <script src="{{ asset('bundles/app/js/select2.min.js') }}"></script>
+
+    <script type="text/javascript" src="{{ asset('bundles/app/js/uploadMediasEvento.js') }}"></script>
+
+    <script type="text/javascript" src="{{ asset('bundles/app/js/agregarEvento.js') }}"></script>
+
+    <script type="text/javascript" src="{{ asset('bundles/app/js/customCodeEvento.js') }}"></script>
+
+
+
+    <script>
+        $(document).ready(function(){
+            /* BOOTSTRAP SLIDER */
+            $('.slider').slider();
+            //update cache values
+            $('#filtroAforo').on('slide',function(e){
+                //separar los valores
+                var values=e.value.toString();
+                values= values.split(',');
+                $('#aforoInicio').text(values[0]);
+                $('#aforoFinal').text(values[1]);
+            });
+/*************************************************************/
+            $('#datepicker').datepicker({
+                format: "yyyy-mm-dd",
+                autoclose: true
+            });
+//            $('#fechaInicio').datepicker({
+//                format: "yyyy-mm-dd",
+//                autoclose: true
+//            });
+            $('.selectpicker').selectpicker();
+            //Accion del boton Atras
+            $('.btn-back-evento').on('click',function(e){
+                e.preventDefault();
+                wait('.container');
+                var step=$(this).attr('data-step');
+                //ocultar la region actual
+                if(step>1){
+                    var regionActual="#step-"+step+"-container";
+                    $(regionActual).hide();
+                    var newStep=step-1;
+                    var regionAnterior="#step-"+newStep+"-container";
+                    $(regionAnterior).fadeIn();
+                    //actualizar los items del listado de steps
+                    updateItems(newStep);
+                }
+                endWait('.container');
+            });
+            //Action del boton submit de los forms
+            $('.btn-submit-evento').on('click',function(e){
+                e.preventDefault();
+                var step=$(this).attr('data-step');
+                var validator=null;
+                var noValidate=false;
+                if(step==1){
+                    validator=validator1;
+                }
+                else if(step==2){
+                    noValidate=true;
+                    //asignar id de local
+                    $('#idLocal').val($(this).attr('data-id'));
+                }
+                else if(step==3){
+                    validator=validator3;
+                }
+                //validaar primero el form
+                if(noValidate || validator.form()){
+                    var container="#step-"+step+"-container .general-container";
+                    wait(container);
+                    var selector="#step-"+step+"-form";
+                    var $form=$(selector);
+                    //limpiar todos los errores
+                    $('.form-error').remove();
+                    //procesar el form
+                    $.ajax($form.attr('action'),{
+                        dataType:"json",
+                        type:"post",
+                        data:$form.serialize()
+                    }).done(function(response){
+                        if(!response[0]){
+                            //buscar los errores y posicionarlos en los campos correspondientes
+                            var errores=response[1];
+
+                            for(var i=0;i<=errores.length;i++){
+                                var sel="#"+errores[i]['id'];
+
+                                var error='<span class="error" style="color:red;font-weight: bold;">'+errores[i]['error']+'</span>';
+
+                                if(errores[i]['type']!=null && errores[i]['type']=='panel'){
+                                    sel+=" .panel-heading";
+                                    $(sel).append(error);
+                                }else{
+                                    $(sel).closest('form').find("label[for='" + $(sel).attr( "id" ) + "']").append($(error));
+                                }
+
+                            }
+
+                        }
+                        else{ //obtener el paso siguiente
+                            var nextStep=response[1];
+                            if(nextStep==-1){
+                       //TODO:fin del Wizard, redireccionar para el area de cliente
+                                alert('Fin del Wizard, redireccionamos para el area de cliente, cuando este lista ;)');
+                            }
+                            else{
+                                var stepContainer="#step-"+step+"-container";
+                                $(stepContainer).hide();
+                                var stepContainer="#step-"+nextStep+"-container";
+                                $(stepContainer).fadeIn();
+                                if(nextStep==2){
+                                    //asignar el id del evento
+                                    $('.idEvent').each(function(){
+                                        $(this).val(response[2]);
+                                    });
+                                }
+                                if(nextStep==3){
+                                //inicializar calendario
+                                    var diasDisabled='';
+                                    var fechasDisabled='';
+                                    if(response[3]['dias']!=null){
+                                        diasDisabled=response[3]['dias'];
+                                    }
+                                    if(response[3]['fechas']!=null){
+                                        fechasDisabled=response[3]['fechas'];
+                                    }
+                                    $('#fechaInicio').datepicker({
+                                        format: "yyyy-mm-dd",
+                                        autoclose: true,
+                                        daysOfWeekDisabled: diasDisabled,
+                                        datesDisabled: fechasDisabled
+                                    });
+                                }
+                                if(nextStep==4){
+                                    //Rellenar el form con los datos
+                                    var data=response[3];
+                                    $('#maximoEntradas').val(data['sala']['aforo']);
+                                    $('#maximoEntradas').attr('max',data['sala']['aforo']);
+                                    var tr='<tr><td>'+data['sala']['nombre']+'</td><td style="width:30%;">';
+                                    tr+='<div class="input-group"><input class="form-control" type="number" id="porcientoLocal" name="porcientoLocal">';
+                                    tr+='<span class="input-group-addon">%</span></div></td>';
+                                    tr+='<td><div class="input-group"><input class="form-control" id="totalLocal" name="totalLocal"><span class="input-group-addon"></span><i class="fa fa-euro"></i></div></td></tr>';
+                                    $('#porcientoLocalContainer tbody').append($(tr));
+                                    for(var i=0;i<=data['artistas'].length;i++){
+                                    }
+                                    $('#porcientoArtistasContainer tbody').append();
+                                }
+                                //marcar el item de la lista de steps
+                                updateItems(nextStep);
+                                jQuery('html, body').animate({
+                                    scrollTop: jQuery('div.container').offset().top - 50
+                                }, 1500);
+                            }
+                        }
+                    });
+                    endWait(container);
+                }
+            });
+        });
+
+        function updateItems(nextStep){
+            $('ul.steps > li').each(function(){
+                $(this).removeClass('active');
+
+            });
+
+            var selectorStep="ul.steps > li#step-"+nextStep;
+
+            $(selectorStep).addClass('active');
+        }
+    </script>
+{% endblock %}
+
+

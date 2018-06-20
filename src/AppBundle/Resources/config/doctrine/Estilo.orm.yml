@@ -1,0 +1,93 @@
+AppBundle\Entity\Estilo:
+    type: entity
+    table: estilo
+    uniqueConstraints:
+        slug:
+            columns:
+                - slug
+        id:
+            columns:
+                - id
+    id:
+        id:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+            id: true
+            generator:
+                strategy: IDENTITY
+    fields:
+        slug:
+            type: string
+            nullable: false
+            length: 255
+            options:
+                fixed: false
+        nombre:
+            type: string
+            nullable: true
+            length: 255
+            options:
+                fixed: false
+    manyToMany:
+        albumid:
+            targetEntity: Album
+            cascade: {  }
+            fetch: LAZY
+            mappedBy: null
+            inversedBy: estiloid
+            joinTable:
+                name: estilo_album
+                joinColumns:
+                    -
+                        name: estiloid
+                        referencedColumnName: id
+                inverseJoinColumns:
+                    -
+                        name: albumid
+                        referencedColumnName: id
+            orderBy: null
+        artistaid:
+            targetEntity: Artista
+            cascade: {  }
+            fetch: LAZY
+            mappedBy: null
+            inversedBy: estiloid
+            joinTable:
+                name: estilo_artista
+                joinColumns:
+                    -
+                        name: estiloid
+                        referencedColumnName: id
+                inverseJoinColumns:
+                    -
+                        name: artistaid
+                        referencedColumnName: id
+            orderBy: null
+        eventoid:
+            targetEntity: Evento
+            cascade: {  }
+            fetch: LAZY
+            mappedBy: null
+            inversedBy: estiloid
+            joinTable:
+                name: estilo_evento
+                joinColumns:
+                    -
+                        name: estiloid
+                        referencedColumnName: id
+                inverseJoinColumns:
+                    -
+                        name: eventoid
+                        referencedColumnName: id
+            orderBy: null
+        localid:
+            targetEntity: Local
+            cascade: {  }
+            fetch: LAZY
+            mappedBy: estiloid
+            inversedBy: null
+            joinTable: null
+            orderBy: null
+    lifecycleCallbacks: {  }

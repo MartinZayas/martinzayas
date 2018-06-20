@@ -1,0 +1,380 @@
+{# Listado de salas #}
+{% extends 'default/formatoBase.html.twig' %}
+{% block title %}Busco Concierto | Listado de Salas{% endblock %}
+{% block cssPersonalizados %}
+    <!-- bootstrap slider -->
+    <link href="{{ asset('bundles/app/css/slider.css') }}" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" href="{{ asset('bundles/app/css/select2-3.5.2/select2.css') }}" />
+    <link rel="stylesheet" href="{{ asset('bundles/app/css/select2-bootstrap.css') }}" />
+    <!-- select 2 -->
+    <link href="{{ asset('bundles/app/css/select2.min.css') }}" rel="stylesheet" />
+    <style>
+        .btn {
+            border-radius:2px;
+        }
+        
+        .btn-custom-orange{
+            color: #ffffff;
+            background-color: #FF8000;
+            border-color: #FF8000;
+        }
+
+        .btn-custom-orange:hover{
+            color: #ffffff;
+            background-color: #dc7003;
+            border-color: #dc7003;	
+        }
+        
+        .btn-youtube{
+            color: #ffffff;
+            background-color: red;
+        }
+        .boton{
+            height: 42px;
+        }
+        .precio{
+            font-family: Helvetica;
+            font-size: 20px;
+        }
+        .texto{
+            margin-bottom: 5px;
+        }
+        .errores{
+            visibility: hidden;
+        }
+        .overflow{
+            overflow: hidden;
+        }
+        .border-diagonal {
+            width: 220px;
+            position: absolute;
+            top: 18px;
+            right: -80px;
+            -moz-transform: rotate(40deg);
+            background: deepskyblue;
+            color: #fff;
+            text-align: center;
+            font-family: SansPro-BlackItalic, sans-serif;
+            font-size: 14px;
+            font-style: normal;
+            text-transform: uppercase;
+            padding: 10px;
+           /* text-shadow: 1px 0px rgb(0, 215, 255), -1px 0px rgb(0, 215, 255),0px 1px rgb(0, 215, 255), 0px -1px rgb(0, 215, 255);*/
+            box-shadow: 1px 1px 5px rgba(0,0,0,0.5);
+            border-radius: 20px;
+        }
+        .desde{
+            text-align: left;
+            font-weight: bold;
+        }
+        .hasta{
+            text-align: right;
+            font-weight: bold;
+        }
+        .slidecontainer {
+            width: 100%;
+        }
+        .slider {
+            -webkit-appearance: none;
+            width: 100%;
+            height: 10px;
+            border-radius: 5px;
+            background: #205081; /* #d3d3d3; Gris */
+            outline: none;
+            opacity: 0.7;
+            -webkit-transition: .2s;
+            transition: opacity .2s;
+        }
+        .slider:hover {
+            opacity: 1;
+        }
+
+        .slider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: #000000; /* #4CAF50; Verde */
+            cursor: pointer;
+        }
+
+        .slider::-moz-range-thumb {
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: #000000; /* #4CAF50; */
+            cursor: pointer;
+        }
+        .sociales{
+            width: auto;
+            position: absolute;
+            top: 100px;
+            right: 0px;
+            background-color: #ffffff; /*#B0BED9; Azul gris*/
+            color: #ffffff;
+        }
+        .buscar{
+            width: 80%;
+        }
+        .boton-buscar{
+            position: absolute;
+            left: 76%;
+            width: 20%;
+            height: 42px;
+        }
+        h3>a{
+            font-family: Beauty, sans-serif;
+            font-weight: bold; 
+        }
+        .textoDireccion{
+            font-family: Helvetica, HelveticaCondensada;
+        }
+        .bordesResultados{
+            border-radius: 0px;
+            -webkit-box-shadow: 2px 2px 11px rgba(0,0,0,.1);
+            box-shadow: 2px 2px 11px rgba(0,0,0,.1);
+        }
+        .bordesBuscar{
+            border-radius: 0px;
+            -webkit-box-shadow: 2px 2px 11px rgba(0,0,0,.1);
+            box-shadow: 2px 2px 11px rgba(0,0,0,.1);
+        }
+        .listaResultados{
+            padding:10px;
+            border: 1px solid #D2D2D2;
+            margin-left: 5px;
+            background-color: white;
+        }
+    </style>
+{% endblock %}
+{% block headerParallax %}
+    {% include 'default/subheader.html.twig' with {
+        'bgImage':directorio_imagenes_public~'backgrounds/bg10.png',
+        'subheaderTitle':'Se encontraron 3 resultados'
+    } %}
+{% endblock %}
+{% block steps %}
+    {% include 'default/steps.html.twig' with {'titles':[
+        'Información General',
+        '¿Dónde?',
+        '¿Cuándo?',
+        'Entradas'
+    ]} %}
+{% endblock %}
+{% block customContent %}
+    <div class="container"><!-- Contenedor -->
+        <div class="row mt20 mb20">
+            <form name="formulario1" id="formulario1" method="post">
+                <div class="col-sx-3 col-sm-3 col-md-3 col-lg-3 pb20"><!-- Columna de los filtros -->
+                    <h3>Filtrar por</h3>
+                    <div class="row mt30">
+                        <div id="filtrosContainer" class="col-xs-12 background-white pt20 pb20 bordesBuscar">
+                            <div class="input-group">
+                                <input type="text" class="form-control" placeholder="Buscar Sala">
+                                <div class="input-group-btn">
+                                  <button class="btn btn-default boton" type="submit">
+                                    <i class="glyphicon glyphicon-search"></i>
+                                  </button>
+                                </div>
+                            </div>
+                            <label class="mt20" for="filtroTipoArtista">Tipo de Sala</label>
+                            <select name="filtroSala[]" id="filtroSala" class="form-control js-example-basic-single">
+                                <option value="0">Seleccione un Tipo de Sala</option>
+                                <option value="1">banda</option>
+                                <option value="2">solista</option>
+                                <option value="3">orquesta</option>
+                                <option value="4">tributo</option>
+                            </select>
+                            <label class="mt20" for="filtroPais">País</label>
+                            <select name="pais[]" id="pais" class="form-control js-example-basic-single-multiple" multiple="multiple">
+                                <option value=""></option>     
+                                <option value="1">España</option> 
+                                <option value="2">M&eacute;xico</option>     
+                            </select>
+                            <label class="mt20" for="filtroProvincia">Provincia</label>
+                            <select id="provincia" name="provincia[]" class="form-control js-example-basic-single-multiple" multiple="multiple">
+                                <option value=""></option>
+                                <option value="">Seleccione una provincia</option>
+                                <option value="1">Ãlava</option>          
+                                <option value="2">Albacete</option>
+                                <option value="3">Alicante</option>
+                                <option value="4">AlmerÃ­a</option>
+                                <option value="5">Ãvila</option>
+                                <option value="6">Badajoz</option>
+                                <option value="7">Illes Balears</option>
+                                <option value="8">Barcelona</option>
+                                <option value="9">Burgos</option>
+                                <option value="10">CÃ¡ceres</option>
+                                <option value="11">CÃ¡diz</option>
+                                <option value="12">CastellÃ³n</option>
+                                <option value="13">Ciudad Real</option>
+                                <option value="14">CÃ³rdoba</option>
+                                <option value="15">A CoruÃ±a</option>
+                                <option value="16">Cuenca</option>
+                                <option value="17">Girona</option>
+                                <option value="18">Granada</option>
+                                <option value="19">Guadalajara</option>
+                                <option value="20">GuipÃºzcoa</option>
+                                <option value="21">Huelva</option>
+                                <option value="22">Huesca</option>
+                                <option value="23">JaÃ©n</option>
+                                <option value="24">LeÃ³n</option>
+                                <option value="25">Lleida</option>
+                                <option value="26">La Rioja</option>
+                                <option value="27">Lugo</option>
+                                <option value="28">Madrid</option>
+                                <option value="29">MÃ¡laga</option>
+                                <option value="30">Murcia</option>
+                                <option value="31">Navarra</option>
+                                <option value="32">Ourense</option>
+                                <option value="33">Asturias</option>
+                                <option value="34">Palencia</option>
+                                <option value="35">Las Palmas</option>
+                                <option value="36">Pontevedra</option>
+                                <option value="37">Salamanca</option>
+                                <option value="38">Santa Cruz de Tenerife</option>
+                                <option value="39">Cantabria</option>
+                                <option value="40">Segovia</option>
+                                <option value="41">Sevilla</option>
+                                <option value="42">Soria</option>
+                                <option value="43">Tarragona</option>
+                                <option value="44">Teruel</option>
+                                <option value="45">Toledo</option>
+                                <option value="46">Valencia</option>
+                                <option value="47">Valladolid</option>
+                                <option value="48">Vizcaya</option>
+                                <option value="49">Zamora</option>
+                                <option value="50">Zaragoza</option>           
+                                <option value="51">Ceuta</option>          
+                                <option value="52">Melilla</option>            
+                            </select>
+                            <label class="mt20" for="filtroCiudad">Ciudad</label>
+                            <select name="ciudad[]" id="ciudad" class="form-control js-example-basic-single-multiple" multiple="multiple">
+                                <option value=""></option>
+                                <option value="Madrid">Madrid</option>
+                                <option value="Barcelona">Barcelona</option>
+                            </select>
+                            <div class="blog-heading mt20">
+                                <h3>Precio</h3>
+                            </div>
+                            <div class="row">
+                                <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 desde">0 €</div>
+                                <div class="col-xs-5 col-sm-5 col-md-5 col-lg-5"></div>
+                                <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 hasta">400 €</div>
+                            </div>
+                            <div class="slidecontainer">
+                                <input type="range" min="1" max="1000" value="50" class="slider" id="myRange">                            
+                            </div>
+                            <input type="hidden" value="1" id="filtroQueInvocaHidden">
+                            <input type="hidden" value="" id="filtroOrderBy" name="filtroOrderBy">
+                            <hr class="hr-solid">
+                            <button name="filter" class="bg-shadow btn btn-custom-orange btn-lg" style="width:100%;">
+                                <i class="fa fa-filter"></i>
+                                Aplicar Filtro
+                            </button>
+                        </div><!-- Fin fondo blanco -->
+                    </div>
+                </div><!-- Fin Columna de los filtros -->
+                <div class="col-sx-9 col-sm-9 col-md-9 col-lg-9"><!-- Resultados -->
+                    <div class="row mb10 ml20"><!-- Ordenar por -->
+                        <div class="col-md-10" style="padding-left:0;">
+                        </div>
+                        <div class="col-md-2" style="padding-left:0;padding-right:0;">
+                            <div class="dropdown mb15 pull-right">
+                                <button class="btn btn-rw btn-primary dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown">
+                                    <i class="fa fa fa-sort"></i>
+                                    Ordenar Por
+                                    <span class="caret"></span>
+                                </button>
+                                <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
+                                    <li role="presentation" class="orderByItem" data-type="alf" id="liAlfabe"><a role="menuitem" tabindex="-1" href="#"> Alfabéticamente (A-Z)</a></li>
+                                    <li role="presentation" id="liAlfabe" class="orderByItem" data-type="alfMax"><a role="menuitem" tabindex="-1" href="#"> Alfabéticamente (Z-A)</a></li>
+                                    <li role="presentation" class="orderByItem" data-type="minPrecio" id="liMenorPrecio"><a role="menuitem" tabindex="-1" href="#"> Menor Precio </a></li>
+                                    <li role="presentation" class="orderByItem" data-type="maxPrecio" id="liMayorPrecio"><a role="menuitem" tabindex="-1" href="#"> Mayor Precio </a></li>
+                                    <li role="presentation" class="orderByItem" data-type="minExperiencia" id="liMenorExperiencia"><a role="menuitem" tabindex="-1" href="#"> Experiencia: Descendente </a></li>
+                                    <li role="presentation" class="orderByItem" data-type="maxExperiencia" id="liMayorExperiencia"><a role="menuitem" tabindex="-1" href="#"> Experiencia: Ascendente</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div><!-- Fin Ordenar por -->
+                    <div class="row mb40 listaResultados overflow bordesResultados"><!-- Resultados -->
+                        <div class="col-md-12"> <!-- Resultados de busqueda -->
+                            <div class="row mb10"><!-- Fila 1 -->
+                                <div class="col-md-6"><!-- Resulatado 1 -->
+                                    <div class="row">                                
+                                        <div class="col-md-12 resultados">
+                                            <div class="capaPrecio">
+                                                <div class="">desde</div>                                        
+                                                <div class="precio2"> 300,00 </div>
+                                                <div class="unidad">€/und</div>
+                                            </div>
+                                            <div class="imagenEventoIzq">
+                                                <a href="{{ path('detallesSalas', {'id':1}) }}">
+                                                <img class="img-responsive" alt="Sala 1"
+                                                 src="{{ asset('bundles/app/img/Sala4.png') }}" >
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-12 textoEvento">
+                                            Artista 1...
+                                        </div>
+                                    </div>
+                                </div><!-- Fin Resulatado 1 -->
+                                <div class="col-md-6"><!-- Resulatado 2 -->
+                                    <div class="row">                                
+                                        <div class="col-md-12 resultados">
+                                            <div class="capaPrecioDer">
+                                                <div class="">desde</div>                                        
+                                                <div class="precio2"> 400,00 </div>
+                                                <div class="unidad">€/und</div>
+                                            </div>
+                                            <div class="imagenEventoDer">
+                                                <a href="{{ path('detallesSalas', {'id':2}) }}">
+                                                <img class="img-responsive" alt="Sala 2"
+                                                 src="{{ asset('bundles/app/img/Sala6.png') }}" >
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-12 textoEvento">
+                                            Artista 2...
+                                        </div>
+                                    </div>
+                                </div><!-- Fin Resulatado 2 -->
+                            </div><!-- Fin Fila 1 -->                          
+                        </div><!-- Fin resultados de busqueda -->
+                    </div>
+                </div>
+            </form><!-- Fin Formulario -->
+        </div>
+    </div><!-- Fin -->
+{% endblock %}
+{% block javascripts %}
+    {{ parent() }}
+    <script src="{{ asset('bundles/app/js/TimeCircles.js') }}" type="text/javascript"></script>
+    <script>
+        var slider = document.getElementById("myRange");
+        //var output = document.getElementById("demo");
+        //output.innerHTML = slider.value;
+        //Obtiene el valor del cache    
+        slider.oninput = function() {
+          //output.innerHTML = this.value;
+        }
+    </script>
+    <!-- select2 -->
+    <script src="{{ asset('bundles/app/js/select2.min.js') }}" type="text/javascript"></script>
+    <script>
+    /***********************Select2********************************************/
+        $(document).ready(function() {
+            $('.js-example-basic-single-multiple').select2({
+                placeholder: 'Seleccione una opccion',
+                lenguage:"es"
+            });            
+            $('.js-example-basic-single').select2();
+        });
+    </script>
+{% endblock %}

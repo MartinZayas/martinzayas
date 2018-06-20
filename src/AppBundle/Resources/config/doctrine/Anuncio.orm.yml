@@ -1,0 +1,84 @@
+AppBundle\Entity\Anuncio:
+    type: entity
+    table: anuncio
+    indexes:
+        FKanuncio692549:
+            columns:
+                - profesionalid
+        FKanuncio746718:
+            columns:
+                - categoria_anuncioid
+        FKanuncio803001:
+            columns:
+                - estado_anuncioid
+    uniqueConstraints:
+        id:
+            columns:
+                - id
+    id:
+        id:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+            id: true
+            generator:
+                strategy: IDENTITY
+    fields:
+        titulo:
+            type: string
+            nullable: false
+            length: 255
+            options:
+                fixed: false
+        descripcion:
+            type: string
+            nullable: false
+            length: 255
+            options:
+                fixed: false
+        precio:
+            type: decimal
+            nullable: false
+            precision: 10
+            scale: 2
+        fechaPublicacion:
+            type: date
+            nullable: false
+            column: fecha_publicacion
+        fechaExpiracion:
+            type: date
+            nullable: false
+            column: fecha_expiracion
+    manyToOne:
+        estadoAnuncioid:
+            targetEntity: EstadoAnuncio
+            cascade: {  }
+            fetch: LAZY
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                estado_anuncioid:
+                    referencedColumnName: id
+            orphanRemoval: false
+        profesionalid:
+            targetEntity: Profesional
+            cascade: {  }
+            fetch: LAZY
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                profesionalid:
+                    referencedColumnName: id
+            orphanRemoval: false
+        categoriaAnuncioid:
+            targetEntity: CategoriaAnuncio
+            cascade: {  }
+            fetch: LAZY
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                categoria_anuncioid:
+                    referencedColumnName: id
+            orphanRemoval: false
+    lifecycleCallbacks: {  }

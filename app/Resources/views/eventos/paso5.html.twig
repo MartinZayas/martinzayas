@@ -1,0 +1,819 @@
+{# Plantilla para proponer conciertos, paso 4 #}
+{% extends 'eventos/paso1.html.twig' %}
+{% block title %}Busco Concierto | Paso 5{% endblock %}
+{% block customStyles %}
+    {{ parent() }}
+    <link rel="alternate stylesheet" type="text/css" href="{{ asset('bundles/app/css/dark-blue.css') }}" title="dark-blue">
+    <link rel="alternate stylesheet" type="text/css" href="{{ asset('bundles/app/css/width-full.css') }}" title="width-full">
+    <style>
+        ul.steps li{
+            text-align: center;
+            margin-right: 5px;
+            width: 80px !important;
+        }
+        ul.steps li.divider{
+            width: 2%;
+        }
+        ul.steps li.divider-1-steps{
+            width: 60px !important;
+        }
+        ul.steps li.divider-1-steps hr{
+            border-top: 2px solid #d2d2d2 !important;
+        }
+    </style>
+{% endblock %}
+{% block headerParallax %}
+    {% include 'default/subheader.html.twig' with {
+        'bgImage':directorio_imagenes_public~'backgrounds/bg3.jpg',
+        'subheaderTitle':'PROPONER CONCIERTO: Paso 5'
+    } %}
+{% endblock %}
+{% block steps %}
+    {% include 'default/steps.html.twig' with {'titles':[
+        'Información General',
+        '¿Dónde?',
+        '¿Cuándo?',
+        'Entradas'
+    ]} %}
+{% endblock %}
+{% block customContent %}
+    <div class="container"><!-- Contenido -->
+        <div class="row mt20 mb20"><!-- Fila -->
+            <div class="hidden-xs hidden-sm col-md-12 without-padding-right without-padding-left">
+                <ul class="steps nav nav-pills">
+                    <li role="presentation" id="step-1" class="">
+                        <a href="">
+                            1
+                        </a>
+                        <span>Informaci&oacute;n general</span>
+                    </li>
+                    <li class="divider">
+                        <span>
+                            <hr class="hr-solid">
+                        </span>
+                    </li>
+                    <li role="presentation" id="step-2" class="">
+                        <a href="">
+                            2
+                        </a>
+                        <span>¿D&oacute;nde?</span>
+                    </li>
+                    <li class="divider">
+                        <span>
+                            <hr class="hr-solid">
+                        </span>
+                    </li>
+                    <li role="presentation" id="step-3" class="">
+                        <a href="">
+                            3
+                        </a>
+                        <span>¿Cu&aacute;ndo?</span>
+                    </li>
+                    <li class="divider">
+                        <span>
+                            <hr class="hr-solid">
+                        </span>
+                    </li>
+                    <li role="presentation" id="step-4" class="">
+                        <a href="">
+                            4
+                        </a>
+                        <span>Entradas</span>
+                    </li>
+                    <li class="divider">
+                        <span>
+                            <hr class="hr-solid">
+                        </span>
+                    </li>
+                    <li role="presentation" id="step-5" class="active first">
+                        <a href="">
+                            5
+                        </a>
+                        <span>Resumen</span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-12">
+                <ul class="nav nav-pills nav-pills-shop nav-justified">
+                    <li class="active">
+                        <a data-toggle="pill" href="#paso1">
+                            <img src="{{ asset('bundles/app/img/info.png') }}" witdh="32px" height="32px" class="" alt="Conciertos">
+                            Informaci&oacute;n general
+                        </a>
+                    </li>
+                    <li>
+                        <a data-toggle="pill" href="#paso2">
+                            <img src="{{ asset('bundles/app/img/stage.png') }}" witdh="32px" height="32px" class="" alt="Donde">
+                            ¿D&oacute;nde?
+                        </a>
+                    </li>
+                    <li>
+                        <a data-toggle="pill" href="#paso3">
+                            <img src="{{ asset('bundles/app/img/calendario2.png') }}" witdh="32px" height="32px" class="" alt="Cuando">
+                            ¿Cu&aacute;ndo?
+                        </a>
+                    </li>
+                    <li>
+                        <a data-toggle="pill" href="#paso4">
+                            <img src="{{ asset('bundles/app/img/billete.png') }}" witdh="32px" height="32px" class="" alt="Entradas">
+                            Entradas
+                        </a>
+                    </li>
+                </ul><!-- Fin tabs -->
+                <div class="tab-content tab-shop bg-shadow background-white">
+                    <div id="paso1" class="tab-pane row fade in active"><!-- Informacion general -->
+                        <div class="col-sm-12">
+                            {% if evento is defined and evento is not null %}
+                            <div class="panel no-margin panel-primary">
+                                <div class="panel-heading">
+                                    <strong>Informaci&oacute;n General</strong>
+                                </div>
+                                <div class="panel-body general-container">
+                                    <div class="row">
+                                        <div class="col-sm-6">
+                                            <div class="row">
+                                                <div class="col-sm-12 col-md-12 col-lg-12">
+                                                    {% if evento is defined and evento is not null and evento.nombre is not null %}
+                                                    <div class="form-group">
+                                                        <label for="nombreEvento">Nombre del Evento <span class="required">*</span></label>
+                                                        <input id="nombreEvento" name="nombreEvento" required="required" class="form-control" type="text" value="{{ evento.nombre }}" readonly="readonly">
+                                                    </div>
+                                                    {% else %}
+                                                        <div class="form-group has-error">
+                                                            <label for="nombreEvento">Nombre del Evento <span class="required">*</span></label>
+                                                            <input id="nombreEvento" name="nombreEvento" required="required" class="form-control" type="text" value="Debe indicar un nombre" readonly="readonly">
+                                                        </div>
+                                                    {% endif %}
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                {% if evento is defined and evento is not null and evento.estilos is not null %}
+                                                <div class="form-group">
+                                                    <div class="col-sm-12 col-md-12 col-lg-12">
+                                                        <label for="estilos">Estilo(s) Musical(es) <span class="required">*</span></label>
+                                                    </div>
+                                                    <div class="col-sm-12 col-md-12 col-lg-12">
+                                                        <input id="estilos" name="estilos" required="required" class="form-control" type="text" value="{#{ evento.estilos }#}" readonly="readonly">
+                                                    </div>
+                                                </div>
+                                                {% else %}
+                                                    <div class="form-group has-error">
+                                                        <div class="col-sm-12 col-md-12 col-lg-12">
+                                                            <label for="estilos">Estilo(s) Musical(es) <span class="required">*</span></label>
+                                                        </div>
+                                                        <div class="col-sm-12 col-md-12 col-lg-12">
+                                                            <input id="estilos" name="estilos" required="required" class="form-control" type="text" value="Debe Seleccionar al menos 1 estilo" readonly="readonly">
+                                                        </div>
+                                                    </div>
+                                                {% endif %}
+                                            </div>
+                                            <!-- Fin Estilos agregados -->
+                                            {% if evento is defined and evento is not null and evento.descripcion is not null %}
+                                            <div class="form-group">
+                                                <div class="row">
+                                                    <div class="col-sm-12 col-md-12 col-lg-12">
+                                                        <label for="descripcionEvento">Descripci&oacute;n <span class="required">*</span></label>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-sm-12 col-md-12 col-lg-12">
+                                                        <textarea rows="6" cols="50" id="descripcionEvento" name="descripcionEvento" required="required" class="form-control" readonly="readonly">
+                                                            {{ evento.descripcion }}
+                                                        </textarea>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            {% else %}
+                                            <div class="form-group has-warning">
+                                                <div class="row">
+                                                    <div class="col-sm-12 col-md-12 col-lg-12">
+                                                        <label for="descripcionEvento">Descripci&oacute;n <span class="required">*</span></label>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-sm-12 col-md-12 col-lg-12">
+                                                        <textarea rows="6" cols="50" id="descripcionEvento" name="descripcionEvento" required="required" class="form-control text-justify" readonly="readonly">No ha indicado una descripci&oacute;n.</textarea>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            {% endif %}
+                                        </div>
+                                        <div class="col-sm-6">
+                                            <div class="panel panel-default" id="artistasContainer"><!-- Formulario del artista -->
+                                                <div class="panel-heading">Artistas <span class="required">*</span></div>
+                                                <div class="panel-body">
+                                                    <div class="row mt20">
+                                                        <div class="col-md-12">
+                                                            <div class="table-responsive no-margin">
+                                                                <table id="artistas-seleccionados" class="table">
+                                                                    <thead>
+                                                                    <tr>
+                                                                        <th colspan="2">Artistas seleccionados</th>
+                                                                    </tr>
+                                                                    </thead><!-- /table header -->
+                                                                    <tbody>
+                                                                        {% if artistas is defined and artistas is not null %}
+                                                                            {% for artista in artistas %}
+                                                                            <tr>
+                                                                                <td>{{ artista.nombre }}</td>
+                                                                            </tr>
+                                                                            {% endfor %}
+                                                                        {% else %}
+                                                                            <tr class="no-artist">
+                                                                                <td>No has seleccionado ningun artista</td>
+                                                                            </tr>
+                                                                        {% endif %}
+
+                                                                    </tbody>
+                                                                </table>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div> <!-- Fin de row 1 -->                                   
+                                    <div class="row"><!-- row 2 -->
+                                        <div class="col-sm-12">
+                                            <div class="panel panel-default" id="fotos">
+                                                <div class="panel-heading">
+                                                    <h3>
+                                                        <span class="fa fa-history"></span>
+                                                        Imagen de portada
+                                                    </h3>
+                                                </div>
+                                                <div class="panel-body">
+                                                    <div class="row">
+                                                        <div class="col-sm-12">
+                                                        <p class="">Sube una foto de portada para 
+                                                        mostrar en el encabezado de la 
+                                                        p&aacute;gina de tu evento.</p>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-sm-12">
+                                                            <button type="button" class="btn btn-primary">
+                                                                <span class="fa fa-plus"></span>
+                                                                Añadir Imagen de portada
+                                                            </button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div><!-- Fin de row 2 --> 
+                                    <div class="row"><!-- row 3 -->
+                                        <div class="col-sm-12">
+                                            <div class="panel panel-default" id="fotos">
+                                                <div class="panel-heading">
+                                                    <h3>
+                                                        <span class="fa fa-dropbox"></span>
+                                                        Galer&iacute;a de Im&aacute;genes
+                                                    </h3>
+                                                </div>
+                                                <div class="panel-body">
+                                                    <div class="row">
+                                                        <div class="col-sm-12">
+                                                        <p class="">Sube fotos sobre tu evento para que 
+                                                        los visitantes vean de que se trata. 
+                                                        Tambi&eacute;n debes seleccionar una foto como
+                                                        perfil, que identifique a tu evento, 
+                                                        normalmente el poster del evento.</p>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-sm-12">
+                                                            <button type="button" class="btn btn-primary">
+                                                                <span class="fa fa-plus"></span>Añadir Imagen
+                                                            </button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div><!-- Fin de row 3 --> 
+                                </div>
+                            </div>
+                            {% endif %}
+                        </div>
+                    </div><!-- Fin Informacion general -->
+                    <div id="paso2" class="tab-pane row fade">
+                        <div class="col-sm-12"><!-- Paso 2 -->
+                            <div class="panel no-margin panel-primary">
+                                <div class="panel-heading">
+                                    <strong>Tu locaci&oacute;n</strong>
+                                </div>
+                                <div class="panel-body general-container">                                    
+                                    <div class="row mb10"><!-- Fila 1 -->
+                                        <div class="col-sm-12"><!-- Locales -->
+                                            <div class="row">
+                                                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                                                    <div id="etiquetaLocal" class="textoLocal">Local <span class="required">*</span></div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                                                    {% if local is defined and local is not null %}
+                                                    <input id="local" name="local" class="form-control" required="required" value="{{ local.nombre }}">
+                                                    {% else %}
+                                                        <div class="form-group has-error">
+                                                            <input id="local" name="local" class="form-control" readonly="readonly" required="required" value="Aun no indicas un local">
+                                                        </div>
+                                                    {% endif %}
+                                                </div>
+                                            </div>
+                                        </div><!-- Fin Locales -->
+                                    </div><!-- Fin Fila 1 -->
+                                    <div class="row mb10"><!-- Fila 1 -->
+                                        <div class="col-sm-6"><!-- País -->
+                                            <div class="row">
+                                                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                                                    <div id="etiquetaPais" class="textoPais">Pa&iacute;s <span class="required">*</span></div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">   
+                                                    {% if pais is defined and pais is not null %}
+                                                    <input type="text" class="form-control" id="pais" name="pais"  readonly="readonly" required="required" value="{{ pais.nombre }}">
+                                                    {% else %}
+                                                        <div class="form-group has-error">
+                                                            <input id="pais" name="pais" class="form-control" readonly="readonly" required="required" value="">
+                                                        </div>
+                                                    {% endif %}
+                                                </div>
+                                            </div>
+                                        </div><!-- Fin País -->
+                                        <div class="col-sm-6"><!-- Provincia -->
+                                            <div class="row">
+                                                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                                                    <div id="etiquetaProvincia" class="textoProvincia">Provincia <span class="required">*</span></div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">    
+                                                    {% if provincia is defined and provincia is not null %}
+                                                    <input type="text" class="form-control" id="provincia" name="provincia"  readonly="readonly" required="required" value="{{ provincia.nombre }}">
+                                                    {% else %}
+                                                        <div class="form-group has-error">
+                                                            <input id="provincia" name="provincia" class="form-control" readonly="readonly" required="required" value="">
+                                                        </div>
+                                                    {% endif %}
+                                                </div>
+                                            </div>
+                                        </div><!-- Fin Provincia -->
+                                    </div><!-- Fin Fila 1 -->
+                                    <div class="row mb10"><!-- Fila 2 -->
+                                        <div class="col-sm-6"><!-- Ciudad -->
+                                            <div class="row">
+                                                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                                                    <div id="etiquetaCiudad" class="textoCiudad">Ciudad <span class="required">*</span></div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12"> 
+                                                    {% if ciudad is defined and ciudad is not null %}
+                                                    <input type="text" class="form-control" id="ciudad" name="ciudad"  readonly="readonly" required="required" value="{{ ciudad.nombre }}">
+                                                    {% else %}
+                                                        <div class="form-group has-error">
+                                                            <input id="ciudad" name="ciudad" class="form-control" readonly="readonly" required="required" value="">
+                                                        </div>
+                                                    {% endif %}
+                                                </div>
+                                            </div>
+                                        </div><!-- Fin Ciudad -->
+                                        <div class="col-sm-6"><!-- Direccion -->
+                                            <div class="row">
+                                                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                                                    <div id="etiquetaDireccion" class="textoDireccion">Direcci&oacute;n <span class="required">*</span></div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">     
+                                                    {% if local is defined and local is not null %}
+                                                    <input type="text" class="form-control" id="direccion" name="direccion"  readonly="readonly" required="required" value="{{ local.direccion }}">
+                                                    {% else %}
+                                                        <div class="form-group has-error">
+                                                            <input id="direccion" name="direccion" class="form-control" readonly="readonly" required="required" value="">
+                                                        </div>
+                                                    {% endif %}
+                                                </div>
+                                            </div>
+                                        </div><!-- Fin Direccion -->
+                                    </div><!-- Fin Fila 2 -->                                
+                                </div>
+                            </div>
+                        </div><!-- Fin paso 2 -->
+                    </div><!-- Fin tab 2 -->
+                    <div id="paso3" class="tab-pane row fade"><!-- Tab 3 -->
+                        <div class="col-sm-12"><!-- Paso 3 -->
+                            <div class="panel no-margin panel-primary">
+                                <div class="panel-heading">
+                                    <strong>Establece horario de tu evento</strong>
+                                </div>
+                                <div class="panel-body general-container">                                    
+                                    <div class="row"><!-- -->
+                                        <div class="col-sm-6"><!-- Fecha -->
+                                            <div class="row">
+                                                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                                                    <div id="fecha" class="textoFecha">Fecha <span class="required">*</span></div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                                                    {% if evento is defined and evento is not null and evento.fecha is not empty  %}
+                                                    <input type="text" class="form-control" required="required" id="fecha" name="fecha" value="{{evento.fecha}}">
+                                                    {% else %}
+                                                        <div class="form-group has-error">
+                                                            <input id="fecha" name="fecha" class="form-control" readonly="readonly" required="required" value="Aun no selecciona una fecha">
+                                                        </div>
+                                                    {% endif %}
+                                                </div>
+                                            </div>
+                                        </div><!-- Fin Fecha -->
+                                        <div class="col-sm-6"><!-- Horario -->
+                                            <div class="panel panel-default">
+                                                <div class="panel-heading">
+                                                    <strong>Horario</strong>
+                                                    <span class="required">*</span>
+                                                </div>
+                                                <div class="panel-body">
+                                                    <div class="row">
+                                                        <div class="col-sm-2 col-md-2 col-lg-2">Desde</div>
+                                                        <div class="col-sm-6 col-md-6 col-lg-6">
+                                                            {% if evento is defined and evento is not null and evento.horaInicio is not empty %}
+                                                            <input type="text" class="form-control" id="horaInicio" name="horaInicio" required="required" value="{{evento.horaInicio|e}}">
+                                                            {% else %}
+                                                                <div class="form-group has-error">
+                                                                    <input id="horaInicio" name="horaInicio" class="form-control" readonly="readonly" required="required" value="Indique una Hora">
+                                                                </div>
+                                                            {% endif %}
+                                                        </div>
+                                                        <div class="col-sm-2 col-md-2 col-lg-2">Horas</div>
+                                                        <div class="col-sm-2 col-md-2 col-lg-2"></div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-sm-2 col-md-2 col-lg-2">Hasta</div>
+                                                        <div class="col-sm-6 col-md-6 col-lg-6">
+                                                            {% if evento is defined and evento is not null and evento.horaFin is not empty %}
+                                                            <input type="text" class="form-control" id="horaFin" name="horaFin" required="required" value="{{evento.horaFin|e}}">
+                                                            {% else %}
+                                                                <div class="form-group has-error">
+                                                                    <input id="horaFin" name="horaFin" class="form-control" readonly="readonly" required="required" value="Indique una Hora">
+                                                                </div>
+                                                            {% endif %}
+                                                        </div>
+                                                        <div class="col-sm-2 col-md-2 col-lg-2">Horas</div>
+                                                        <div class="col-sm-2 col-md-2 col-lg-2"></div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div><!-- Fin Horario -->
+                                    </div><!-- Fin Row 1 -->                                       
+                                </div>
+                            </div>
+                        </div><!-- Fin paso 3 -->
+                    </div><!-- Fin tab 3 -->
+                    <div id="paso4" class="tab-pane row fade"><!-- Tab 4 -->
+                        <div class="col-sm-12">
+                            <div class="panel no-margin panel-primary">
+                                <div class="panel-heading">
+                                    <strong>Precio de cada entrada y cantidad de entradas ha vender</strong>
+                                </div>
+                                <div class="panel-body general-container">                                    
+                                    <div class="row"><!-- Row 1 -->
+                                        <div class="col-xs-12 col-sm-12 col-lg-12">
+                                            <div class="panel panel-default"><!-- Panel -->
+                                                <div class="panel-heading">
+                                                    <strong>Cantidad de entradas a vender</strong>
+                                                </div>
+                                                <div class="panel-body">
+                                                    <div class="row">
+                                                        <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+                                                            <label class="control-label" for="minimo">M&iacute;nimo</label>
+                                                            <span class="required">*</span>
+                                                            <span class="glyphicon glyphicon-question-sign"></span>
+                                                        </div>
+                                                        <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+                                                            <label class="control-label" for="maximo">M&aacute;ximo</label>
+                                                            <span class="required">*</span>
+                                                        </div>
+                                                        <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+                                                            <label class="control-label" for="dias">D&iacute;as en votaci&oacute;n</label>
+                                                            <span class="required">*</span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+                                                            {% if evento is defined and evento is not null and evento.minimoEntradas > 0 %}
+                                                            <input type="number" value="{{evento.minimoEntradas}}" id="minimo" name="minimo" class="form-control" readonly="readonly" required="required">
+                                                            {% else %}
+                                                                <div class="form-group has-error">
+                                                                    <input id="minimo" name="minimo" class="form-control" readonly="readonly" required="required" value="0">
+                                                                </div>
+                                                            {% endif %}
+                                                        </div>
+                                                        <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+                                                            {% if evento is defined and evento is not null and evento.maxEntradas >0 %}
+                                                            <input type="number" value="{{evento.maxEntradas}}" id="maximo" name="maximo" class="form-control" readonly="readonly" required="required">
+                                                            {% else %}
+                                                                <div class="form-group has-error">
+                                                                    <input id="maximo" name="maximo" class="form-control" readonly="readonly" required="required" value="0">
+                                                                </div>
+                                                            {% endif %}
+                                                        </div>
+                                                        <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+                                                            {% if evento is defined and evento is not null and evento.diasVotacion >= 0 %}
+                                                            <input type="tetx" value="{{evento.diasVotacion|e}}" id="dias" name="dias" class="form-control" readonly="readonly" required="required">
+                                                            {% else %}
+                                                                <div class="form-group has-error">
+                                                                    <input type="tetx" id="dias" name="dias" class="form-control" readonly="readonly" required="required" value="0">
+                                                                </div>
+                                                            {% endif %}
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <br>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-xs-12 col-md-12 col-lg-12">
+                                                            <div class="panel panel-default">
+                                                                <div class="panel-heading">
+                                                                    <strong>Configuraci&oacute;n de precios</strong>
+                                                                    <span class="required">*</span>
+                                                                </div>
+                                                                <div class="panel-body">
+                                                                    <div class="row">
+                                                                        <div class="col-xs-6 col-sm-6 col-md-2 col-lg-2">   
+                                                                            {% if evento is defined and evento is not null and evento.gratuito %} 
+                                                                            <input type="radio" name="tipo" id="tipo1" class="" value="{{evento.gratuito}}" required="required" checked>
+                                                                            <label class="control-label" for="tipo1">De pago</label>
+                                                                            {% else %}
+                                                                                <input type="radio" name="tipo" id="tipo1" class="" value="{{evento.gratuito}}" required="required">
+                                                                                <label class="control-label" for="tipo1">De pago</label>
+                                                                            {% endif %}
+                                                                        </div>
+                                                                        <div class="col-xs-6 col-sm-6 col-md-3 col-lg-3">
+                                                                            {% if evento is defined and evento is not null and not evento.gratuito %} 
+                                                                            <input type="radio" name="tipo" id="tipo2" class="" value="{{evento.gratuito}}" required="required" checked>
+                                                                            <label class="control-label" for="tipo2">Gratuita (Invitaci&oacute;n)</label>
+                                                                            {% else %}
+                                                                                <input type="radio" name="tipo" id="tipo2" class="" value="{{evento.gratuito}}" required="required">
+                                                                                <label class="control-label" for="tipo2">Gratuita (Invitaci&oacute;n)</label>
+                                                                            {% endif %}
+                                                                        </div>
+                                                                        <div class="col-md-7 col-lg-7"></div>
+                                                                    </div>
+                                                                    <div class="row">
+                                                                        <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                                                                            <div class="row">
+                                                                                <div class="col-xs-12 col-sm-12 col-md-5 col-lg-5">
+                                                                                    <label class="control-label" for="precioNeto">Precio Neto</label>                                                                    
+                                                                                </div>
+                                                                                <div class="col-xs-12 col-sm-12 col-md-2 col-lg-2">
+
+                                                                                </div>
+                                                                                <div class="col-xs-12 col-sm-12 col-md-5 col-lg-5">
+                                                                                    <label class="control-label" for="gastos">Gastos de gesti&oacute;n</label>                                                                    
+                                                                                </div>
+                                                                            </div>
+                                                                            <div class="row">
+                                                                                <div class="col-xs-10 col-sm-10 col-md-5 col-lg-5">  
+                                                                                    {% if entrada is defined and entrada is not null and entrada.precioNeto > 0 %} 
+                                                                                    <div class="input-group">
+                                                                                        <input type="number" name="precioNeto" id="precioNeto" class="form-control" value="{{entrada.precioNeto}}" readonly="readonly" required="required">
+                                                                                        <span class="input-group-addon">€</span>
+                                                                                    </div>
+                                                                                    {% else %}
+                                                                                        <div class="input-group has-error">
+                                                                                            <input id="precioNeto" name="precioNeto" class="form-control" readonly="readonly" required="required" value="">
+                                                                                            <span class="input-group-addon">€</span>
+                                                                                        </div>
+                                                                                    {% endif %}      
+                                                                                </div>
+                                                                                <div class="col-xs-2 col-sm-2">
+                                                                                    <span class="glyphicon glyphicon-plus"></span>
+                                                                                </div>
+                                                                                <div class="col-xs-10 col-sm-10 col-md-5 col-lg-5">
+                                                                                    {% if evento is defined and evento is not null and evento.comision > 0 %} 
+                                                                                    <div class="input-group">
+                                                                                      <input type="number" name="gastos" id="gastos" class="form-control" value="{{evento.comision}}" readonly="readonly" required="required">
+                                                                                      <span class="input-group-addon">€</span>
+                                                                                    </div>  
+                                                                                    {% else %}
+                                                                                        <div class="input-group has-error">
+                                                                                            <input id="gastos" name="gastos" class="form-control" readonly="readonly" required="required" value="">
+                                                                                            <span class="input-group-addon">€</span>
+                                                                                        </div>
+                                                                                    {% endif %}
+                                                                                </div>
+                                                                            </div>
+                                                                            <div class="row">
+                                                                                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                                                                                    <label class="control-label" for="precio">Precio Final</label>
+                                                                                </div>
+                                                                            </div>
+                                                                            <div class="row">
+                                                                                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                                                                                    {% if evento is defined and evento is not null and evento.precioEntrada > 0 %} 
+                                                                                    <div class="input-group">
+                                                                                      <input type="number" name="precio" id="precio" class="form-control" value="{{ evento.precioEntrada }}"  readonly="readonly">
+                                                                                      <span class="input-group-addon">€</span>
+                                                                                    </div> 
+                                                                                    {% else %}
+                                                                                        <div class="input-group has-error">
+                                                                                            <input id="precio" name="precio" class="form-control" readonly="readonly" required="required" value="">
+                                                                                            <span class="input-group-addon">€</span>
+                                                                                        </div>
+                                                                                    {% endif %}
+                                                                                </div>
+                                                                            </div>
+                                                                            <div class="row">
+                                                                                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                                                                                    <br>
+                                                                                    <h4>Consumisi&oacute;n m&iacute;nima</h4>
+                                                                                </div>
+                                                                            </div>
+                                                                            <div class="row">
+                                                                                <div class="col-xs-6 col-sm-6 col-md-2 col-lg-2">    
+                                                                                    {% if entrada is defined and entrada is not null and entrada.consumoMinimo %} 
+                                                                                    <input type="radio" name="consumoMin" id="consumoMin1" class="" value="Si" required="required" checked>
+                                                                                    <label class="control-label" for="consumoMin1">Si</label> 
+                                                                                    {% else %}
+                                                                                        <input type="radio" name="consumoMin" id="consumoMin1" class="" value="Si" required="required">
+                                                                                        <label class="control-label" for="consumoMin1">Si</label> 
+                                                                                    {% endif %}
+                                                                                </div>
+                                                                                <div class="col-xs-6 col-sm-6 col-md-3 col-lg-3">
+                                                                                    {% if entrada is defined and entrada is not null and not entrada.consumoMinimo %} 
+                                                                                    <input type="radio" name="consumoMin" id="consumoMin2" class="" value="No" required="required" checked>
+                                                                                    <label class="control-label" for="consumoMin2">No</label>
+                                                                                    {% else %}
+                                                                                        <input type="radio" name="consumoMin" id="consumoMin2" class="" value="No" required="required" checked>
+                                                                                        <label class="control-label" for="consumoMin2">No</label>
+                                                                                    {% endif %}
+                                                                                </div>
+                                                                                <div class="col-md-7 col-lg-7"></div>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                                                                            <div class="panel panel-default"><!-- Panel de porcentajes-->
+                                                                                <div class="panel-heading">
+                                                                                    <strong>Porcentajes a cobrar</strong>
+                                                                                    <span class="required">*</span>
+                                                                                </div>
+                                                                                <div class="panel-body">
+                                                                                    <div class="row background-custom-grey">
+                                                                                        <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 pt10"><!-- Titulos -->
+                                                                                            <strong>Local</strong>
+                                                                                        </div>
+                                                                                        <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
+                                                                                            <label class="control-label" for="porcentajeLocal">Porcentaje a cobrar</label>
+                                                                                        </div>
+                                                                                        <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
+                                                                                            <label class="control-label" for="totalLocal">Total</label>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                    <div class="row mt10">
+                                                                                        <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4"><!-- Nombre de sala -->
+                                                                                            Sala Caracol 1
+                                                                                        </div>
+                                                                                        <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
+                                                                                            {% if evento is defined and evento is not null and evento.porcientoLocal > 0 %}
+                                                                                            <div class="input-group">
+                                                                                              <input type="text" class="form-control" name="porcentajeLocal" id="porcentajeLocal" readonly="readonly" required="required" value="{{evento.porcientoLocal|e}}">
+                                                                                              <span class="input-group-addon">%</span>
+                                                                                            </div>
+                                                                                            {% else %}
+                                                                                                <div class="input-group has-error">
+                                                                                                    <input type="text" class="form-control" name="porcentajeLocal" id="porcentajeLocal" readonly="readonly" required="required" value="0">
+                                                                                                    <span class="input-group-addon">%</span>
+                                                                                                </div>
+                                                                                            {% endif %}
+                                                                                        </div>
+                                                                                        <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
+                                                                                            {% if evento is defined and evento is not null and evento.totalLocal > 0 %}
+                                                                                            <div class="input-group">
+                                                                                              <input type="text" class="form-control" name="totalLocal" id="totalLocal" readonly="readonly" required="required" value="">
+                                                                                              <span class="input-group-addon">€</span>
+                                                                                            </div>
+                                                                                            {% else %}
+                                                                                                <div class="input-group has-error">
+                                                                                                    <input type="text" class="form-control" name="totalLocal" id="totalLocal" readonly="readonly" required="required" value="0">
+                                                                                              <span class="input-group-addon">€</span>
+                                                                                                </div>
+                                                                                            {% endif %}
+                                                                                        </div>
+                                                                                    </div>
+                                                                                    <div class="row background-custom-grey mt10">
+                                                                                        <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 pt10"><!-- Titulos -->
+                                                                                            <strong>Artista</strong>
+                                                                                        </div>
+                                                                                        <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
+                                                                                            <label class="control-label" for="porcentajeArtista">Porcentaje a cobrar</label>
+                                                                                        </div>
+                                                                                        <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
+                                                                                            <label class="control-label" for="totalArtista">Total</label>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                    <div class="row mt10">
+                                                                                        <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4"><!-- Nombre de artista -->
+                                                                                            Nada m&aacute;s
+                                                                                        </div>
+                                                                                        <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
+                                                                                            {% if artistaEvento is defined and artistaEvento is not null and artistaEvento.porciento > 0 %}
+                                                                                            <div class="input-group">
+                                                                                                <input type="text" class="form-control" name="porcentajeArtista" id="porcentajeArtista" readonly="readonly" required="required" value="{{ artistaEvento.porciento }}">
+                                                                                                <span class="input-group-addon">%</span>
+                                                                                            </div>
+                                                                                            {% else %}
+                                                                                                <div class="input-group has-error">
+                                                                                                    <input type="text" class="form-control" name="porcentajeArtista" id="porcentajeArtista" readonly="readonly" required="required" value="0">
+                                                                                                    <span class="input-group-addon">%</span>
+                                                                                                </div>
+                                                                                            {% endif %}
+                                                                                        </div>
+                                                                                        <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
+                                                                                            {% if artistaEvento is defined and artistaEvento is not null and artistaEvento.total > 0 %}
+                                                                                            <div class="input-group">
+                                                                                              <input type="text" class="form-control" name="totalArtista" id="totalArtista" readonly="readonly" required="required" value="{{ artistaEvento.total }}">
+                                                                                              <span class="input-group-addon">€</span>
+                                                                                            </div>
+                                                                                            {% else %}
+                                                                                                <div class="input-group has-error">
+                                                                                                  <input type="text" class="form-control" name="totalArtista" id="totalArtista" readonly="readonly" required="required" value="0">
+                                                                                                  <span class="input-group-addon">€</span>
+                                                                                                </div>
+                                                                                            {% endif %}
+                                                                                        </div>
+                                                                                    </div>
+                                                                                    <div class="row"><!-- Barra -->
+                                                                                        <hr class="hr-solid">
+                                                                                    </div>
+                                                                                    <div class="row"><!-- Totales -->
+                                                                                        <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+                                                                                            <label class="control-label" for="totalGeneral">Total</label>
+                                                                                        </div>
+                                                                                        <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+                                                                                            {% if evento is defined and evento is not null and evento.total > 0 %}
+                                                                                            <div class="input-group">
+                                                                                                <input type="number" class="form-control" name="totalGeneral" id="totalGeneral" readonly="readonly" required="required" value="">
+                                                                                                <span class="input-group-addon">€</span>
+                                                                                            </div>
+                                                                                            {% else %}
+                                                                                            <div class="input-group has-error">
+                                                                                                <input type="number" class="form-control" name="totalGeneral" id="totalGeneral" readonly="readonly" required="required" value="0">
+                                                                                                <span class="input-group-addon">€</span>
+                                                                                            </div>
+                                                                                            {% endif %}
+                                                                                        </div>
+                                                                                    </div><!-- Fin Total -->
+                                                                                </div>
+                                                                            </div><!-- Fin de Panel de porcentajes-->    
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div><!-- Fin Panel -->
+                                        </div><!-- Fin columna -->
+                                    </div><!-- Fin Row 1 -->                                    
+                                </div>                                                                                       
+                            </div>
+                        </div>
+                    </div><!-- Fin Tab 4 -->
+                </div><!-- Fin del tab -->
+                <div class="row mt10 mb10"><!-- Botones -->
+                    <div class="col-sx-3 col-sm-3 col-md-3 col-lg-3"></div>
+                    <div class="col-sx-3 col-sm-3 col-md-3 col-lg-3">
+                        <a href="{{path('paso4')}}" class="btn btn-rw btn-primary tags btn-block siguiente" id="anterior4" data-toggle="tooltip" title="Anterior - Entradas">
+                            Anterior
+                            <span class="glyphicon glyphicon-chevron-left"></span>
+                        </a>
+                    </div>
+                    <div class="col-sx-3 col-sm-3 col-md-3 col-lg-3">
+                        <button type="button" class="btn btn-rw btn-primary tags btn-block" id="guardar" data-toggle="tooltip" title="Guardar">
+                            Guardar Todo
+                            <span class="glyphicon glyphicon-save"></span>
+                        </button>
+                    </div>
+                    <div class="col-sx-3 col-sm-3 col-md-3 col-lg-3"></div>
+                </div><!--Guardar--> 
+            </div>
+        </div><!-- Fin Fila -->
+        
+    </div>
+{% endblock %}
+{% block javascripts %}
+    {{ parent() }}
+    <script>
+        $(document).ready(function() {
+/*************************** Tooltip ***************************************/            
+            $('[data-toggle="tooltip"]').tooltip(); 
+        });//Fin de función ready
+    </script>
+{% endblock %}
+                           

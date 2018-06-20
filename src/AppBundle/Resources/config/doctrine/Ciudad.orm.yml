@@ -1,0 +1,35 @@
+AppBundle\Entity\Ciudad:
+    type: entity
+    table: Ciudad
+    indexes:
+        IDX_892A00A82F70D945:
+            columns:
+                - idProvincia
+    id:
+        id:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+            id: true
+            generator:
+                strategy: IDENTITY
+    fields:
+        nombre:
+            type: string
+            nullable: false
+            length: 100
+            options:
+                fixed: false
+    manyToOne:
+        idprovincia:
+            targetEntity: Provincia
+            cascade: {  }
+            fetch: LAZY
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                idProvincia:
+                    referencedColumnName: id
+            orphanRemoval: false
+    lifecycleCallbacks: {  }
