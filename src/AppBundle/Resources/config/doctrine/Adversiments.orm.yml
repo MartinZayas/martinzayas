@@ -1,0 +1,88 @@
+AppBundle\Entity\Adversiments:
+    type: entity
+    table: adversiments
+    indexes:
+        fk_adversiments_professional:
+            columns:
+                - professional_id
+        fk_adversiments_status:
+            columns:
+                - status_id
+        fk_adversiments_category:
+            columns:
+                - category_id
+    id:
+        id:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+            id: true
+            generator:
+                strategy: IDENTITY
+    fields:
+        title:
+            type: string
+            nullable: true
+            length: 100
+            options:
+                fixed: false
+        description:
+            type: text
+            nullable: true
+            length: 16777215
+            options:
+                fixed: false
+        price:
+            type: decimal
+            nullable: false
+            precision: 10
+            scale: 2
+        expirationDate:
+            type: datetime
+            nullable: true
+            column: expiration_date
+        featuredAd:
+            type: boolean
+            nullable: true
+            column: featured_ad
+        featuredAdEnd:
+            type: datetime
+            nullable: true
+            column: featured_ad_end
+        createdAt:
+            type: datetime
+            nullable: true
+            column: created_at
+    manyToOne:
+        category:
+            targetEntity: AdversimentsCategories
+            cascade: {  }
+            fetch: LAZY
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                category_id:
+                    referencedColumnName: id
+            orphanRemoval: false
+        professional:
+            targetEntity: Professionals
+            cascade: {  }
+            fetch: LAZY
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                professional_id:
+                    referencedColumnName: id
+            orphanRemoval: false
+        status:
+            targetEntity: AdversimentsStatus
+            cascade: {  }
+            fetch: LAZY
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                status_id:
+                    referencedColumnName: id
+            orphanRemoval: false
+    lifecycleCallbacks: {  }

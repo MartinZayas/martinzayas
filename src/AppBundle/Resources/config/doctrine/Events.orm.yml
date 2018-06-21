@@ -1,0 +1,117 @@
+AppBundle\Entity\Events:
+    type: entity
+    table: events
+    indexes:
+        fk_events_status:
+            columns:
+                - status_id
+        fk_events_halls:
+            columns:
+                - hall_id
+    id:
+        id:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+            id: true
+            generator:
+                strategy: IDENTITY
+    fields:
+        name:
+            type: string
+            nullable: true
+            length: 100
+            options:
+                fixed: false
+        description:
+            type: text
+            nullable: true
+            length: 16777215
+            options:
+                fixed: false
+        startTime:
+            type: datetime
+            nullable: true
+            column: start_time
+        endTime:
+            type: datetime
+            nullable: true
+            column: end_time
+        daysSale:
+            type: boolean
+            nullable: true
+            column: days_sale
+        startDateSale:
+            type: datetime
+            nullable: true
+            column: start_date_sale
+        minTickets:
+            type: string
+            nullable: true
+            length: 100
+            options:
+                fixed: false
+            column: min_tickets
+        free:
+            type: boolean
+            nullable: true
+        priceTicket:
+            type: decimal
+            nullable: true
+            precision: 10
+            scale: 2
+            column: price_ticket
+        priceTicketOffice:
+            type: decimal
+            nullable: true
+            precision: 10
+            scale: 2
+            column: price_ticket_office
+        commission:
+            type: boolean
+            nullable: true
+        minConsumption:
+            type: boolean
+            nullable: true
+            column: min_consumption
+        cover:
+            type: string
+            nullable: true
+            length: 255
+            options:
+                fixed: false
+        createdAt:
+            type: datetime
+            nullable: false
+            column: created_at
+        hallPercent:
+            type: boolean
+            nullable: true
+            column: hall_percent
+        hallConfirmed:
+            type: boolean
+            nullable: false
+            column: hall_confirmed
+    manyToOne:
+        hall:
+            targetEntity: HallsConcerts
+            cascade: {  }
+            fetch: LAZY
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                hall_id:
+                    referencedColumnName: id
+            orphanRemoval: false
+        status:
+            targetEntity: EventsStatus
+            cascade: {  }
+            fetch: LAZY
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                status_id:
+                    referencedColumnName: id
+            orphanRemoval: false
+    lifecycleCallbacks: {  }

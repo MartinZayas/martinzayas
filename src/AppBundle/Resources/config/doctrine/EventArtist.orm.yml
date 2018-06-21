@@ -1,0 +1,48 @@
+AppBundle\Entity\EventArtist:
+    type: entity
+    table: event_artist
+    indexes:
+        fk_event_artist_event:
+            columns:
+                - event_id
+        fk_event_artist_artist:
+            columns:
+                - artist_id
+    id:
+        id:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+            id: true
+            generator:
+                strategy: IDENTITY
+    fields:
+        percent:
+            type: boolean
+            nullable: false
+        confirmed:
+            type: boolean
+            nullable: false
+    manyToOne:
+        artist:
+            targetEntity: Artists
+            cascade: {  }
+            fetch: LAZY
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                artist_id:
+                    referencedColumnName: id
+            orphanRemoval: false
+        event:
+            targetEntity: Events
+            cascade: {  }
+            fetch: LAZY
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                event_id:
+                    referencedColumnName: id
+            orphanRemoval: false
+    lifecycleCallbacks: {  }

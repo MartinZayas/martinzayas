@@ -1,0 +1,50 @@
+AppBundle\Entity\UsersSocialNetworks:
+    type: entity
+    table: users_social_networks
+    id:
+        id:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+            id: true
+            generator:
+                strategy: IDENTITY
+    fields:
+        facebook:
+            type: string
+            nullable: true
+            length: 100
+            options:
+                fixed: false
+        twitter:
+            type: string
+            nullable: true
+            length: 100
+            options:
+                fixed: false
+        instagram:
+            type: string
+            nullable: true
+            length: 100
+            options:
+                fixed: false
+        youtube:
+            type: string
+            nullable: true
+            length: 100
+            options:
+                fixed: false
+        linkedin:
+            type: string
+            nullable: true
+            length: 100
+            options:
+                fixed: false
+        google:
+            type: string
+            nullable: true
+            length: 100
+            options:
+                fixed: false
+    lifecycleCallbacks: {  }

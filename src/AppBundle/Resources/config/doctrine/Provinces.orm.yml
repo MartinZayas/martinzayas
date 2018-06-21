@@ -1,0 +1,41 @@
+AppBundle\Entity\Provinces:
+    type: entity
+    table: provinces
+    indexes:
+        fk_provinces:
+            columns:
+                - country_id
+    id:
+        id:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+            id: true
+            generator:
+                strategy: IDENTITY
+    fields:
+        province:
+            type: string
+            nullable: false
+            length: 100
+            options:
+                fixed: false
+        slug:
+            type: string
+            nullable: false
+            length: 100
+            options:
+                fixed: false
+    manyToOne:
+        country:
+            targetEntity: Countries
+            cascade: {  }
+            fetch: LAZY
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                country_id:
+                    referencedColumnName: id
+            orphanRemoval: false
+    lifecycleCallbacks: {  }

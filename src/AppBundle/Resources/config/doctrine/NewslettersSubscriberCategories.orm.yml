@@ -1,0 +1,41 @@
+AppBundle\Entity\NewslettersSubscriberCategories:
+    type: entity
+    table: newsletters_subscriber_categories
+    indexes:
+        fk_newsletters_subscriber:
+            columns:
+                - subscriber_id
+        fk_newsletters_categories:
+            columns:
+                - category_id
+    id:
+        id:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+            id: true
+            generator:
+                strategy: IDENTITY
+    manyToOne:
+        category:
+            targetEntity: NewslettersCategories
+            cascade: {  }
+            fetch: LAZY
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                category_id:
+                    referencedColumnName: id
+            orphanRemoval: false
+        subscriber:
+            targetEntity: NewslettersSubscriber
+            cascade: {  }
+            fetch: LAZY
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                subscriber_id:
+                    referencedColumnName: id
+            orphanRemoval: false
+    lifecycleCallbacks: {  }

@@ -1,0 +1,76 @@
+AppBundle\Entity\Professionals:
+    type: entity
+    table: professionals
+    indexes:
+        fk_professionals_users:
+            columns:
+                - user_id
+        fk_professionals_types:
+            columns:
+                - type_id
+        fk_professionals_status:
+            columns:
+                - status_id
+    id:
+        id:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+            id: true
+            generator:
+                strategy: IDENTITY
+    fields:
+        name:
+            type: string
+            nullable: true
+            length: 100
+            options:
+                fixed: false
+        nick:
+            type: string
+            nullable: true
+            length: 100
+            options:
+                fixed: false
+        description:
+            type: text
+            nullable: true
+            length: 16777215
+            options:
+                fixed: false
+        experience:
+            type: datetime
+            nullable: true
+    manyToOne:
+        status:
+            targetEntity: ProfessionalsStatus
+            cascade: {  }
+            fetch: LAZY
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                status_id:
+                    referencedColumnName: id
+            orphanRemoval: false
+        type:
+            targetEntity: ProfessionalsTypes
+            cascade: {  }
+            fetch: LAZY
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                type_id:
+                    referencedColumnName: id
+            orphanRemoval: false
+        user:
+            targetEntity: Users
+            cascade: {  }
+            fetch: LAZY
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                user_id:
+                    referencedColumnName: id
+            orphanRemoval: false
+    lifecycleCallbacks: {  }

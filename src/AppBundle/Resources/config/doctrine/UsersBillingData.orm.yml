@@ -1,0 +1,48 @@
+AppBundle\Entity\UsersBillingData:
+    type: entity
+    table: users_billing_data
+    indexes:
+        fk_users_billing_data_address:
+            columns:
+                - address_id
+    id:
+        id:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+            id: true
+            generator:
+                strategy: IDENTITY
+    fields:
+        name:
+            type: string
+            nullable: false
+            length: 100
+            options:
+                fixed: false
+        identificationDoc:
+            type: string
+            nullable: false
+            length: 100
+            options:
+                fixed: false
+            column: identification_doc
+        iban:
+            type: string
+            nullable: true
+            length: 100
+            options:
+                fixed: false
+    manyToOne:
+        address:
+            targetEntity: UsersAddresses
+            cascade: {  }
+            fetch: LAZY
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                address_id:
+                    referencedColumnName: id
+            orphanRemoval: false
+    lifecycleCallbacks: {  }

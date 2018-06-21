@@ -1,0 +1,125 @@
+AppBundle\Entity\Users:
+    type: entity
+    table: users
+    indexes:
+        fk_users_roles:
+            columns:
+                - role_id
+        fk_users_status:
+            columns:
+                - status_id
+        fk_users_addresses:
+            columns:
+                - address_id
+        fk_users_billing:
+            columns:
+                - billing_id
+        fk_users_social:
+            columns:
+                - social_id
+    uniqueConstraints:
+        users_uniques_fields:
+            columns:
+                - email
+    id:
+        id:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+            id: true
+            generator:
+                strategy: IDENTITY
+    fields:
+        email:
+            type: string
+            nullable: false
+            length: 100
+            options:
+                fixed: false
+        password:
+            type: string
+            nullable: false
+            length: 200
+            options:
+                fixed: false
+        salt:
+            type: string
+            nullable: true
+            length: 200
+            options:
+                fixed: false
+        name:
+            type: string
+            nullable: false
+            length: 100
+            options:
+                fixed: false
+        surname:
+            type: string
+            nullable: false
+            length: 100
+            options:
+                fixed: false
+        phone:
+            type: string
+            nullable: true
+            length: 100
+            options:
+                fixed: false
+        createdAt:
+            type: datetime
+            nullable: true
+            column: created_at
+    manyToOne:
+        address:
+            targetEntity: UsersAddresses
+            cascade: {  }
+            fetch: LAZY
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                address_id:
+                    referencedColumnName: id
+            orphanRemoval: false
+        billing:
+            targetEntity: UsersBillingData
+            cascade: {  }
+            fetch: LAZY
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                billing_id:
+                    referencedColumnName: id
+            orphanRemoval: false
+        role:
+            targetEntity: UsersRoles
+            cascade: {  }
+            fetch: LAZY
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                role_id:
+                    referencedColumnName: id
+            orphanRemoval: false
+        social:
+            targetEntity: UsersSocialNetworks
+            cascade: {  }
+            fetch: LAZY
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                social_id:
+                    referencedColumnName: id
+            orphanRemoval: false
+        status:
+            targetEntity: UsersStatus
+            cascade: {  }
+            fetch: LAZY
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                status_id:
+                    referencedColumnName: id
+            orphanRemoval: false
+    lifecycleCallbacks: {  }

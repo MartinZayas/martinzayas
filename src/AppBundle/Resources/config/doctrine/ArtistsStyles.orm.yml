@@ -1,0 +1,41 @@
+AppBundle\Entity\ArtistsStyles:
+    type: entity
+    table: artists_styles
+    indexes:
+        fk_artists_styles_ar:
+            columns:
+                - artist_id
+        fk_artists_styles_st:
+            columns:
+                - style_id
+    id:
+        id:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+            id: true
+            generator:
+                strategy: IDENTITY
+    manyToOne:
+        artist:
+            targetEntity: Artists
+            cascade: {  }
+            fetch: LAZY
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                artist_id:
+                    referencedColumnName: id
+            orphanRemoval: false
+        style:
+            targetEntity: Styles
+            cascade: {  }
+            fetch: LAZY
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                style_id:
+                    referencedColumnName: id
+            orphanRemoval: false
+    lifecycleCallbacks: {  }

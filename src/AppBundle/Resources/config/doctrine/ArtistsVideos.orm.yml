@@ -1,0 +1,51 @@
+AppBundle\Entity\ArtistsVideos:
+    type: entity
+    table: artists_videos
+    indexes:
+        fk_artists_videos:
+            columns:
+                - artist_id
+    id:
+        id:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+            id: true
+            generator:
+                strategy: IDENTITY
+    fields:
+        video:
+            type: string
+            nullable: true
+            length: 255
+            options:
+                fixed: false
+        name:
+            type: string
+            nullable: true
+            length: 100
+            options:
+                fixed: false
+        alt:
+            type: string
+            nullable: true
+            length: 100
+            options:
+                fixed: false
+        featuredVideo:
+            type: boolean
+            nullable: false
+            column: featured_video
+    manyToOne:
+        artist:
+            targetEntity: Artists
+            cascade: {  }
+            fetch: LAZY
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                artist_id:
+                    referencedColumnName: id
+            orphanRemoval: false
+    lifecycleCallbacks: {  }

@@ -1,0 +1,49 @@
+AppBundle\Entity\Tickets:
+    type: entity
+    table: tickets
+    indexes:
+        fk_tickets_payments:
+            columns:
+                - payment_id
+        fk_tickets_events:
+            columns:
+                - event_id
+    id:
+        id:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+            id: true
+            generator:
+                strategy: IDENTITY
+    fields:
+        codeQr:
+            type: string
+            nullable: false
+            length: 255
+            options:
+                fixed: false
+            column: code_qr
+    manyToOne:
+        event:
+            targetEntity: Events
+            cascade: {  }
+            fetch: LAZY
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                event_id:
+                    referencedColumnName: id
+            orphanRemoval: false
+        payment:
+            targetEntity: Payments
+            cascade: {  }
+            fetch: LAZY
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                payment_id:
+                    referencedColumnName: id
+            orphanRemoval: false
+    lifecycleCallbacks: {  }

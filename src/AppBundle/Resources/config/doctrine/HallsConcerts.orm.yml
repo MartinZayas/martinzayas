@@ -1,0 +1,116 @@
+AppBundle\Entity\HallsConcerts:
+    type: entity
+    table: halls_concerts
+    indexes:
+        fk_halls_concerts_users:
+            columns:
+                - user_id
+        fk_halls_concerts_status:
+            columns:
+                - status_id
+        fk_halls_concerts_types:
+            columns:
+                - type_id
+    id:
+        id:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+            id: true
+            generator:
+                strategy: IDENTITY
+    fields:
+        name:
+            type: string
+            nullable: false
+            length: 100
+            options:
+                fixed: false
+        nick:
+            type: string
+            nullable: true
+            length: 100
+            options:
+                fixed: false
+        capacity:
+            type: integer
+            nullable: true
+            options:
+                unsigned: false
+        cacheMin:
+            type: integer
+            nullable: true
+            options:
+                unsigned: false
+            column: cache_min
+        yearOpening:
+            type: integer
+            nullable: true
+            options:
+                unsigned: false
+            column: year_opening
+        monthOpening:
+            type: integer
+            nullable: true
+            options:
+                unsigned: false
+            column: month_opening
+        description:
+            type: text
+            nullable: true
+            length: null
+            options:
+                fixed: false
+        technicalData:
+            type: text
+            nullable: true
+            length: null
+            options:
+                fixed: false
+            column: technical_data
+        howToGet:
+            type: string
+            nullable: true
+            length: 100
+            options:
+                fixed: false
+            column: how_to_get
+        map:
+            type: text
+            nullable: true
+            length: null
+            options:
+                fixed: false
+    manyToOne:
+        status:
+            targetEntity: HallsStatus
+            cascade: {  }
+            fetch: LAZY
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                status_id:
+                    referencedColumnName: id
+            orphanRemoval: false
+        type:
+            targetEntity: HallsTypes
+            cascade: {  }
+            fetch: LAZY
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                type_id:
+                    referencedColumnName: id
+            orphanRemoval: false
+        user:
+            targetEntity: Users
+            cascade: {  }
+            fetch: LAZY
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                user_id:
+                    referencedColumnName: id
+            orphanRemoval: false
+    lifecycleCallbacks: {  }

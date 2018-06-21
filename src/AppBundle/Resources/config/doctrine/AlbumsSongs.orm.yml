@@ -1,0 +1,41 @@
+AppBundle\Entity\AlbumsSongs:
+    type: entity
+    table: albums_songs
+    indexes:
+        fk_albums_songs:
+            columns:
+                - album_id
+    id:
+        id:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+            id: true
+            generator:
+                strategy: IDENTITY
+    fields:
+        track:
+            type: string
+            nullable: true
+            length: 100
+            options:
+                fixed: false
+        song:
+            type: string
+            nullable: true
+            length: 100
+            options:
+                fixed: false
+    manyToOne:
+        album:
+            targetEntity: Albums
+            cascade: {  }
+            fetch: LAZY
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                album_id:
+                    referencedColumnName: id
+            orphanRemoval: false
+    lifecycleCallbacks: {  }

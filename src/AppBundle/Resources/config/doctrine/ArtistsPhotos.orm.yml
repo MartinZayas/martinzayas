@@ -1,0 +1,51 @@
+AppBundle\Entity\ArtistsPhotos:
+    type: entity
+    table: artists_photos
+    indexes:
+        fk_artists_photos:
+            columns:
+                - artist_id
+    id:
+        id:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+            id: true
+            generator:
+                strategy: IDENTITY
+    fields:
+        photo:
+            type: string
+            nullable: true
+            length: 255
+            options:
+                fixed: false
+        name:
+            type: string
+            nullable: true
+            length: 100
+            options:
+                fixed: false
+        alt:
+            type: string
+            nullable: true
+            length: 100
+            options:
+                fixed: false
+        featuredPhoto:
+            type: boolean
+            nullable: false
+            column: featured_photo
+    manyToOne:
+        artist:
+            targetEntity: Artists
+            cascade: {  }
+            fetch: LAZY
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                artist_id:
+                    referencedColumnName: id
+            orphanRemoval: false
+    lifecycleCallbacks: {  }

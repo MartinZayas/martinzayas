@@ -1,0 +1,41 @@
+AppBundle\Entity\HallsFeaturesOfHalls:
+    type: entity
+    table: halls_features_of_halls
+    indexes:
+        fk_halls_features:
+            columns:
+                - feature_id
+        fk_halls_features_halls:
+            columns:
+                - hall_id
+    id:
+        id:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+            id: true
+            generator:
+                strategy: IDENTITY
+    manyToOne:
+        feature:
+            targetEntity: HallsFeatures
+            cascade: {  }
+            fetch: LAZY
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                feature_id:
+                    referencedColumnName: id
+            orphanRemoval: false
+        hall:
+            targetEntity: HallsConcerts
+            cascade: {  }
+            fetch: LAZY
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                hall_id:
+                    referencedColumnName: id
+            orphanRemoval: false
+    lifecycleCallbacks: {  }

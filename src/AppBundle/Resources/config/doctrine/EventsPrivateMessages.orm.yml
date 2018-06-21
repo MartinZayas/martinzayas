@@ -1,0 +1,80 @@
+AppBundle\Entity\EventsPrivateMessages:
+    type: entity
+    table: events_private_messages
+    indexes:
+        fk_private_messages_emitter:
+            columns:
+                - emitter_id
+        fk_private_messages_receiver:
+            columns:
+                - receiver_id
+        fk_private_messages_events:
+            columns:
+                - event_id
+    id:
+        id:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+            id: true
+            generator:
+                strategy: IDENTITY
+    fields:
+        message:
+            type: text
+            nullable: true
+            length: 16777215
+            options:
+                fixed: false
+        file:
+            type: string
+            nullable: true
+            length: 255
+            options:
+                fixed: false
+        image:
+            type: string
+            nullable: true
+            length: 255
+            options:
+                fixed: false
+        readed:
+            type: boolean
+            nullable: true
+        createdAt:
+            type: datetime
+            nullable: true
+            column: created_at
+    manyToOne:
+        emitter:
+            targetEntity: Users
+            cascade: {  }
+            fetch: LAZY
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                emitter_id:
+                    referencedColumnName: id
+            orphanRemoval: false
+        event:
+            targetEntity: Events
+            cascade: {  }
+            fetch: LAZY
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                event_id:
+                    referencedColumnName: id
+            orphanRemoval: false
+        receiver:
+            targetEntity: Users
+            cascade: {  }
+            fetch: LAZY
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                receiver_id:
+                    referencedColumnName: id
+            orphanRemoval: false
+    lifecycleCallbacks: {  }

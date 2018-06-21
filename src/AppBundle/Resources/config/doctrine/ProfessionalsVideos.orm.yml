@@ -1,0 +1,51 @@
+AppBundle\Entity\ProfessionalsVideos:
+    type: entity
+    table: professionals_videos
+    indexes:
+        fk_professionals_videos:
+            columns:
+                - professional_id
+    id:
+        id:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+            id: true
+            generator:
+                strategy: IDENTITY
+    fields:
+        video:
+            type: string
+            nullable: true
+            length: 255
+            options:
+                fixed: false
+        name:
+            type: string
+            nullable: true
+            length: 100
+            options:
+                fixed: false
+        alt:
+            type: string
+            nullable: true
+            length: 100
+            options:
+                fixed: false
+        featuredVideo:
+            type: boolean
+            nullable: false
+            column: featured_video
+    manyToOne:
+        professional:
+            targetEntity: Professionals
+            cascade: {  }
+            fetch: LAZY
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                professional_id:
+                    referencedColumnName: id
+            orphanRemoval: false
+    lifecycleCallbacks: {  }

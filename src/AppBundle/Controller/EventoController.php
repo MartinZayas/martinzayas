@@ -20,11 +20,11 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use AppBundle\Entity\Estilo;
-use AppBundle\Entity\Artista;
-use AppBundle\Entity\Local;
+use AppBundle\Entity\Styles;
+use AppBundle\Entity\Artists;
+/*use AppBundle\Entity\Local;
 use AppBundle\Entity\Evento;
-use AppBundle\Entity\Entrada;
+use AppBundle\Entity\Entrada;*/
 /**
  * Description of EventoController
  *
@@ -56,14 +56,20 @@ class EventoController extends Controller{
      * Pagina el paso 1 de proponer concierto.
      */
     public function paso1Action(Request $request){
-        $estilos = new Estilo();
-        $artistas = new Artista();
-        $estilos =  $this->getDoctrine()->getRepository('AppBundle:Estilo')
+        $styles = new Styles();
+        $artists = new Artists();
+        $styles =  $this->getDoctrine()->getRepository('AppBundle:Styles')
                 ->findAll();
-        $artistas =  $this->getDoctrine()->getRepository('AppBundle:Artista')
+        $artists =  $this->getDoctrine()->getRepository('AppBundle:Artists')
                 ->findAll();
-        return $this->render('eventos/paso1v2.html.twig', array(
-        ));
+
+        /*$styles = new Styles();
+        $artists = new Artists();
+        $styles =  $this->getDoctrine()->getRepository('AppBundle:Styles')
+                ->findAll();
+        $artists =  $this->getDoctrine()->getRepository('AppBundle:Artists')
+                ->findAll();*/
+        return $this->render('eventos/paso1v2.html.twig', array());
     }
     /**
      * Pagina el paso 2 de proponer concierto.
